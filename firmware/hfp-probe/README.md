@@ -29,7 +29,7 @@ USB 串口名称可能变化。接线沿用项目根目录的 `WIRING.md`。首�
 - MacBook Pro 扬声器播放 1 kHz、3 秒测试音，同时用 Mac 的 `Voice Puck V1` 输入录制 9 秒。录音的 1 kHz 分量在播放前后约 0–2，播放期间约 147–163（16 位 PCM 幅度单位）。这验证了声音从 INMP441 经 ESP32、HFP 回到 Mac 的完整路径。
 - 原始测试音为 [1khz-test-tone.wav](evidence/1khz-test-tone.wav)，蓝牙麦克风实际录音为 [mac-1khz-loopback.wav](evidence/mac-1khz-loopback.wav)。
 
-尚未验证 Typeless 听写、合盖场景、长时间稳定性、重连恢复和语音音质。测试固件会在 Mac 仍选择该设备输入时持续通过蓝牙发送音频。
+上述初始 HFP 测试尚未验证 Typeless 听写；后续 BOOT/F13 验证见下文。合盖场景、长时间稳定性、完整重连恢复和语音音质评估仍未完成。测试固件会在 Mac 仍选择该设备输入时持续通过蓝牙发送音频。
 
 ## BOOT 触发 Typeless（按一下开始，再按一下结束）
 
@@ -66,3 +66,12 @@ cc -std=c11 -Wall -Wextra -Werror -Ifirmware/hfp-probe/src \
 ### 已知断线边界
 
 报告提交期间若突然断线，ESP-IDF 的 Classic HID 栈可能缓存报告并在自动重连后发送，产生一次额外 F13。本单机验证固件暂不保证此窗口内不会额外触发。应用连接状态检查与重连后释放不能撤销底层已经发出的事件；量产前需专门验证并解决此边界，不能把上述主机消抖测试当作完整重连保证。
+
+## 2026-09-29 BOOT / F13 实物验收
+
+- 最新测试固件使用 **单键 F13**，不带 Control / Option / Shift / Command。五键组合被当前 Typeless 的“三个或更少的键”限制拒绝，最终使用单键方案。
+- Mac 已枚举 `Voice Puck V1` 的 Bluetooth HID 键盘；Typeless 设置实际显示新增的 `F13`，原 Fn 和 Right Cmd 绑定保留，麦克风自动检测为 `Voice Puck V1`。
+- 用户实物确认：“已录入 F13，开始/结束和出字都正常”。
+- 串口观察到多次 `BOOT pressed: F13`，每次都有 `shortcut down: sent` 与 `shortcut up: sent`；SCO 为 mSBC 16 kHz 时仍能发送按键。
+- 验证的是本机原型的正常连接路径；已知断线边界仍未解决，长时间稳定性未测。
+- 精简证据：[boot-f13-validation.md](evidence/boot-f13-validation.md)。
