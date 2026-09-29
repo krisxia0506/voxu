@@ -4,15 +4,18 @@
 
 #include "driver/i2s_std.h"
 #include "boot_hid.h"
+#include "hfp_reconnect.h"
 #include "esp_bt.h"
 #include "esp_bt_main.h"
 #include "esp_gap_bt_api.h"
 #include "esp_hf_client_api.h"
 #include "esp_hf_client_legacy_api.h"
 #include "esp_log.h"
+#include "esp_system.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "nvs_flash.h"
+#include "nvs.h"
 
 #define MIC_RATE 16000
 #define READ_SAMPLES 128
@@ -29,9 +32,43 @@ static esp_bd_addr_t peer_address;
 static volatile bool audio_connected;
 static volatile bool wideband;
 static volatile bool service_connected;
-// Local Mac Bluetooth controller address for this one-device feasibility probe.
-static esp_bd_addr_t test_mac = {0xfc, 0xb2, 0x14, 0xb1, 0x8f, 0x7b};
-static bool test_mac_found;
+static hfp_reconnect_t reconnect;
+static nvs_handle_t peer_store;
+static portMUX_TYPE reconnect_lock = portMUX_INITIALIZER_UNLOCKED;
+
+static uint32_t now_ms(void)
+{
+    return (uint32_t)(xTaskGetTickCount() * portTICK_PERIOD_MS);
+}
+
+static void reconnect_task(void *arg)
+{
+    (void)arg;
+    while (true) {
+        portENTER_CRITICAL(&reconnect_lock);
+        bool stalled = hfp_reconnect_stalled(&reconnect, now_ms());
+        bool attempt = hfp_reconnect_poll(&reconnect, now_ms());
+        esp_bd_addr_t target;
+        memcpy(target, reconnect.peer, sizeof(target));
+        portEXIT_CRITICAL(&reconnect_lock);
+        if (stalled) {
+            // ESP-IDF may leave its profile queue busy after an ACL collision.
+            // Repeating connect only queues/drops duplicates; restart clears it.
+            ESP_LOGW(TAG, "HFP setup stalled for 60s; restarting to recover Bluetooth");
+            esp_restart();
+        }
+        if (attempt) {
+            esp_err_t err = esp_hf_client_connect(target);
+            ESP_LOGI(TAG, "auto-connect HFP to previous host: %s", esp_err_to_name(err));
+            if (err != ESP_OK) {
+                portENTER_CRITICAL(&reconnect_lock);
+                hfp_reconnect_disconnected(&reconnect, now_ms());
+                portEXIT_CRITICAL(&reconnect_lock);
+            }
+        }
+        vTaskDelay(pdMS_TO_TICKS(250));
+    }
+}
 
 static void ring_reset(void)
 {
@@ -86,15 +123,33 @@ static void hf_callback(esp_hf_client_cb_event_t event, esp_hf_client_cb_param_t
     switch (event) {
     case ESP_HF_CLIENT_CONNECTION_STATE_EVT:
         ESP_LOGI(TAG, "HFP connection state=%d", param->conn_stat.state);
+        portENTER_CRITICAL(&reconnect_lock);
+        if (param->conn_stat.state == ESP_HF_CLIENT_CONNECTION_STATE_DISCONNECTED) {
+            hfp_reconnect_disconnected(&reconnect, now_ms());
+        } else {
+            // Includes inbound RFCOMM setup; wait for completion before retrying.
+            if (!reconnect.busy) reconnect.attempt_started = now_ms();
+            reconnect.busy = true;
+            if (param->conn_stat.state == ESP_HF_CLIENT_CONNECTION_STATE_SLC_CONNECTED) reconnect.connected = true;
+        }
+        portEXIT_CRITICAL(&reconnect_lock);
         if (param->conn_stat.state == ESP_HF_CLIENT_CONNECTION_STATE_SLC_CONNECTED) {
             memcpy(peer_address, param->conn_stat.remote_bda, ESP_BD_ADDR_LEN);
             service_connected = true;
-            boot_hid_set_hfp_connected(true);
+            portENTER_CRITICAL(&reconnect_lock);
+            bool changed = hfp_reconnect_remember(&reconnect, peer_address);
+            portEXIT_CRITICAL(&reconnect_lock);
+            if (changed) {
+                esp_err_t saved = nvs_set_blob(peer_store, "last_peer", peer_address, sizeof(peer_address));
+                if (saved == ESP_OK) saved = nvs_commit(peer_store);
+                ESP_LOGI(TAG, "save last connected host: %s", esp_err_to_name(saved));
+            }
+            boot_hid_set_hfp_connected(true, peer_address);
             esp_err_t err = esp_hf_client_connect_audio(peer_address);
             ESP_LOGI(TAG, "request SCO audio: %s", esp_err_to_name(err));
         } else if (param->conn_stat.state == ESP_HF_CLIENT_CONNECTION_STATE_DISCONNECTED) {
             service_connected = false;
-            boot_hid_set_hfp_connected(false);
+            boot_hid_set_hfp_connected(false, NULL);
             audio_connected = false;
             ring_reset();
         }
@@ -116,8 +171,9 @@ static void hf_callback(esp_hf_client_cb_event_t event, esp_hf_client_cb_param_t
     case ESP_HF_CLIENT_PROF_STATE_EVT:
         ESP_LOGI(TAG, "HFP profile state=%d", param->prof_stat.state);
         if (param->prof_stat.state == ESP_HF_INIT_SUCCESS) {
-            esp_err_t err = esp_bt_gap_start_discovery(ESP_BT_INQ_MODE_GENERAL_INQUIRY, 15, 0);
-            ESP_LOGI(TAG, "search for test Mac: %s", esp_err_to_name(err));
+            portENTER_CRITICAL(&reconnect_lock);
+            reconnect.ready = true;
+            portEXIT_CRITICAL(&reconnect_lock);
         }
         break;
     default:
@@ -128,40 +184,6 @@ static void hf_callback(esp_hf_client_cb_event_t event, esp_hf_client_cb_param_t
 static void gap_callback(esp_bt_gap_cb_event_t event, esp_bt_gap_cb_param_t *param)
 {
     switch (event) {
-    case ESP_BT_GAP_DISC_RES_EVT: {
-        char name[ESP_BT_GAP_MAX_BDNAME_LEN + 1] = {0};
-        for (int i = 0; i < param->disc_res.num_prop; ++i) {
-            esp_bt_gap_dev_prop_t *prop = &param->disc_res.prop[i];
-            if (prop->type == ESP_BT_GAP_DEV_PROP_BDNAME) {
-                size_t length = prop->len < ESP_BT_GAP_MAX_BDNAME_LEN ? prop->len : ESP_BT_GAP_MAX_BDNAME_LEN;
-                memcpy(name, prop->val, length);
-            } else if (prop->type == ESP_BT_GAP_DEV_PROP_EIR) {
-                uint8_t length = 0;
-                uint8_t *value = esp_bt_gap_resolve_eir_data(prop->val, ESP_BT_EIR_TYPE_CMPL_LOCAL_NAME, &length);
-                if (value && length <= ESP_BT_GAP_MAX_BDNAME_LEN) {
-                    memcpy(name, value, length);
-                    name[length] = 0;
-                }
-            }
-        }
-        ESP_LOGI(TAG, "Classic peer %02x:%02x:%02x:%02x:%02x:%02x name=%s",
-                 param->disc_res.bda[0], param->disc_res.bda[1], param->disc_res.bda[2],
-                 param->disc_res.bda[3], param->disc_res.bda[4], param->disc_res.bda[5], name);
-        if (memcmp(param->disc_res.bda, test_mac, ESP_BD_ADDR_LEN) == 0) {
-            test_mac_found = true;
-            ESP_LOGI(TAG, "test Mac found; stopping inquiry");
-            esp_bt_gap_cancel_discovery();
-        }
-        break;
-    }
-    case ESP_BT_GAP_DISC_STATE_CHANGED_EVT:
-        ESP_LOGI(TAG, "inquiry state=%d", param->disc_st_chg.state);
-        if (param->disc_st_chg.state == ESP_BT_GAP_DISCOVERY_STOPPED) {
-            ESP_LOGI(TAG, "test Mac found=%d", test_mac_found);
-            esp_err_t err = esp_hf_client_connect(test_mac);
-            ESP_LOGI(TAG, "connect to test Mac: %s", esp_err_to_name(err));
-        }
-        break;
     case ESP_BT_GAP_CFM_REQ_EVT:
         ESP_LOGI(TAG, "SSP confirmation requested");
         esp_bt_gap_ssp_confirm_reply(param->cfm_req.bda, true);
@@ -173,10 +195,6 @@ static void gap_callback(esp_bt_gap_cb_event_t event, esp_bt_gap_cb_param_t *par
     }
     case ESP_BT_GAP_AUTH_CMPL_EVT:
         ESP_LOGI(TAG, "pairing %s", param->auth_cmpl.stat == ESP_BT_STATUS_SUCCESS ? "succeeded" : "failed");
-        if (param->auth_cmpl.stat == ESP_BT_STATUS_SUCCESS && !service_connected) {
-            memcpy(peer_address, param->auth_cmpl.bda, ESP_BD_ADDR_LEN);
-            ESP_LOGI(TAG, "request HFP service: %s", esp_err_to_name(esp_hf_client_connect(peer_address)));
-        }
         break;
     default:
         break;
@@ -240,6 +258,16 @@ void app_main(void)
         err = nvs_flash_init();
     }
     ESP_ERROR_CHECK(err);
+    ESP_ERROR_CHECK(nvs_open("voxu", NVS_READWRITE, &peer_store));
+    esp_bd_addr_t saved_peer;
+    size_t saved_size = sizeof(saved_peer);
+    err = nvs_get_blob(peer_store, "last_peer", saved_peer, &saved_size);
+    if (err == ESP_OK && saved_size == sizeof(saved_peer)) {
+        hfp_reconnect_remember(&reconnect, saved_peer);
+        ESP_LOGI(TAG, "loaded previous host from NVS");
+    } else {
+        ESP_LOGI(TAG, "no previous host; pair/connect from the computer once");
+    }
     ESP_ERROR_CHECK(esp_bt_controller_mem_release(ESP_BT_MODE_BLE));
     esp_bt_controller_config_t bt_config = BT_CONTROLLER_INIT_CONFIG_DEFAULT();
     ESP_ERROR_CHECK(esp_bt_controller_init(&bt_config));
@@ -250,7 +278,7 @@ void app_main(void)
 
     ESP_ERROR_CHECK(esp_bt_gap_register_callback(gap_callback));
     ESP_ERROR_CHECK(esp_hf_client_register_callback(hf_callback));
-    boot_hid_init(test_mac);
+    boot_hid_init();
     ESP_ERROR_CHECK(esp_hf_client_init());
     ESP_ERROR_CHECK(esp_bt_gap_set_device_name("Voice Puck V1"));
     esp_bt_io_cap_t io_capability = ESP_BT_IO_CAP_NONE;
@@ -261,5 +289,6 @@ void app_main(void)
     ESP_ERROR_CHECK(esp_bt_gap_set_scan_mode(ESP_BT_CONNECTABLE, ESP_BT_GENERAL_DISCOVERABLE));
     ESP_LOGI(TAG, "Bluetooth discoverable as Voice Puck V1");
 
+    configASSERT(xTaskCreate(reconnect_task, "hfp_reconnect", 3072, NULL, 4, NULL) == pdPASS);
     xTaskCreatePinnedToCore(mic_task, "mic", 4096, NULL, 5, NULL, 1);
 }
