@@ -14,12 +14,14 @@
     "boot_height_above_pcb": 3.2,
     "button_initial_gap": 0.3,
     "button_downstroke": 0.6,
-    "button_socket_diameter": 2.9,
+    "button_socket_diameter": 3.4,
     "mic_diameter": 14,
     "mic_x": 73,
     "usb_width": 14,
     "usb_height": 9,
-    "usb_bottom_z": 10.2
+    "usb_bottom_z": 10.2,
+    "button_socket_entry_diameter": 4.0,
+    "button_socket_entry_depth": 0.6
   },
   "parts": {
     "base": {
@@ -48,7 +50,7 @@
         8.0,
         5.2
       ],
-      "volume_mm3": 252.76,
+      "volume_mm3": 240.38,
       "watertight": true,
       "connected_components": 1
     },
@@ -111,6 +113,8 @@
     "button-pin-lid_intersection_mm3": 0.0,
     "button-pin-base_intersection_mm3": 0.0,
     "button_motion_clearance": "3 pin lengths x 7 positions: no intersection with nominal lid/base/PCB",
+    "pin_cap_insertion": "21 insertion positions: no solid intersection",
+    "pin_socket_diametral_clearance_mm": 0.4,
     "button_downstroke_mm": 0.6,
     "switch_motion_after_gap_mm": 0.3,
     "real_hardware_fit": "UNVERIFIED: print fit tests and measure BOOT height before final assembly"
