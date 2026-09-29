@@ -129,15 +129,9 @@ def pin(extra=0):
     a += cyl(bootx,booty,neck_bottom-0.1,1.5,4.3)
     return a
 
-# Full low tray checks the compact PCB mounting, with open access for test wiring.
-coupon=base ^ box(-1,-1,0,L+2,W+2,bz+P['board_thickness']+1)
-front_coupon=base ^ box(-1,-1,0,12,W+2,P['usb_bottom_z']+P['usb_height']+1)
-guide=box(-2,-2,0,12,12,2.4)+box(0,0,0,7,7,top-guide_bottom)
-guide -= box((7-bore)/2,(7-bore)/2,-1,bore,bore,top-guide_bottom+2)
 parts={'base':base,'lid':lid,'mic-clamp':clamp,'button-cap':cap,
        'button-pin-standard':pin(),'button-pin-short':pin(-0.4),
-       'button-pin-long':pin(0.4),'board-fit-test':coupon,
-       'usb-front-test':front_coupon,'button-guide-test':guide}
+       'button-pin-long':pin(0.4)}
 report={'revision':'v2-soldered-stacked','parameters':P,'parts':{},'checks':{}}
 for name,solid in parts.items():
     t=mesh(solid)
@@ -244,7 +238,8 @@ fig.tight_layout()
 fig.savefig(ROOT/'preview.png',dpi=160)
 plt.close(fig)
 with zipfile.ZipFile(ROOT/'voxu-p2s-prototype.zip','w',zipfile.ZIP_DEFLATED) as z:
-    for p in sorted(OUT.glob('*.stl')):
+    for name in sorted(parts):
+        p=OUT/(name+'.stl')
         z.write(p,'stl/'+p.name)
     for name in ['README.md','parameters.json','validation.json','preview.png','generate.py','requirements.txt','slicer-result.json']:
         p=ROOT/name

@@ -28,9 +28,6 @@
 | `button-cap.stl` | 1 | 按帽与长方形滑杆一体打印 |
 | `button-pin-standard.stl` | 1 | 带防脱挡边的短顶杆，先选此件 |
 | `button-pin-short.stl` / `button-pin-long.stl` | 备选 | 接触脚相对标准件短/长 0.4 mm；三选一 |
-| `board-fit-test.stl` | 先印 1 | 低边框整板试装托盘 |
-| `usb-front-test.stl` | 先印 1 | 完整高度 USB 窗口与前托台，优先验证插线 |
-| `button-guide-test.stl` | 先印 1 | 与上盖相同孔径及长度的方形导向试块 |
 
 需要：**4 枚 M2×8 mm 塑料自攻螺钉**固定上盖，**2 枚 M2×5 mm 塑料自攻螺钉**固定麦克风压片，少量适配打印材料的胶固定顶杆与按帽。上盖螺钉头径应不大于 4 mm。不要沿用旧版的 M2×10 当成新版指定长度。
 
@@ -38,7 +35,7 @@
 
 P2S、0.4 mm 喷嘴、PLA、0.20 mm 层高、3 道墙、4 层顶底、15% 填充作为试装起点；需要在 Bambu Studio 选择实际材料。所有 STL 单位 mm，已摆正并落在 Z=0。
 
-1. **先打印 USB 前端试装件和按钮导向试块。** 拆掉排针后，把主板前端放在托台上，确认金属接口能穿过开口、插头能插到底。按帽方杆应能自由滑动，顶杆尚不要粘接。
+1. 打印底座、上盖、麦克风压片、按帽和标准顶杆，共 5 件。长/短顶杆仅在需要调整触发高度时选择，不必全部打印。拆掉排针后用实际底座与上盖检查 USB 插接和按帽滑动，顶杆先不要粘接。
 2. `lid` 已按外表面朝下导出，内侧立柱、导向套和麦克风座向上打印；关闭支撑。`button-cap` 顶面朝下、方杆向上，`mic-clamp` 平放，也关闭支撑。
 3. 底座正放；检查 USB 窗口顶部桥接，必要时局部支撑。顶杆挡边有悬挑，建议支撑，清理后再检查滑动和粘接。
 4. 切片预览检查首层孔、孔口毛刺和支撑残留。几何检查不替代实际材料收缩、公差与打印质量验证。
@@ -57,7 +54,7 @@ P2S、0.4 mm 喷嘴、PLA、0.20 mm 层高、3 道墙、4 层顶底、15% 填充
 
 - 用户确认开发板 51.45 × 28.33 mm、圆形麦克风 14 mm，并说明 USB-C 接口比 PCB 突出约 **2 mm**，本版据此前移主板。
 - USB-C 插接界面有标准；本版参考 [GCT USB4105 厂商尺寸图](https://media.digikey.com/pdf/Data%20Sheets/GCT%20PDFs/USB4105%20-%20Product%20Drawing.pdf) 的金属壳约 **8.94 × 3.31 mm**，设计 **9.8 × 4.2 mm** 圆角孔。外侧另有深 0.8 mm、11.8 × 6.2 mm 的浅避让，让线头外包胶靠近端面。厂商图纸不是对实际板载连接器料号的认定。
-- PCB 前缘位置 = `usb_protrusion + usb_front_recess` = 2 + 0.4 = 2.4 mm。接口高度暂按贴装在 PCB 元件面上设置，前端试装件用于验证。实际线头包胶外形并非所有线材相同。
+- PCB 前缘位置 = `usb_protrusion + usb_front_recess` = 2 + 0.4 = 2.4 mm。接口高度暂按贴装在 PCB 元件面上设置，用实际底座验证插接。实际线头包胶外形并非所有线材相同。
 - 两块 PCB 厚度暂按 1.6 mm；主板中央器件预留高 4.5 mm，麦克风封装碰撞检查使用 6 × 4 × 1.2 mm 包络，麦克风上方声腔间隙 0.4 mm。真实元件及焊线仍需试装。
 - BOOT 中心暂按 PCB USB 端角向内 (3.1, 6.0) mm，高出 PCB 3.2 mm；按钮初始空隙 0.15 mm、按帽向下限位 0.6 mm，为可调整试装值。
 - 平面尺寸参考：[开发板图](https://embedded-systems-design.github.io/overview-of-the-esp32-devkit-doit-v1/ESP32_dimension.png)、[麦克风图](https://components101.com/sites/default/files/inline-images/INMP441-Dimensions.jpg)。
@@ -70,8 +67,8 @@ python3 -m venv /tmp/voxu-cad
 /tmp/voxu-cad/bin/python hardware/enclosure/generate.py
 ```
 
-修改 `parameters.json` 再生成 STL、预览和压缩包。`validation.json` 包括 10 个零件的封闭性、单连通、正体积、USB 参考外壳/PCB/麦克风及压片装配干涉、3 种顶杆各 7 个行程位置、21 个插入位置与 9 个声孔贯穿检查。
+修改 `parameters.json` 再生成 STL、预览和压缩包。`validation.json` 包括 7 个零件（5 个装配件及 2 个备用顶杆）的封闭性、单连通、正体积、USB 参考外壳/PCB/麦克风及压片装配干涉、3 种顶杆各 7 个行程位置、21 个插入位置与 9 个声孔贯穿检查。
 
-本轮切片证据见 `slicer-result.json`：上盖、压片、按帽关闭支撑后返回 Success，无支撑路径，约 28.5 分钟、7.4 g；底座和标准顶杆启用支撑后返回 Success，约 34.1 分钟、13.2 g。估算不含试装件和备用顶杆，实物打印尚未验证。
+本轮切片证据见 `slicer-result.json`：上盖、压片、按帽关闭支撑后返回 Success，无支撑路径，约 28.5 分钟、7.4 g；底座和标准顶杆启用支撑后返回 Success，约 34.1 分钟、13.2 g。估算不含备用顶杆，实物打印尚未验证。
 
 CLI 的机器指令解析曾出现 `Invalid T command (T65535)`，不交付其 G-code；请在 Bambu Studio 中从 STL 重新切片。几何、切片、实物装配与实际录音验证分别报告，当前仍是待实物验证的试装版。

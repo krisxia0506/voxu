@@ -101,36 +101,6 @@
       "volume_mm3": 93.94,
       "watertight": true,
       "connected_components": 1
-    },
-    "board-fit-test": {
-      "size_mm": [
-        60.0,
-        40.0,
-        6.6
-      ],
-      "volume_mm3": 6839.22,
-      "watertight": true,
-      "connected_components": 1
-    },
-    "usb-front-test": {
-      "size_mm": [
-        11.0,
-        40.0,
-        10.4
-      ],
-      "volume_mm3": 1954.01,
-      "watertight": true,
-      "connected_components": 1
-    },
-    "button-guide-test": {
-      "size_mm": [
-        12.0,
-        12.0,
-        8.0
-      ],
-      "volume_mm3": 386.72,
-      "watertight": true,
-      "connected_components": 1
     }
   },
   "checks": {
