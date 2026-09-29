@@ -20,7 +20,7 @@ USB 串口名称可能变化。接线沿用项目根目录的 `WIRING.md`。首�
 
 使用本验证固件时，Mac 的输入可选 `Voice Puck V1`，输出应选“MacBook Pro 扬声器”或用户实际使用的扬声器。如果成品要求系统里只出现输入设备，就需要改用经目标 Mac 验证的单向音频传输方案；这不属于当前 ESP32 HFP 固件的小改动。
 
-**此验证工程只针对当前这台 Mac。** `src/main.c` 中的 `test_mac` 是本机 Classic 蓝牙地址，开机扫描到它后主动发起 HFP 服务连接。换另一台 Mac 前须更改此地址；正式固件应改为通用配对与已绑定设备重连逻辑。首次配对时也可能需要由 Mac 发起配对。
+**此验证工程只针对当前这台 Mac。** `src/main.c` 中的 `test_mac` 是本机 Classic 蓝牙地址，蓝牙初始化完成后直接向它发起 HFP 服务连接，无需等待扫描结果或打开 Mac 蓝牙设置。失败或断线后等待 5 秒重试，连接进行中和已连接时不重复请求。换另一台 Mac 前须更改此地址；正式固件应改为通用配对与已绑定设备重连逻辑。首次配对时也可能需要由 Mac 发起配对。
 
 ## 2026-09-29 实测
 
@@ -29,7 +29,7 @@ USB 串口名称可能变化。接线沿用项目根目录的 `WIRING.md`。首�
 - MacBook Pro 扬声器播放 1 kHz、3 秒测试音，同时用 Mac 的 `Voice Puck V1` 输入录制 9 秒。录音的 1 kHz 分量在播放前后约 0–2，播放期间约 147–163（16 位 PCM 幅度单位）。这验证了声音从 INMP441 经 ESP32、HFP 回到 Mac 的完整路径。
 - 原始测试音为 [1khz-test-tone.wav](evidence/1khz-test-tone.wav)，蓝牙麦克风实际录音为 （实录音频已移除，仅保留测量记录）。
 
-上述初始 HFP 测试尚未验证 Typeless 听写；后续 BOOT/F13 验证见下文。合盖场景、长时间稳定性、完整重连恢复和语音音质评估仍未完成。测试固件会在 Mac 仍选择该设备输入时持续通过蓝牙发送音频。
+上述初始 HFP 测试尚未验证 Typeless 听写；后续 BOOT/F13 验证见下文。合盖场景、长时间稳定性、长期重连稳定性和语音音质评估仍未完成。测试固件会在 Mac 仍选择该设备输入时持续通过蓝牙发送音频。
 
 ## BOOT 触发 Typeless（按一下开始，再按一下结束）
 
@@ -75,3 +75,17 @@ cc -std=c11 -Wall -Wextra -Werror -Ifirmware/hfp-probe/src \
 - 串口观察到多次 `BOOT pressed: F13`，每次都有 `shortcut down: sent` 与 `shortcut up: sent`；SCO 为 mSBC 16 kHz 时仍能发送按键。
 - 验证的是本机原型的正常连接路径；已知断线边界仍未解决，长时间稳定性未测。
 - 精简证据：[boot-f13-validation.md](evidence/boot-f13-validation.md)。
+
+## 开机自动连接
+
+已配对的本机 Mac 蓝牙开启且在范围内时，外设启动后主动连接 HFP，再由现有 HID 逻辑连接键盘。Mac 暂不可用时，每次连接失败回调后等待 5 秒继续尝试；蓝牙栈自身的连接超时不包含在这 5 秒内。手动断开也会重新连接，需停止使用时关闭外设电源。首次配对仍可能需要在 Mac 上确认；本改动不更换固定的目标 Mac，也不清除已有配对记录。
+
+本地重连状态回归：
+
+```sh
+cc -std=c11 -Wall -Wextra -Werror -Ifirmware/hfp-probe/src \
+  firmware/hfp-probe/tests/hfp_reconnect_test.c firmware/hfp-probe/src/hfp_reconnect.c \
+  -o /tmp/voxu-reconnect-test && /tmp/voxu-reconnect-test
+```
+
+覆盖初始化前禁连、就绪后立即连接、异步连接期间禁止重复请求、失败/断线延迟重试和计时器回绕。实物连接证据另行记录；这些主机测试不证明 Mac 休眠恢复或长期稳定性。
