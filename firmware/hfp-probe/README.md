@@ -1,6 +1,6 @@
 # Voice Puck V1：Mac HFP 采音验证
 
-此工程是原版 ESP32 + INMP441 的单机验证固件。它把 D26/D25/D33 上的 I²S 麦克风采样转换成 16 位单声道 PCM，并通过 Bluetooth Classic HFP HF 的 HCI 音频路径送给 Mac。另通过 Bluetooth Classic HID 键盘服务，把 BOOT（GPIO0）映射为一次 `Control + Option + Shift + Command + F13` 快捷键。没有电池管理、扬声器或自动静音。
+此工程是原版 ESP32 + INMP441 的单机验证固件。它把 D26/D25/D33 上的 I²S 麦克风采样转换成 16 位单声道 PCM，并通过 Bluetooth Classic HFP HF 的 HCI 音频路径送给 Mac。另通过 Bluetooth Classic HID 键盘服务，把 BOOT（GPIO0）映射为一次 `F13` 快捷键。没有电池管理、扬声器或自动静音。
 
 ## 本机编译与刷入
 
@@ -35,7 +35,7 @@ USB 串口名称可能变化。接线沿用项目根目录的 `WIRING.md`。首�
 
 正常启动后按 BOOT；不要在上电或按 EN 复位时按住 BOOT，否则会进入下载模式。EN 是复位键，不能用作业务按键。无需添加按钮模块或更改麦克风接线。
 
-- 每次有效按下发送 `⌃⌥⇧⌘F13`（左 Control、Option、Shift、Command + F13），80 ms 后释放全部按键。长按不重复发送；松开 BOOT 本身不发送第二次快捷键。
+- 每次有效按下发送 `F13`（单键，无修饰键），80 ms 后释放全部按键。长按不重复发送；松开 BOOT 本身不发送第二次快捷键。
 - GPIO0 使用上拉输入，30 ms 消抖。HID 未连接时不缓存按键；连接时先释放全部键，必须先松开再按，避免重连误触发。
 - 使用现有 Classic 蓝牙栈，同时提供 HFP 音频与 HID 键盘。HFP 连上本机测试 Mac 后尝试连接 HID；日志 `HID open status=0 state=0` 表示 HID 已连接。
 - 串口 `BOOT pressed`、`shortcut down: sent`、`shortcut up: sent` 只能证明设备侧按键与发送，仍须在 Mac/Typeless 确认快捷键与听写结果。
@@ -44,7 +44,7 @@ USB 串口名称可能变化。接线沿用项目根目录的 `WIRING.md`。首�
 ### Typeless 设置与验收
 
 1. 刷入后连接 `Voice Puck V1`。如果 Mac 缓存了旧设备的 HFP 服务，可能需要移除该蓝牙设备并重新配对，才能枚举新增的 HID 键盘。
-2. Typeless 设置 → 快捷键 → 语音输入 → **添加另一个**，按一次 BOOT，确认录入 `Control + Option + Shift + Command + F13`。保留原有 Fn/其他绑定。F13 不在 MacBook 内建键盘上，由 ESP32 发送；是否接受以当前 Typeless 实测为准。
+2. Typeless 设置 → 快捷键 → 语音输入 → **添加另一个**，按一次 BOOT，确认录入 `F13`。保留原有 Fn/其他绑定。F13 不在 MacBook 内建键盘上，由 ESP32 发送；是否接受以当前 Typeless 实测为准。
 3. 麦克风选择 `Voice Puck V1`（或自动检测且当前系统输入为该设备），输出仍使用 Mac 扬声器。
 4. 在测试文本框中按 BOOT，确认开始录音；说一句测试语，再按 BOOT，确认停止并输出文字。连续重复，并长按 BOOT 检查没有多次切换。
 5. 同时确认串口 HFP/SCO 仍连接、普通键盘没有修饰键残留。

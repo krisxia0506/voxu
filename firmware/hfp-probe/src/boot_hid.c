@@ -23,12 +23,13 @@ static uint8_t descriptor[] = {
 };
 static esp_hidd_app_param_t app = {
     .name = "Voice Puck BOOT keyboard",
-    .description = "Typeless Control Option Shift Command F13",
+    .description = "Typeless F13",
     .provider = "Voice Puck",
     .subclass = ESP_HID_CLASS_KBD,
     .desc_list = descriptor,
     .desc_list_len = sizeof(descriptor),
 };
+static esp_hidd_qos_param_t qos; // Zero values leave QoS unspecified; API requires non-NULL.
 static portMUX_TYPE lock = portMUX_INITIALIZER_UNLOCKED;
 static bool registered, connected, connecting, hfp_connected, unplugged;
 static unsigned generation;
@@ -67,7 +68,7 @@ static void hid_callback(esp_hidd_cb_event_t event, esp_hidd_cb_param_t *param)
     switch (event) {
     case ESP_HIDD_INIT_EVT:
         if (param->init.status == ESP_HIDD_SUCCESS) {
-            ESP_ERROR_CHECK(esp_bt_hid_device_register_app(&app, NULL, NULL));
+            ESP_ERROR_CHECK(esp_bt_hid_device_register_app(&app, &qos, &qos));
         } else {
             ESP_LOGE(TAG, "HID init failed: %d", param->init.status);
         }
@@ -194,7 +195,7 @@ static bool send_report(esp_hidd_report_type_t type, uint8_t id, uint8_t *data, 
 static bool send_keys(bool down)
 {
     uint8_t data[8] = {0};
-    if (down) { data[0] = 0x0f; data[2] = 0x68; } // left Ctrl+Shift+Alt+GUI, F13
+    if (down) data[2] = 0x68; // F13 only, no modifiers
     portENTER_CRITICAL(&lock);
     uint8_t id = protocol == ESP_HIDD_BOOT_MODE ? ESP_HIDD_BOOT_REPORT_ID_KEYBOARD : 0;
     memcpy(report, data, sizeof(report));
@@ -246,7 +247,7 @@ static void button_task(void *arg)
         }
         if (boot_button_poll(&button, gpio_get_level(GPIO_NUM_0) == 0, up && clean,
                              xTaskGetTickCount() * portTICK_PERIOD_MS)) {
-            ESP_LOGI(TAG, "BOOT pressed: Ctrl+Option+Shift+Command+F13");
+            ESP_LOGI(TAG, "BOOT pressed: F13");
             if (send_keys(true)) vTaskDelay(pdMS_TO_TICKS(80));
             clean = send_keys(false); // Always release, even if key-down completion failed.
         }
@@ -272,5 +273,5 @@ void boot_hid_init(const uint8_t *mac)
     ESP_ERROR_CHECK(esp_bt_hid_device_register_callback(hid_callback));
     ESP_ERROR_CHECK(esp_bt_hid_device_init());
     configASSERT(xTaskCreate(button_task, "boot_hid", 4096, NULL, 4, NULL) == pdPASS);
-    ESP_LOGI(TAG, "BOOT GPIO0 ready; shortcut Ctrl+Option+Shift+Command+F13, tap to toggle");
+    ESP_LOGI(TAG, "BOOT GPIO0 ready; shortcut F13, tap to toggle");
 }
