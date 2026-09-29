@@ -3,6 +3,7 @@
 #include <string.h>
 
 #include "driver/i2s_std.h"
+#include "boot_hid.h"
 #include "esp_bt.h"
 #include "esp_bt_main.h"
 #include "esp_gap_bt_api.h"
@@ -88,10 +89,12 @@ static void hf_callback(esp_hf_client_cb_event_t event, esp_hf_client_cb_param_t
         if (param->conn_stat.state == ESP_HF_CLIENT_CONNECTION_STATE_SLC_CONNECTED) {
             memcpy(peer_address, param->conn_stat.remote_bda, ESP_BD_ADDR_LEN);
             service_connected = true;
+            boot_hid_set_hfp_connected(true);
             esp_err_t err = esp_hf_client_connect_audio(peer_address);
             ESP_LOGI(TAG, "request SCO audio: %s", esp_err_to_name(err));
         } else if (param->conn_stat.state == ESP_HF_CLIENT_CONNECTION_STATE_DISCONNECTED) {
             service_connected = false;
+            boot_hid_set_hfp_connected(false);
             audio_connected = false;
             ring_reset();
         }
@@ -247,6 +250,7 @@ void app_main(void)
 
     ESP_ERROR_CHECK(esp_bt_gap_register_callback(gap_callback));
     ESP_ERROR_CHECK(esp_hf_client_register_callback(hf_callback));
+    boot_hid_init(test_mac);
     ESP_ERROR_CHECK(esp_hf_client_init());
     ESP_ERROR_CHECK(esp_bt_gap_set_device_name("Voice Puck V1"));
     esp_bt_io_cap_t io_capability = ESP_BT_IO_CAP_NONE;
