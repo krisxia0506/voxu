@@ -88,6 +88,10 @@ cap_bottom = top+P['button_downstroke']
 cap = rr(bootx-6,booty-4,cap_bottom,12,8,2,3.8)
 cap += cyl(bootx,booty,seam-0.2,3.4,cap_bottom-(seam-0.2)+0.1)
 cap -= cyl(bootx,booty,seam-0.3,P['button_socket_diameter']/2,4.7)
+# Lead-in opens at the insertion face; retains 3.4 mm guide diameter deeper inside.
+cap -= m.Manifold.cylinder(P['button_socket_entry_depth'],
+    P['button_socket_entry_diameter']/2,P['button_socket_diameter']/2,
+    circular_segments=64).translate((bootx,booty,seam-0.2))
 foot = bz+P['board_thickness']+P['boot_height_above_pcb']+P['button_initial_gap']
 
 def pin(extra=0):
@@ -132,7 +136,12 @@ for label,extra in [('short',-0.4),('standard',0),('long',0.4)]:
             assert volume < 1e-5, (label,travel,name,volume)
         assert (cap.translate((0,0,-float(travel)))^lid).volume() < 1e-5
 report['checks']['button_motion_clearance']='3 pin lengths x 7 positions: no intersection with nominal lid/base/PCB'
-# Pin deliberately interferes with cap socket by 0.10 mm diameter for press/glue fit.
+# Verify axial insertion into cap, not just the installed button-to-lid fit.
+for insertion in np.linspace(-5,0,21):
+    overlap=(cap ^ pin().translate((0,0,float(insertion)))).volume()
+    assert overlap < 1e-5, ('pin-cap insertion interference',float(insertion),overlap)
+report['checks']['pin_cap_insertion']='21 insertion positions: no solid intersection'
+report['checks']['pin_socket_diametral_clearance_mm']=round(P['button_socket_diameter']-3.0,3)
 report['checks']['button_downstroke_mm']=P['button_downstroke']
 report['checks']['switch_motion_after_gap_mm']=P['button_downstroke']-P['button_initial_gap']
 report['checks']['real_hardware_fit']='UNVERIFIED: print fit tests and measure BOOT height before final assembly'

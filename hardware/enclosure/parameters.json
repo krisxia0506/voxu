@@ -13,10 +13,12 @@
   "boot_height_above_pcb": 3.2,
   "button_initial_gap": 0.3,
   "button_downstroke": 0.6,
-  "button_socket_diameter": 2.9,
+  "button_socket_diameter": 3.4,
   "mic_diameter": 14,
   "mic_x": 73,
   "usb_width": 14,
   "usb_height": 9,
-  "usb_bottom_z": 10.2
+  "usb_bottom_z": 10.2,
+  "button_socket_entry_diameter": 4.0,
+  "button_socket_entry_depth": 0.6
 }
