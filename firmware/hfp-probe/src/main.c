@@ -113,6 +113,14 @@ static void hf_callback(esp_hf_client_cb_event_t event, esp_hf_client_cb_param_t
     case ESP_HF_CLIENT_PROF_STATE_EVT:
         ESP_LOGI(TAG, "HFP profile state=%d", param->prof_stat.state);
         if (param->prof_stat.state == ESP_HF_INIT_SUCCESS) {
+            // Advertise the physical device as a microphone while keeping HFP unchanged.
+            // Bluetooth Class of Device Audio/Video minor 4 is Microphone.
+            esp_bt_cod_t cod = {
+                .major = ESP_BT_COD_MAJOR_DEV_AV,
+                .minor = 4,
+            };
+            ESP_LOGI(TAG, "set microphone Class of Device: %s",
+                     esp_err_to_name(esp_bt_gap_set_cod(cod, ESP_BT_SET_COD_MAJOR_MINOR)));
             esp_err_t err = esp_bt_gap_start_discovery(ESP_BT_INQ_MODE_GENERAL_INQUIRY, 15, 0);
             ESP_LOGI(TAG, "search for test Mac: %s", esp_err_to_name(err));
         }
