@@ -29,5 +29,11 @@
   "usb_protrusion": 2.0,
   "usb_front_recess": 0.4,
   "button_pin_extension": 0.4,
-  "board_clip_clearance": 0.05
+  "board_clip_clearance": 0.05,
+  "shell_snap_width": 6.0,
+  "shell_snap_thickness": 1.0,
+  "shell_snap_bottom_z": 6.8,
+  "shell_snap_hook_height": 1.3,
+  "shell_snap_projection": 0.8,
+  "shell_snap_release_deflection": 0.9
 }

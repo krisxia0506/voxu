@@ -89,6 +89,13 @@ for x,y in screws:
     skirt -= cyl(x,y,seam-2,3.1,3)
 # The front alignment skirt is interrupted around the long BOOT guide.
 skirt -= box(0,booty-4,seam-2,10,8,3)
+# Separate snap arms from the alignment skirt so they can flex over full length.
+shell_snap_x=[16,L-16]
+for x in shell_snap_x:
+    skirt -= box(x-P['shell_snap_width']/2-0.3,1,seam-2,
+                 P['shell_snap_width']+0.6,4,3)
+    skirt -= box(x-P['shell_snap_width']/2-0.3,W-5,seam-2,
+                 P['shell_snap_width']+0.6,4,3)
 lid += skirt
 for x,y in hold_downs:
     lid += box(x+0.5,y+0.5,bz+P['board_thickness']+0.2,2,2,
@@ -96,6 +103,26 @@ for x,y in hold_downs:
 for x,y in screws:
     lid -= cyl(x,y,seam-1,1.15,8)
     lid -= cyl(x,y,top-1,2.05,5)
+
+# Four integral lid catches: ramped insertion face, positive retaining shoulder,
+# and a through-window in the base for intentional inward release with a thin pick.
+shell_snaps=[]
+snap_z=P['shell_snap_bottom_z']
+snap_h=P['shell_snap_hook_height']
+snap_w=P['shell_snap_width']
+snap_y=2.3
+for x in shell_snap_x:
+    tongue=box(x-snap_w/2,snap_y,snap_z,snap_w,P['shell_snap_thickness'],seam-snap_z+0.1)
+    hook=(box(x-snap_w/2,snap_y,snap_z,snap_w,0.15,0.06)
+          +box(x-snap_w/2,snap_y-P['shell_snap_projection'],snap_z+snap_h-0.06,
+               snap_w,P['shell_snap_projection']+0.15,0.06)).hull()
+    catch=tongue+hook
+    mirrored=catch.mirror((0,1,0)).translate((0,W,0))
+    shell_snaps.extend([(catch,1),(mirrored,-1)])
+    lid += catch+mirrored
+    # 0.3 mm lateral and 0.2 mm axial clearance; leave positive material above window.
+    base -= box(x-snap_w/2-0.3,-0.1,snap_z-0.2,snap_w+0.6,2.2,snap_h+0.4)
+    base -= box(x-snap_w/2-0.3,W-2.1,snap_z-0.2,snap_w+0.6,2.2,snap_h+0.4)
 
 # Microphone above the central PCB area; sound-hole face toward the lid.
 mic_top = seam-P['mic_acoustic_gap']
@@ -150,7 +177,7 @@ def pin(extra=P['button_pin_extension']):
 
 parts={'base':base,'lid':lid,'mic-clamp':clamp,'button-cap':cap,
        'button-pin':pin()}
-report={'revision':'v3-snap-board','parameters':P,'parts':{},'checks':{}}
+report={'revision':'v4-snap-shell','parameters':P,'parts':{},'checks':{}}
 for name,solid in parts.items():
     t=mesh(solid)
     assert str(solid.status())=='Error.NoError',(name,solid.status())
@@ -195,6 +222,19 @@ for i,clip in enumerate(clips):
     assert (clip^board).volume()<1e-5, ('clip-seated-board',i)
     lifted=board.translate((0,0,0.3))
     assert (clip^lifted).volume()>0.05, ('clip-does-not-retain-board',i)
+# The rigid locked geometry must retain the lid. A sheared-arm envelope models
+# clearance during release, not force, fatigue, or a finite-element prediction.
+for i,(catch,direction) in enumerate(shell_snaps):
+    assert (catch^base).volume()<1e-5, ('shell-catch-seated',i)
+    assert (catch.translate((0,0,0.5))^base).volume()>0.1, ('shell-catch-no-retention',i)
+    k=direction*P['shell_snap_release_deflection']/(seam-snap_z)
+    released=catch.transform([[1,0,0,0],[0,1,-k,k*seam],[0,0,1,0]])
+    for lift in np.linspace(0,seam-snap_z+1,25):
+        moving=released.translate((0,0,float(lift)))
+        for name,fixed in [('base',base),('PCB',board),('components',components)]:
+            assert (moving^fixed).volume()<1e-5, ('shell-release-collision',i,lift,name)
+report['checks']['shell_snap_retention']='4 seated catches clear base; each blocks 0.5 mm upward lid movement'
+report['checks']['shell_snap_release']='4 sheared-arm clearance envelopes x 25 extraction positions; real force/fatigue not simulated'
 report['checks']['pcb_support_pad_size_mm']=[6,6]
 report['checks']['pcb_snap_retention']='4 clips clear seated PCB; each intercepts PCB lifted 0.3 mm; real flex/force unverified'
 report['checks'].update(button_motion_clearance='user-confirmed long pin x 7 positions',
@@ -205,7 +245,7 @@ report['checks'].update(button_motion_clearance='user-confirmed long pin x 7 pos
     mic_holes='9 through holes, 2.4 mm diameter, 1.0 mm minimum web',
     button_downstroke_mm=P['button_downstroke'],
     user_verified='V2 USB alignment, direct microphone mounting and longest BOOT pin confirmed by user',
-    real_hardware_fit='V3 board snap force and enlarged support pads not yet physically verified')
+    real_hardware_fit='V4 shell snap force, release and V3 PCB clips/pads need physical verification')
 (ROOT/'validation.json').write_text(json.dumps(report,indent=2)+'\n')
 
 # Actual CAD preview, not an AI-generated concept image.

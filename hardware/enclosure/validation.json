@@ -1,5 +1,5 @@
 {
-  "revision": "v3-snap-board",
+  "revision": "v4-snap-shell",
   "parameters": {
     "shell_length": 60,
     "shell_width": 40,
@@ -31,7 +31,13 @@
     "usb_protrusion": 2.0,
     "usb_front_recess": 0.4,
     "button_pin_extension": 0.4,
-    "board_clip_clearance": 0.05
+    "board_clip_clearance": 0.05,
+    "shell_snap_width": 6.0,
+    "shell_snap_thickness": 1.0,
+    "shell_snap_bottom_z": 6.8,
+    "shell_snap_hook_height": 1.3,
+    "shell_snap_projection": 0.8,
+    "shell_snap_release_deflection": 0.9
   },
   "parts": {
     "base": {
@@ -40,7 +46,7 @@
         40.0,
         17.0
       ],
-      "volume_mm3": 11453.19,
+      "volume_mm3": 11363.43,
       "watertight": true,
       "connected_components": 1
     },
@@ -50,7 +56,7 @@
         40.0,
         13.6
       ],
-      "volume_mm3": 6192.34,
+      "volume_mm3": 6399.51,
       "watertight": true,
       "connected_components": 1
     },
@@ -100,6 +106,8 @@
     "mic-components_intersection_mm3": 0.0,
     "mic-capsule-components_intersection_mm3": 0.0,
     "mic-capsule-clamp_intersection_mm3": 0.0,
+    "shell_snap_retention": "4 seated catches clear base; each blocks 0.5 mm upward lid movement",
+    "shell_snap_release": "4 sheared-arm clearance envelopes x 25 extraction positions; real force/fatigue not simulated",
     "pcb_support_pad_size_mm": [
       6,
       6
@@ -113,6 +121,6 @@
     "mic_holes": "9 through holes, 2.4 mm diameter, 1.0 mm minimum web",
     "button_downstroke_mm": 0.6,
     "user_verified": "V2 USB alignment, direct microphone mounting and longest BOOT pin confirmed by user",
-    "real_hardware_fit": "V3 board snap force and enlarged support pads not yet physically verified"
+    "real_hardware_fit": "V4 shell snap force, release and V3 PCB clips/pads need physical verification"
   }
 }
