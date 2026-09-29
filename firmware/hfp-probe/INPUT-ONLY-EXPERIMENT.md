@@ -16,6 +16,17 @@ Bluetooth SIG 的 Class of Device 为 Audio/Video 主类别定义了 Microphone 
 
 实验结束后，已刷回主线 HFP 固件并保持新配对：Class of Device 恢复为 `0x240408`，Mac 再次列出输入和输出，默认输入为 Voice Puck V1、默认输出为 MacBook Pro 扬声器。
 
+## 输入专用验收命令
+
+仓库中的 `tools/check-input-only.c` 直接读取 macOS CoreAudio 设备与各端点通道数。它不会修改系统默认设备。运行方法：
+
+```sh
+clang -std=c11 -Wall -Wextra -Werror -framework CoreAudio -framework CoreFoundation tools/check-input-only.c -o /tmp/voxu-check-input-only
+/tmp/voxu-check-input-only 'Voice Puck V1'
+```
+
+只有至少存在一个同名输入端点、且不存在同名输出端点时才返回 0。当前 HFP 固件的实测是 `matching_input_devices=1 matching_output_devices=1`，返回 1；以 MacBook Pro 内置麦克风作为正例测试时返回 0。更换传输方案后的验收还需核对蓝牙配对身份与实际采音，防止只出现同名虚拟设备而未连接 Voice Puck。
+
 ## 结论与后续
 
 实验已经完成。把 Class of Device 设置为 Microphone 能改变蓝牙设备类别，但不能消除 HFP 在 macOS 上的输出端点；不要将这项改动作为“仅输入”解决方案合并到 V1 主线。
