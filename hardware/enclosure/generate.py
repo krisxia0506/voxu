@@ -44,15 +44,34 @@ base = rr(0,0,0,L,W,seam,4)-rr(2,2,2,L-4,W-4,seam+1,2)
 for x,y in screws:
     base += cyl(x,y,2,2.7,seam-2)
     base -= cyl(x,y,seam-9,0.85,10)
-corner_pads = [(bx,by),(bx+bl-3,by),(bx,by+bw-3),(bx+bl-3,by+bw-3)]
+# User requested each 3 x 3 mm PCB support pad grow by 3 mm in both axes.
+# Expand inward under the PCB; keep the board, USB and lid hold-down coordinates.
+corner_pads = [(bx,by),(bx+bl-6,by),(bx,by+bw-6),(bx+bl-6,by+bw-6)]
+hold_downs = [(bx,by),(bx+bl-3,by),(bx,by+bw-3),(bx+bl-3,by+bw-3)]
 for x,y in corner_pads:
-    base += box(x,y,2,3,3,bz-2)
+    base += box(x,y,2,6,6,bz-2)
 # PCB is located by front wall, side fences and rear fence, not pin headers.
 for y in [by-1.3,by+bw+0.3]:
     for x in [bx+4,bx+bl-8]:
         base += box(x,y,2,4,1,bz+P['board_thickness']+0.3-2)
 for y in [by,by+bw-4]:
     base += box(bx+bl+0.3,y,2,1,4,bz+P['board_thickness']+0.3-2)
+# Side clips bend laterally along 12 mm horizontal cantilever arms.
+# Under-arm clearance allows flex; keep support away from the spring if possible.
+# Retaining lips overlap only the PCB rim, not components or solder pads.
+clip_lip_z=bz+P['board_thickness']+P['board_clip_clearance']
+clips=[]
+for root_x in [bx+7.6,bx+26.6]:
+    tip_x=root_x+14
+    # Build the lower-Y clip then mirror it for the other side of the board.
+    root=box(root_x,by-1.2,2,2,1,4.7)
+    arm=box(root_x+1.8,by-1.2,4,12.2,1,2.7)
+    lip=(box(tip_x-2.4,by-0.3,clip_lip_z,2.4,0.8,0.06)
+         +box(tip_x-2.4,by-0.3,clip_lip_z+1.0,2.4,0.1,0.06)).hull()
+    clip=root+arm+lip
+    mirrored=clip.mirror((0,1,0)).translate((0,W,0))
+    clips.extend([clip,mirrored])
+    base += clip+mirrored
 # Front-face capsule opening based on GCT USB4105 drawing; actual PCB socket
 # part number is unknown. User measured 2 mm projection past the board edge.
 def usb_capsule(x, length, width, height, zcenter):
@@ -71,7 +90,7 @@ for x,y in screws:
 # The front alignment skirt is interrupted around the long BOOT guide.
 skirt -= box(0,booty-4,seam-2,10,8,3)
 lid += skirt
-for x,y in corner_pads:
+for x,y in hold_downs:
     lid += box(x+0.5,y+0.5,bz+P['board_thickness']+0.2,2,2,
                seam-(bz+P['board_thickness']+0.2)+0.1)
 for x,y in screws:
@@ -121,7 +140,7 @@ cap -= m.Manifold.cylinder(0.6,2.0,P['button_socket_diameter']/2,
                            circular_segments=64).translate((bootx,booty,neck_bottom))
 foot=bz+P['board_thickness']+P['boot_height_above_pcb']+P['button_initial_gap']
 
-def pin(extra=0):
+def pin(extra=P['button_pin_extension']):
     flange_z=neck_bottom-1.2
     assert flange_z-(foot-extra) >= 0.4, "Contact foot must survive at least two 0.2 mm layers"
     a=box(bootx-3.5,booty-3.5,flange_z,7,7,1.2)
@@ -130,9 +149,8 @@ def pin(extra=0):
     return a
 
 parts={'base':base,'lid':lid,'mic-clamp':clamp,'button-cap':cap,
-       'button-pin-standard':pin(),'button-pin-short':pin(-0.4),
-       'button-pin-long':pin(0.4)}
-report={'revision':'v2-soldered-stacked','parameters':P,'parts':{},'checks':{}}
+       'button-pin':pin()}
+report={'revision':'v3-snap-board','parameters':P,'parts':{},'checks':{}}
 for name,solid in parts.items():
     t=mesh(solid)
     assert str(solid.status())=='Error.NoError',(name,solid.status())
@@ -157,7 +175,7 @@ for name,a,b in [('usb-shell-base',usb_capsule(P['usb_front_recess'],8,8.94,3.31
     volume=(a^b).volume()
     assert volume<1e-5,(name,volume)
     report['checks'][name+'_intersection_mm3']=round(volume,8)
-for label,extra in [('short',-0.4),('standard',0),('long',0.4)]:
+for label,extra in [('default-long',P['button_pin_extension'])]:
     for travel in np.linspace(0,P['button_downstroke'],7):
         for name,fixed in [('lid',lid),('base',base),('pcb',board),('mic-clamp',clamp)]:
             volume=(pin(extra).translate((0,0,-float(travel)))^fixed).volume()
@@ -171,24 +189,33 @@ for dx in [-P['mic_hole_pitch'],0,P['mic_hole_pitch']]:
     for dy in [-P['mic_hole_pitch'],0,P['mic_hole_pitch']]:
         probe=cyl(mx+dx,my+dy,seam+0.01,P['mic_hole_diameter']/2-0.01,P['lid_thickness']-0.02)
         assert (probe^lid).volume()<1e-5
-report['checks'].update(button_motion_clearance='3 pin lengths x 7 positions',
+# Each clip overlaps the board in plan but clears its seated upper face.
+# Therefore it can hold a seated board without depending on the lid screws.
+for i,clip in enumerate(clips):
+    assert (clip^board).volume()<1e-5, ('clip-seated-board',i)
+    lifted=board.translate((0,0,0.3))
+    assert (clip^lifted).volume()>0.05, ('clip-does-not-retain-board',i)
+report['checks']['pcb_support_pad_size_mm']=[6,6]
+report['checks']['pcb_snap_retention']='4 clips clear seated PCB; each intercepts PCB lifted 0.3 mm; real flex/force unverified'
+report['checks'].update(button_motion_clearance='user-confirmed long pin x 7 positions',
     pin_cap_insertion='21 positions without solid intersection',
     button_guide_length_mm=round(top-guide_bottom,3),
     usb_front_recess_mm=P['usb_front_recess'],
     usb_reference='GCT USB4105 shell 8.94 x 3.31 mm; not an identification of the actual PCB connector',
     mic_holes='9 through holes, 2.4 mm diameter, 1.0 mm minimum web',
     button_downstroke_mm=P['button_downstroke'],
-    real_hardware_fit='UNVERIFIED: USB dimensions, solder clearance and BOOT position/height need physical fitting')
+    user_verified='V2 USB alignment, direct microphone mounting and longest BOOT pin confirmed by user',
+    real_hardware_fit='V3 board snap force and enlarged support pads not yet physically verified')
 (ROOT/'validation.json').write_text(json.dumps(report,indent=2)+'\n')
 
 # Actual CAD preview, not an AI-generated concept image.
 fig=plt.figure(figsize=(14,9),facecolor='#f0f2f4')
 views=[('ASSEMBLED',[(base,'#343a40'),(lid,'#b9db42'),(cap,'#343a40')]),
        ('STACKED / EXPLODED',[(base,'#343a40'),(board,'#217a78'),
-         (mic.translate((0,0,13)),'#217a78'),(clamp.translate((0,0,10)),'#666666'),
+         (mic.translate((0,0,13)),'#217a78'),
          (lid.translate((0,0,20)),'#b9db42'),(cap.translate((0,0,24)),'#444444'),(pin().translate((0,0,20)),'#888888')]),
        ('BASE / PCB FIT',[(base,'#8a929c'),(board,'#217a78')]),
-       ('LID / GUIDE / MIC CLAMP',[(lid,'#b9db42'),(mic,'#217a78'),(clamp,'#666666')])]
+       ('LID / DIRECT MIC MOUNT',[(lid,'#b9db42'),(mic,'#217a78')])]
 def raster(items, elevation=32):
     # Orthographic z-buffer: resolves occlusion of large coplanar CAD triangles.
     w,h=1000,640
