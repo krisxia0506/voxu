@@ -10,7 +10,7 @@
 
 候选是 **ESP32-S31 Function CoreBoard**：乐鑫提供现成开发板、板载麦克风和 USB 调试接口；ESP32-S31 的 ESP-IDF 文档列出 LE Audio / ISO 和 BAP Unicast Server 支持。先用板载麦克风验证 Mac 互操作性，再考虑把现有 INMP441 接入及重新设计小型外壳。开发板是实验候选，不是 V1 BOM 的采购承诺。
 
-目标固件只声明 **BAP Unicast Server 的 Source ASE**（设备向 Mac 送音频），不声明 Sink ASE，也不启用 HFP 或其他可创建输出端点的音频服务。先从乐鑫 `bluetooth/esp_ble_audio/bap/unicast_server` 官方示例移植，确认示例中 Source/Sink ASE 数量、PACS 能力、LC3 编码和广告数据与目标一致。只修改角色声明并不能保证 macOS 建立输入设备；必须完成下述实机测试。
+目标固件只声明 **BAP Unicast Server 的 Source ASE**（设备向 Mac 送音频），不声明 Sink ASE，也不启用 HFP 或其他可创建输出端点的音频服务。乐鑫 `bluetooth/esp_ble_audio/bap/unicast_server` 官方示例可作为配对与流控制起点，但其默认同时注册 Sink/Source PACS 和 ASE，广播也同时声明两种上下文；在本机 ESP-IDF 6.1 示例中没有实际发送音频帧的调用。实现时必须一起去掉 Sink PACS、Sink ASE 和广播中的 Sink 上下文，再接入板载麦克风采集、LC3 编码和 Source 流发送。仅改变角色声明并不能保证 macOS 建立输入设备或收到音频；必须完成下述实机测试。
 
 ## 到板后验收顺序
 
