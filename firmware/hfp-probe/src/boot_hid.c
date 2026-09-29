@@ -37,6 +37,7 @@ static uint8_t protocol = ESP_HIDD_REPORT_MODE;
 static uint8_t report[8];
 static uint8_t leds;
 static esp_bd_addr_t peer;
+static esp_bd_addr_t hid_peer;
 static SemaphoreHandle_t completion;
 static esp_hidd_status_t send_status;
 typedef struct {
@@ -46,11 +47,17 @@ typedef struct {
 } control_report_t;
 static QueueHandle_t control_reports;
 
-void boot_hid_set_hfp_connected(bool up)
+void boot_hid_set_hfp_connected(bool up, const uint8_t *address)
 {
     portENTER_CRITICAL(&lock);
+    bool changed = up && memcmp(peer, address, sizeof(peer)) != 0;
+    bool close_old = up && (connected || connecting) &&
+                     memcmp(hid_peer, address, sizeof(hid_peer)) != 0;
+    if (up) memcpy(peer, address, sizeof(peer));
     hfp_connected = up;
+    if (changed) unplugged = false;
     portEXIT_CRITICAL(&lock);
+    if (close_old) esp_bt_hid_device_disconnect();
 }
 
 static void disconnected(void)
@@ -84,6 +91,7 @@ static void hid_callback(esp_hidd_cb_event_t event, esp_hidd_cb_param_t *param)
         if (param->open.status == ESP_HIDD_SUCCESS &&
             param->open.conn_status == ESP_HIDD_CONN_STATE_CONNECTED) {
             portENTER_CRITICAL(&lock);
+            memcpy(hid_peer, param->open.bd_addr, sizeof(hid_peer));
             connected = true;
             connecting = false;
             unplugged = false;
@@ -215,17 +223,21 @@ static void button_task(void *arg)
     while (true) {
         TickType_t now = xTaskGetTickCount();
         portENTER_CRITICAL(&lock);
-        bool up = connected;
+        bool up = connected && hfp_connected && memcmp(hid_peer, peer, sizeof(peer)) == 0;
         unsigned epoch = generation;
-        bool can_connect = registered && hfp_connected && !connected && !connecting && !unplugged;
-        portEXIT_CRITICAL(&lock);
-        if (can_connect && now - last_connect >= pdMS_TO_TICKS(5000)) {
-            last_connect = now;
-            portENTER_CRITICAL(&lock);
+        bool can_connect = registered && hfp_connected && !connected && !connecting && !unplugged &&
+                           now - last_connect >= pdMS_TO_TICKS(5000);
+        esp_bd_addr_t target;
+        if (can_connect) {
             connecting = true;
-            portEXIT_CRITICAL(&lock);
-            esp_err_t err = esp_bt_hid_device_connect(peer);
-            ESP_LOGI(TAG, "connect HID to test Mac: %s", esp_err_to_name(err));
+            memcpy(target, peer, sizeof(target));
+            memcpy(hid_peer, target, sizeof(hid_peer));
+        }
+        portEXIT_CRITICAL(&lock);
+        if (can_connect) {
+            last_connect = now;
+            esp_err_t err = esp_bt_hid_device_connect(target);
+            ESP_LOGI(TAG, "connect HID to HFP host: %s", esp_err_to_name(err));
             if (err != ESP_OK) {
                 portENTER_CRITICAL(&lock);
                 connecting = false;
@@ -255,9 +267,8 @@ static void button_task(void *arg)
     }
 }
 
-void boot_hid_init(const uint8_t *mac)
+void boot_hid_init(void)
 {
-    memcpy(peer, mac, sizeof(peer));
     completion = xSemaphoreCreateBinary();
     configASSERT(completion);
     control_reports = xQueueCreate(4, sizeof(control_report_t));

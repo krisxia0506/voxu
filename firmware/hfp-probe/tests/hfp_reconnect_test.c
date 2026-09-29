@@ -1,6 +1,7 @@
 #include <assert.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <string.h>
 #include "hfp_reconnect.h"
 
 int main(void)
@@ -8,6 +9,13 @@ int main(void)
     hfp_reconnect_t state = {0};
     assert(!hfp_reconnect_poll(&state, 100)); // Never before profile initialization.
     state.ready = true;
+    assert(!hfp_reconnect_poll(&state, 100)); // No previous host: wait for pairing.
+    const uint8_t first[6] = {1, 2, 3, 4, 5, 6};
+    const uint8_t second[6] = {6, 5, 4, 3, 2, 1};
+    assert(hfp_reconnect_remember(&state, first));
+    assert(!hfp_reconnect_remember(&state, first)); // Avoid rewriting flash each reconnect.
+    assert(hfp_reconnect_remember(&state, second));
+    assert(memcmp(state.peer, second, 6) == 0); // Latest host replaces old target.
     assert(hfp_reconnect_poll(&state, 100)); // No inquiry/host discoverability needed.
     assert(!hfp_reconnect_poll(&state, 60000)); // One outstanding request only.
     hfp_reconnect_disconnected(&state, 60000); // Async failure or link loss.
