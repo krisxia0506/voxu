@@ -110,6 +110,7 @@
     "button-cap-lid_intersection_mm3": 0.0,
     "button-pin-lid_intersection_mm3": 0.0,
     "button-pin-base_intersection_mm3": 0.0,
+    "button_motion_clearance": "3 pin lengths x 7 positions: no intersection with nominal lid/base/PCB",
     "button_downstroke_mm": 0.6,
     "switch_motion_after_gap_mm": 0.3,
     "real_hardware_fit": "UNVERIFIED: print fit tests and measure BOOT height before final assembly"

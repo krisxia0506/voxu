@@ -10,7 +10,7 @@ import trimesh
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
-from mpl_toolkits.mplot3d.art3d import Poly3DCollection
+from matplotlib.colors import to_rgb
 
 ROOT = Path(__file__).resolve().parent
 P = json.loads((ROOT / 'parameters.json').read_text())
@@ -127,6 +127,13 @@ for name,a,b in [('base-lid',base,lid),('board-base',board,base),('board-lid',bo
     volume=(a^b).volume()
     assert volume < 1e-5, (name, volume)
     report['checks'][name+'_intersection_mm3']=round(volume,8)
+for label,extra in [('short',-0.4),('standard',0),('long',0.4)]:
+    for travel in np.linspace(0,P['button_downstroke'],7):
+        for name,fixed in [('lid',lid),('base',base),('pcb',board)]:
+            volume=(pin(extra).translate((0,0,-float(travel)))^fixed).volume()
+            assert volume < 1e-5, (label,travel,name,volume)
+        assert (cap.translate((0,0,-float(travel)))^lid).volume() < 1e-5
+report['checks']['button_motion_clearance']='3 pin lengths x 7 positions: no intersection with nominal lid/base/PCB'
 # Pin deliberately interferes with cap socket by 0.10 mm diameter for press/glue fit.
 report['checks']['button_downstroke_mm']=P['button_downstroke']
 report['checks']['switch_motion_after_gap_mm']=P['button_downstroke']-P['button_initial_gap']
@@ -139,15 +146,49 @@ views=[('ASSEMBLED',[(base,'#343a40'),(lid,'#b9db42'),(cap,'#343a40')]),
        ('EXPLODED',[(base,'#343a40'),(board,'#217a78'),(lid.translate((0,0,20)),'#b9db42'),(cap.translate((0,0,24)),'#444444'),(pin().translate((0,0,20)),'#888888')]),
        ('BASE / PCB FIT',[(base,'#8a929c'),(board,'#217a78')]),
        ('LID UNDERSIDE',[(lid,'#b9db42')])]
+def raster(items, elevation=32):
+    # Orthographic z-buffer: resolves occlusion of large coplanar CAD triangles.
+    w,h=1000,640
+    direction=np.array([np.cos(np.deg2rad(elevation))*np.cos(np.deg2rad(-125)),
+                        np.cos(np.deg2rad(elevation))*np.sin(np.deg2rad(-125)),
+                        np.sin(np.deg2rad(elevation))])
+    right=np.cross([0,0,1],direction);right/=np.linalg.norm(right)
+    up=np.cross(direction,right)
+    ts=[mesh(s) for s,c in items]
+    allv=np.vstack([t.vertices for t in ts])
+    uv=np.column_stack((allv@right,allv@up))
+    center=(uv.min(0)+uv.max(0))/2
+    scale=min((w-60)/np.ptp(uv[:,0]),(h-60)/np.ptp(uv[:,1]))
+    canvas=np.ones((h,w,3))*0.96
+    depth=np.ones((h,w))*-np.inf
+    light=direction+np.array([-0.3,0.1,0.7]);light/=np.linalg.norm(light)
+    for t,(_,color) in zip(ts,items):
+        projected=np.column_stack(((t.vertices@right-center[0])*scale+w/2,
+                                   h/2-(t.vertices@up-center[1])*scale,
+                                   t.vertices@direction))
+        for face,normal in zip(t.faces,t.face_normals):
+            if normal@direction <= 0: continue
+            v=projected[face]
+            xmin=max(0,int(np.floor(v[:,0].min()))); xmax=min(w-1,int(np.ceil(v[:,0].max())))
+            ymin=max(0,int(np.floor(v[:,1].min()))); ymax=min(h-1,int(np.ceil(v[:,1].max())))
+            if xmin>xmax or ymin>ymax: continue
+            xx,yy=np.meshgrid(np.arange(xmin,xmax+1)+0.5,np.arange(ymin,ymax+1)+0.5)
+            x0,y0=v[0,:2];x1,y1=v[1,:2];x2,y2=v[2,:2]
+            den=(y1-y2)*(x0-x2)+(x2-x1)*(y0-y2)
+            if abs(den)<1e-10: continue
+            aa=((y1-y2)*(xx-x2)+(x2-x1)*(yy-y2))/den
+            bb=((y2-y0)*(xx-x2)+(x0-x2)*(yy-y2))/den
+            cc=1-aa-bb
+            zz=aa*v[0,2]+bb*v[1,2]+cc*v[2,2]
+            sub=depth[ymin:ymax+1,xmin:xmax+1]
+            mask=(aa>=-1e-8)&(bb>=-1e-8)&(cc>=-1e-8)&(zz>sub)
+            sub[mask]=zz[mask]
+            canvas[ymin:ymax+1,xmin:xmax+1][mask]=np.array(to_rgb(color))*(0.45+0.55*max(0,normal@light))
+    return canvas
+
 for i,(title,items) in enumerate(views):
-    ax=fig.add_subplot(2,2,i+1,projection='3d')
-    for s,c in items:
-        t=mesh(s)
-        poly=Poly3DCollection(t.vertices[t.faces],facecolor=c,edgecolor='none',alpha=1)
-        ax.add_collection3d(poly)
-    ax.set_xlim(-3,L+3);ax.set_ylim(-3,W+3);ax.set_zlim(0,60 if i==1 else 34)
-    ax.set_box_aspect((L,W,60 if i==1 else 34))
-    ax.view_init(elev=-35 if i==3 else 32,azim=-125)
+    ax=fig.add_subplot(2,2,i+1)
+    ax.imshow(raster(items,-35 if i==3 else 32))
     ax.set_axis_off();ax.set_title(title,fontsize=12)
 fig.suptitle(f'VOXU / P2S PROTOTYPE   {L} x {W} x {top+3:.1f} mm',fontsize=18)
 fig.tight_layout()
@@ -156,7 +197,7 @@ plt.close(fig)
 with zipfile.ZipFile(ROOT/'voxu-p2s-prototype.zip','w',zipfile.ZIP_DEFLATED) as z:
     for p in sorted(OUT.glob('*.stl')):
         z.write(p,'stl/'+p.name)
-    for name in ['README.md','parameters.json','validation.json','preview.png','generate.py','requirements.txt']:
+    for name in ['README.md','parameters.json','validation.json','preview.png','generate.py','requirements.txt','slicer-result.json']:
         p=ROOT/name
         if p.exists(): z.write(p,name)
 print(json.dumps(report,indent=2))
