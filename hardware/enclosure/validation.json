@@ -1,5 +1,5 @@
 {
-  "revision": "v2-soldered-stacked",
+  "revision": "v3-snap-board",
   "parameters": {
     "shell_length": 60,
     "shell_width": 40,
@@ -29,7 +29,9 @@
     "usb_height": 4.2,
     "usb_bottom_z": 5.2,
     "usb_protrusion": 2.0,
-    "usb_front_recess": 0.4
+    "usb_front_recess": 0.4,
+    "button_pin_extension": 0.4,
+    "board_clip_clearance": 0.05
   },
   "parts": {
     "base": {
@@ -38,7 +40,7 @@
         40.0,
         17.0
       ],
-      "volume_mm3": 11069.02,
+      "volume_mm3": 11453.19,
       "watertight": true,
       "connected_components": 1
     },
@@ -72,27 +74,7 @@
       "watertight": true,
       "connected_components": 1
     },
-    "button-pin-standard": {
-      "size_mm": [
-        7.0,
-        7.0,
-        6.45
-      ],
-      "volume_mm3": 92.43,
-      "watertight": true,
-      "connected_components": 1
-    },
-    "button-pin-short": {
-      "size_mm": [
-        7.0,
-        7.0,
-        6.05
-      ],
-      "volume_mm3": 90.91,
-      "watertight": true,
-      "connected_components": 1
-    },
-    "button-pin-long": {
+    "button-pin": {
       "size_mm": [
         7.0,
         7.0,
@@ -118,13 +100,19 @@
     "mic-components_intersection_mm3": 0.0,
     "mic-capsule-components_intersection_mm3": 0.0,
     "mic-capsule-clamp_intersection_mm3": 0.0,
-    "button_motion_clearance": "3 pin lengths x 7 positions",
+    "pcb_support_pad_size_mm": [
+      6,
+      6
+    ],
+    "pcb_snap_retention": "4 clips clear seated PCB; each intercepts PCB lifted 0.3 mm; real flex/force unverified",
+    "button_motion_clearance": "user-confirmed long pin x 7 positions",
     "pin_cap_insertion": "21 positions without solid intersection",
     "button_guide_length_mm": 8.0,
     "usb_front_recess_mm": 0.4,
     "usb_reference": "GCT USB4105 shell 8.94 x 3.31 mm; not an identification of the actual PCB connector",
     "mic_holes": "9 through holes, 2.4 mm diameter, 1.0 mm minimum web",
     "button_downstroke_mm": 0.6,
-    "real_hardware_fit": "UNVERIFIED: USB dimensions, solder clearance and BOOT position/height need physical fitting"
+    "user_verified": "V2 USB alignment, direct microphone mounting and longest BOOT pin confirmed by user",
+    "real_hardware_fit": "V3 board snap force and enlarged support pads not yet physically verified"
   }
 }

@@ -27,5 +27,7 @@
   "usb_height": 4.2,
   "usb_bottom_z": 5.2,
   "usb_protrusion": 2.0,
-  "usb_front_recess": 0.4
+  "usb_front_recess": 0.4,
+  "button_pin_extension": 0.4,
+  "board_clip_clearance": 0.05
 }
