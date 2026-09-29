@@ -1,0 +1,22 @@
+{
+  "shell_length": 88,
+  "shell_width": 42,
+  "seam_z": 24,
+  "lid_thickness": 2.4,
+  "board_length": 51.45,
+  "board_width": 28.33,
+  "board_x": 8,
+  "board_bottom_z": 10,
+  "board_thickness": 1.6,
+  "boot_offset_x": 3.1,
+  "boot_offset_y": 6.0,
+  "boot_height_above_pcb": 3.2,
+  "button_initial_gap": 0.3,
+  "button_downstroke": 0.6,
+  "button_socket_diameter": 2.9,
+  "mic_diameter": 14,
+  "mic_x": 73,
+  "usb_width": 14,
+  "usb_height": 9,
+  "usb_bottom_z": 10.2
+}
