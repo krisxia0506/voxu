@@ -11,6 +11,7 @@
 #include "esp_hf_client_api.h"
 #include "esp_hf_client_legacy_api.h"
 #include "esp_log.h"
+#include "esp_system.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "nvs_flash.h"
@@ -45,10 +46,17 @@ static void reconnect_task(void *arg)
     (void)arg;
     while (true) {
         portENTER_CRITICAL(&reconnect_lock);
+        bool stalled = hfp_reconnect_stalled(&reconnect, now_ms());
         bool attempt = hfp_reconnect_poll(&reconnect, now_ms());
         esp_bd_addr_t target;
         memcpy(target, reconnect.peer, sizeof(target));
         portEXIT_CRITICAL(&reconnect_lock);
+        if (stalled) {
+            // ESP-IDF may leave its profile queue busy after an ACL collision.
+            // Repeating connect only queues/drops duplicates; restart clears it.
+            ESP_LOGW(TAG, "HFP setup stalled for 60s; restarting to recover Bluetooth");
+            esp_restart();
+        }
         if (attempt) {
             esp_err_t err = esp_hf_client_connect(target);
             ESP_LOGI(TAG, "auto-connect HFP to previous host: %s", esp_err_to_name(err));
@@ -120,7 +128,9 @@ static void hf_callback(esp_hf_client_cb_event_t event, esp_hf_client_cb_param_t
             hfp_reconnect_disconnected(&reconnect, now_ms());
         } else {
             // Includes inbound RFCOMM setup; wait for completion before retrying.
+            if (!reconnect.busy) reconnect.attempt_started = now_ms();
             reconnect.busy = true;
+            if (param->conn_stat.state == ESP_HF_CLIENT_CONNECTION_STATE_SLC_CONNECTED) reconnect.connected = true;
         }
         portEXIT_CRITICAL(&reconnect_lock);
         if (param->conn_stat.state == ESP_HF_CLIENT_CONNECTION_STATE_SLC_CONNECTED) {

@@ -28,5 +28,11 @@ int main(void)
     hfp_reconnect_disconnected(&state, UINT32_MAX - 1000);
     assert(!hfp_reconnect_poll(&state, 3998));
     assert(hfp_reconnect_poll(&state, 3999)); // Millisecond counter rollover.
+    assert(!hfp_reconnect_stalled(&state, 63998));
+    assert(hfp_reconnect_stalled(&state, 63999)); // Missing completion must not hang forever.
+    state.connected = true;
+    assert(!hfp_reconnect_stalled(&state, 120000)); // Never reboot a healthy HFP connection.
+    hfp_reconnect_disconnected(&state, 120000);
+    assert(!hfp_reconnect_stalled(&state, 190000)); // Ordinary failures use retry, not reboot.
     puts("hfp reconnect tests passed");
 }
