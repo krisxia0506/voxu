@@ -1,6 +1,6 @@
 # Voice Puck V1：Mac HFP 采音验证
 
-此工程是原版 ESP32 + INMP441 的单机验证固件。它把 D26/D25/D33 上的 I²S 麦克风采样转换成 16 位单声道 PCM，并通过 Bluetooth Classic HFP HF 的 HCI 音频路径送给 Mac。当前没有按键、电池管理、扬声器、自动静音或 Typeless 控制。
+此工程是原版 ESP32 + INMP441 的单机验证固件。它把 D26/D25/D33 上的 I²S 麦克风采样转换成 16 位单声道 PCM，并通过 Bluetooth Classic HFP HF 的 HCI 音频路径送给 Mac。另通过 Bluetooth Classic HID 键盘服务，把 BOOT（GPIO0）映射为一次 `Control + Option + Shift + Command + F13` 快捷键。没有电池管理、扬声器或自动静音。
 
 ## 本机编译与刷入
 
@@ -30,3 +30,35 @@ USB 串口名称可能变化。接线沿用项目根目录的 `WIRING.md`。首�
 - 原始测试音为 [1khz-test-tone.wav](evidence/1khz-test-tone.wav)，蓝牙麦克风实际录音为 （实录音频已移除，仅保留测量记录）。
 
 尚未验证 Typeless 听写、合盖场景、长时间稳定性、重连恢复和语音音质。测试固件会在 Mac 仍选择该设备输入时持续通过蓝牙发送音频。
+
+## BOOT 触发 Typeless（按一下开始，再按一下结束）
+
+正常启动后按 BOOT；不要在上电或按 EN 复位时按住 BOOT，否则会进入下载模式。EN 是复位键，不能用作业务按键。无需添加按钮模块或更改麦克风接线。
+
+- 每次有效按下发送 `⌃⌥⇧⌘F13`（左 Control、Option、Shift、Command + F13），80 ms 后释放全部按键。长按不重复发送；松开 BOOT 本身不发送第二次快捷键。
+- GPIO0 使用上拉输入，30 ms 消抖。HID 未连接时不缓存按键；连接时先释放全部键，必须先松开再按，避免重连误触发。
+- 使用现有 Classic 蓝牙栈，同时提供 HFP 音频与 HID 键盘。HFP 连上本机测试 Mac 后尝试连接 HID；日志 `HID open status=0 state=0` 表示 HID 已连接。
+- 串口 `BOOT pressed`、`shortcut down: sent`、`shortcut up: sent` 只能证明设备侧按键与发送，仍须在 Mac/Typeless 确认快捷键与听写结果。
+- 这是单机验证固件，连接目标沿用 `test_mac`；不保证其他系统兼容、休眠恢复或量产重连可靠性。
+
+### Typeless 设置与验收
+
+1. 刷入后连接 `Voice Puck V1`。如果 Mac 缓存了旧设备的 HFP 服务，可能需要移除该蓝牙设备并重新配对，才能枚举新增的 HID 键盘。
+2. Typeless 设置 → 快捷键 → 语音输入 → **添加另一个**，按一次 BOOT，确认录入 `Control + Option + Shift + Command + F13`。保留原有 Fn/其他绑定。F13 不在 MacBook 内建键盘上，由 ESP32 发送；是否接受以当前 Typeless 实测为准。
+3. 麦克风选择 `Voice Puck V1`（或自动检测且当前系统输入为该设备），输出仍使用 Mac 扬声器。
+4. 在测试文本框中按 BOOT，确认开始录音；说一句测试语，再按 BOOT，确认停止并输出文字。连续重复，并长按 BOOT 检查没有多次切换。
+5. 同时确认串口 HFP/SCO 仍连接、普通键盘没有修饰键残留。
+
+快捷键降低常见冲突概率，不保证与用户自定义绑定绝对无冲突。固件只发送快捷键，不保存“正在听写”的状态；实际开始/结束由 Typeless 决定。
+
+### 本地按键回归测试
+
+从仓库根目录执行：
+
+```sh
+cc -std=c11 -Wall -Wextra -Werror -Ifirmware/hfp-probe/src \
+  firmware/hfp-probe/tests/boot_button_test.c firmware/hfp-probe/src/boot_button.c \
+  -o /tmp/voxu-boot-test && /tmp/voxu-boot-test
+```
+
+覆盖接触抖动、长按不重复、第二次按下、启动时按住、断线重连时按住和计时器回绕。此测试不能替代硬件 HID/HFP 共存与 Typeless 验证。
