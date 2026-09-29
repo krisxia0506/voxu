@@ -14,6 +14,7 @@
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "nvs_flash.h"
+#include "nvs.h"
 
 #define MIC_RATE 16000
 #define READ_SAMPLES 128
@@ -30,9 +31,8 @@ static esp_bd_addr_t peer_address;
 static volatile bool audio_connected;
 static volatile bool wideband;
 static volatile bool service_connected;
-// Local Mac Bluetooth controller address for this one-device feasibility probe.
-static esp_bd_addr_t test_mac = {0xfc, 0xb2, 0x14, 0xb1, 0x8f, 0x7b};
 static hfp_reconnect_t reconnect;
+static nvs_handle_t peer_store;
 static portMUX_TYPE reconnect_lock = portMUX_INITIALIZER_UNLOCKED;
 
 static uint32_t now_ms(void)
@@ -46,10 +46,12 @@ static void reconnect_task(void *arg)
     while (true) {
         portENTER_CRITICAL(&reconnect_lock);
         bool attempt = hfp_reconnect_poll(&reconnect, now_ms());
+        esp_bd_addr_t target;
+        memcpy(target, reconnect.peer, sizeof(target));
         portEXIT_CRITICAL(&reconnect_lock);
         if (attempt) {
-            esp_err_t err = esp_hf_client_connect(test_mac);
-            ESP_LOGI(TAG, "auto-connect HFP to test Mac: %s", esp_err_to_name(err));
+            esp_err_t err = esp_hf_client_connect(target);
+            ESP_LOGI(TAG, "auto-connect HFP to previous host: %s", esp_err_to_name(err));
             if (err != ESP_OK) {
                 portENTER_CRITICAL(&reconnect_lock);
                 hfp_reconnect_disconnected(&reconnect, now_ms());
@@ -124,12 +126,20 @@ static void hf_callback(esp_hf_client_cb_event_t event, esp_hf_client_cb_param_t
         if (param->conn_stat.state == ESP_HF_CLIENT_CONNECTION_STATE_SLC_CONNECTED) {
             memcpy(peer_address, param->conn_stat.remote_bda, ESP_BD_ADDR_LEN);
             service_connected = true;
-            boot_hid_set_hfp_connected(true);
+            portENTER_CRITICAL(&reconnect_lock);
+            bool changed = hfp_reconnect_remember(&reconnect, peer_address);
+            portEXIT_CRITICAL(&reconnect_lock);
+            if (changed) {
+                esp_err_t saved = nvs_set_blob(peer_store, "last_peer", peer_address, sizeof(peer_address));
+                if (saved == ESP_OK) saved = nvs_commit(peer_store);
+                ESP_LOGI(TAG, "save last connected host: %s", esp_err_to_name(saved));
+            }
+            boot_hid_set_hfp_connected(true, peer_address);
             esp_err_t err = esp_hf_client_connect_audio(peer_address);
             ESP_LOGI(TAG, "request SCO audio: %s", esp_err_to_name(err));
         } else if (param->conn_stat.state == ESP_HF_CLIENT_CONNECTION_STATE_DISCONNECTED) {
             service_connected = false;
-            boot_hid_set_hfp_connected(false);
+            boot_hid_set_hfp_connected(false, NULL);
             audio_connected = false;
             ring_reset();
         }
@@ -238,6 +248,16 @@ void app_main(void)
         err = nvs_flash_init();
     }
     ESP_ERROR_CHECK(err);
+    ESP_ERROR_CHECK(nvs_open("voxu", NVS_READWRITE, &peer_store));
+    esp_bd_addr_t saved_peer;
+    size_t saved_size = sizeof(saved_peer);
+    err = nvs_get_blob(peer_store, "last_peer", saved_peer, &saved_size);
+    if (err == ESP_OK && saved_size == sizeof(saved_peer)) {
+        hfp_reconnect_remember(&reconnect, saved_peer);
+        ESP_LOGI(TAG, "loaded previous host from NVS");
+    } else {
+        ESP_LOGI(TAG, "no previous host; pair/connect from the computer once");
+    }
     ESP_ERROR_CHECK(esp_bt_controller_mem_release(ESP_BT_MODE_BLE));
     esp_bt_controller_config_t bt_config = BT_CONTROLLER_INIT_CONFIG_DEFAULT();
     ESP_ERROR_CHECK(esp_bt_controller_init(&bt_config));
@@ -248,7 +268,7 @@ void app_main(void)
 
     ESP_ERROR_CHECK(esp_bt_gap_register_callback(gap_callback));
     ESP_ERROR_CHECK(esp_hf_client_register_callback(hf_callback));
-    boot_hid_init(test_mac);
+    boot_hid_init();
     ESP_ERROR_CHECK(esp_hf_client_init());
     ESP_ERROR_CHECK(esp_bt_gap_set_device_name("Voice Puck V1"));
     esp_bt_io_cap_t io_capability = ESP_BT_IO_CAP_NONE;
