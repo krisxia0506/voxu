@@ -35,124 +35,166 @@ def mesh(s):
 
 L, W = P['shell_length'], P['shell_width']
 seam, top = P['seam_z'], P['seam_z']+P['lid_thickness']
-bx, by = P['board_x'], (W-P['board_width'])/2
+bx, by = P['usb_protrusion']+P['usb_front_recess'], (W-P['board_width'])/2
 bl, bw, bz = P['board_length'], P['board_width'], P['board_bottom_z']
 bootx, booty = bx+P['boot_offset_x'], by+P['boot_offset_y']
 mx, my = P['mic_x'], W/2
-screws = [(4,4), (L-4,4), (4,W-4), (L-4,W-4)]
-# Open-top tray, 2 mm floor/walls. Rounded body; exterior grip flutes are shallow.
-base = rr(0,0,0,L,W,seam,7)-rr(2,2,2,L-4,W-4,seam+1,5)
-for x in range(24,58,6):
-    for y in [-0.5,W-0.7]:
-        base -= box(x,y,6,2,1.2,11)
-# Four screw bosses with blind pilot holes (no heat-set insert required).
+screws = [(3.4,2.8),(L-3.4,2.8),(3.4,W-2.8),(L-3.4,W-2.8)]
+base = rr(0,0,0,L,W,seam,4)-rr(2,2,2,L-4,W-4,seam+1,2)
 for x,y in screws:
-    base += cyl(x,y,2,3.1,seam-2)
-    base -= cyl(x,y,seam-10,0.85,11)
-# Support only the four PCB corners; underside pins and wires remain free.
+    base += cyl(x,y,2,2.7,seam-2)
+    base -= cyl(x,y,seam-9,0.85,10)
 corner_pads = [(bx,by),(bx+bl-3,by),(bx,by+bw-3),(bx+bl-3,by+bw-3)]
 for x,y in corner_pads:
     base += box(x,y,2,3,3,bz-2)
-# End fences and small side fences locate PCB without relying on screw-hole pitch.
-for x in [bx-1.4,bx+bl+0.3]:
-    for y in [by,by+bw-4]:
-        base += box(x,y,2,1.1,4,bz+2-2)
-for y in [by-1.4,by+bw+0.3]:
+# PCB is located by front wall, side fences and rear fence, not pin headers.
+for y in [by-1.3,by+bw+0.3]:
     for x in [bx+4,bx+bl-8]:
-        base += box(x,y,2,4,1.1,bz+2-2)
-# Generous cable-plug entry, open toward PCB connector. Actual port Z remains adjustable.
-base -= box(-1,W/2-P['usb_width']/2,P['usb_bottom_z'],bx+1,P['usb_width'],P['usb_height'])
-# Flat lid and friction alignment skirt (0.3 mm per-side clearance).
-lid = rr(0,0,seam,L,W,P['lid_thickness'],7)
-skirt = rr(2.3,2.3,seam-2,L-4.6,W-4.6,2.2,4.7)-rr(3.5,3.5,seam-2.1,L-7,W-7,2.5,3.5)
+        base += box(x,y,2,4,1,bz+P['board_thickness']+0.3-2)
+for y in [by,by+bw-4]:
+    base += box(bx+bl+0.3,y,2,1,4,bz+P['board_thickness']+0.3-2)
+# Front-face capsule opening based on GCT USB4105 drawing; actual PCB socket
+# part number is unknown. User measured 2 mm projection past the board edge.
+def usb_capsule(x, length, width, height, zcenter):
+    a=m.Manifold.cylinder(length,height/2,circular_segments=64).rotate((0,90,0))
+    a=a.translate((x,W/2-(width-height)/2,zcenter))
+    b=m.Manifold.cylinder(length,height/2,circular_segments=64).rotate((0,90,0))
+    b=b.translate((x,W/2+(width-height)/2,zcenter))
+    return (a+b).hull()
+usb_z=P['usb_bottom_z']+P['usb_height']/2
+base -= usb_capsule(-1,bx+2,P['usb_width'],P['usb_height'],usb_z)
+base -= usb_capsule(-0.1,0.9,P['usb_width']+2,P['usb_height']+2,usb_z)
+lid = rr(0,0,seam,L,W,P['lid_thickness'],4)
+skirt = rr(2.3,2.3,seam-1.6,L-4.6,W-4.6,1.8,1.7)-rr(3.5,3.5,seam-1.7,L-7,W-7,2.1,0.5)
 for x,y in screws:
-    skirt -= cyl(x,y,seam-3,3.5,4)
+    skirt -= cyl(x,y,seam-2,3.1,3)
+# The front alignment skirt is interrupted around the long BOOT guide.
+skirt -= box(0,booty-4,seam-2,10,8,3)
 lid += skirt
-# Hold-down fingers, 0.25 mm PCB clearance, directly above supporting corners.
 for x,y in corner_pads:
-    lid += box(x+0.5,y+0.5,bz+P['board_thickness']+0.25,2,2,seam-(bz+P['board_thickness']+0.25)+0.1)
+    lid += box(x+0.5,y+0.5,bz+P['board_thickness']+0.2,2,2,
+               seam-(bz+P['board_thickness']+0.2)+0.1)
 for x,y in screws:
     lid -= cyl(x,y,seam-1,1.15,8)
     lid -= cyl(x,y,top-1,2.05,5)
-# Mic socket on underside, open for installation; two wiring windows.
-mic_ring = cyl(mx,my,seam-2.5,9,2.6)-cyl(mx,my,seam-2.6,P['mic_diameter']/2+0.35,2.9)
-for y in [my+4,my-11]:
-    mic_ring -= box(mx-5,y,seam-3,10,7,4)
+
+# Microphone above the central PCB area; sound-hole face toward the lid.
+mic_top = seam-P['mic_acoustic_gap']
+mic_bottom = mic_top-P['mic_pcb_thickness']
+mic_ring = cyl(mx,my,mic_bottom-0.3,8.7,seam-(mic_bottom-0.3)+0.1)
+mic_ring -= cyl(mx,my,mic_bottom-0.4,P['mic_diameter']/2+0.2,4)
+for y in [my+4,my-10]:
+    mic_ring -= box(mx-5,y,mic_bottom-0.4,10,6,4)
+# Two slots let clamp fingers reach the PCB rim without touching the capsule.
+mic_ring -= box(mx-10,my-1.7,mic_bottom-0.4,20,3.6,0.7)
+for y in [my+6.8,my-10.8]:
+    mic_ring -= box(mx-10,y,mic_bottom-0.4,20,4,0.7)
 lid += mic_ring
-for x in [-2,0,2]:
-    for y in [-2,0,2]:
-        lid -= cyl(mx+x,my+y,seam-0.1,0.6,4)
-# Two-piece guided button: cap above lid is a hard stop; pin flange retains cap.
-lid -= cyl(bootx,booty,seam-1,3.7,8)
-cap_bottom = top+P['button_downstroke']
-cap = rr(bootx-6,booty-4,cap_bottom,12,8,2,3.8)
-cap += cyl(bootx,booty,seam-0.2,3.4,cap_bottom-(seam-0.2)+0.1)
-cap -= cyl(bootx,booty,seam-0.3,P['button_socket_diameter']/2,4.7)
-# Lead-in opens at the insertion face; retains 3.4 mm guide diameter deeper inside.
-cap -= m.Manifold.cylinder(P['button_socket_entry_depth'],
-    P['button_socket_entry_diameter']/2,P['button_socket_diameter']/2,
-    circular_segments=64).translate((bootx,booty,seam-0.2))
-foot = bz+P['board_thickness']+P['boot_height_above_pcb']+P['button_initial_gap']
+for x in [mx-6.4,mx+5.7]:
+    lid += box(x,my-1.4,mic_top,0.7,2.8,seam-mic_top+0.1)
+mic_screws=[(mx-11,my),(mx+11,my)]
+for x,y in mic_screws:
+    lid += cyl(x,y,mic_bottom,2.4,seam-mic_bottom+0.1)
+    lid -= cyl(x,y,mic_bottom-0.1,0.85,3.7)
+# 2.4 mm holes at 3.4 mm pitch: 1 mm web, rather than fragile 1.2 mm bores.
+for x in [-P['mic_hole_pitch'],0,P['mic_hole_pitch']]:
+    for y in [-P['mic_hole_pitch'],0,P['mic_hole_pitch']]:
+        lid -= cyl(mx+x,my+y,seam-0.1,P['mic_hole_diameter']/2,4)
+clamp = rr(mx-13,my-10,mic_bottom-1.4,26,20,1.4,2)
+clamp -= rr(mx-9,my-7,mic_bottom-1.5,18,14,1.7,1)
+for x in [mx-9.2,mx+5.8]:
+    clamp += box(x,my-1.5,mic_bottom-1.4,3.4,3,1.4)
+for x,y in mic_screws:
+    clamp -= cyl(x,y,mic_bottom-1.5,1.15,2)
+
+# Long square guide restrains tilt and rotation, ending close to the BOOT foot.
+guide_bottom=P['button_guide_bottom_z']
+stem=P['button_stem_width']; bore=stem+P['button_guide_clearance']
+lid += box(bootx-3.5,booty-3.5,guide_bottom,7,7,seam-guide_bottom+0.1)
+lid -= box(bootx-bore/2,booty-bore/2,guide_bottom-0.1,bore,bore,top-guide_bottom+0.2)
+cap_bottom=top+P['button_downstroke']
+neck_bottom=guide_bottom-0.2
+cap=rr(bootx-4,booty-4,cap_bottom,8,8,2,1.5)
+cap += box(bootx-stem/2,booty-stem/2,neck_bottom,stem,stem,cap_bottom-neck_bottom+0.1)
+cap -= cyl(bootx,booty,neck_bottom-0.1,P['button_socket_diameter']/2,4.8)
+cap -= m.Manifold.cylinder(0.6,2.0,P['button_socket_diameter']/2,
+                           circular_segments=64).translate((bootx,booty,neck_bottom))
+foot=bz+P['board_thickness']+P['boot_height_above_pcb']+P['button_initial_gap']
 
 def pin(extra=0):
-    a = cyl(bootx,booty,seam-1.4,5,1.2)
-    # Flat on flange clears the nearby PCB corner hold-down finger.
-    a -= box(bootx-6,booty-6,seam-1.5,12,3,1.5)
-    a += cyl(bootx,booty,foot-extra,1.4,seam-1.4-(foot-extra)+0.1)
-    a += cyl(bootx,booty,seam-0.3,1.5,4.3)
+    flange_z=neck_bottom-1.2
+    assert flange_z-(foot-extra) >= 0.4, "Contact foot must survive at least two 0.2 mm layers"
+    a=box(bootx-3.5,booty-3.5,flange_z,7,7,1.2)
+    a += cyl(bootx,booty,foot-extra,1.1,flange_z-(foot-extra)+0.1)
+    a += cyl(bootx,booty,neck_bottom-0.1,1.5,4.3)
     return a
 
-# Printable coupon: full-board fit tray plus separate guide/plug gauges.
-# Slice of the real base checks PCB placement, corner supports and USB opening.
-coupon = base ^ box(-1,-1,0,bx+bl+3,W+2,bz+2.2)
-guide = box(0,0,0,18,18,2.4)-cyl(9,9,-1,3.7,5)
-# Keep CAD assembly coordinates separate from print orientations.
-parts = {'base':base,'lid':lid,'button-cap':cap,'button-pin-standard':pin(),
-         'button-pin-short':pin(-0.4),'button-pin-long':pin(0.4),
-         'board-fit-test':coupon,'button-guide-test':guide}
-report = {'parameters':P,'parts':{},'checks':{}}
-for name, solid in parts.items():
-    t = mesh(solid)
-    assert str(solid.status()) == 'Error.NoError', (name,solid.status())
-    assert t.is_watertight and t.is_winding_consistent and t.volume>0, name
-    assert len(t.split()) == 1, (name,'disconnected shells')
-    # Flat exterior of lid and flat top of cap face the print bed.
+# Full low tray checks the compact PCB mounting, with open access for test wiring.
+coupon=base ^ box(-1,-1,0,L+2,W+2,bz+P['board_thickness']+1)
+front_coupon=base ^ box(-1,-1,0,12,W+2,P['usb_bottom_z']+P['usb_height']+1)
+guide=box(-2,-2,0,12,12,2.4)+box(0,0,0,7,7,top-guide_bottom)
+guide -= box((7-bore)/2,(7-bore)/2,-1,bore,bore,top-guide_bottom+2)
+parts={'base':base,'lid':lid,'mic-clamp':clamp,'button-cap':cap,
+       'button-pin-standard':pin(),'button-pin-short':pin(-0.4),
+       'button-pin-long':pin(0.4),'board-fit-test':coupon,
+       'usb-front-test':front_coupon,'button-guide-test':guide}
+report={'revision':'v2-soldered-stacked','parameters':P,'parts':{},'checks':{}}
+for name,solid in parts.items():
+    t=mesh(solid)
+    assert str(solid.status())=='Error.NoError',(name,solid.status())
+    assert t.is_watertight and t.is_winding_consistent and t.volume>0,name
+    assert len(t.split())==1,(name,'disconnected shells')
     if name in ['lid','button-cap']:
         t.apply_transform(trimesh.transformations.rotation_matrix(np.pi,[1,0,0]))
     t.apply_translation(-t.bounds[0])
-    assert np.all(t.extents < 256), name
-    t.export(OUT / (name+'.stl'))
+    assert np.all(t.extents<256),name
+    t.export(OUT/(name+'.stl'))
     report['parts'][name]={'size_mm':np.round(t.extents,3).tolist(),'volume_mm3':round(t.volume,2),'watertight':True,'connected_components':1}
-# Mechanical clearance evidence for the declared model, not a real-world fit claim.
-board = box(bx,by,bz,bl,bw,P['board_thickness'])
-for name,a,b in [('base-lid',base,lid),('board-base',board,base),('board-lid',board,lid),('button-cap-lid',cap,lid),('button-pin-lid',pin(),lid),('button-pin-base',pin(),base)]:
+board=box(bx,by,bz,bl,bw,P['board_thickness'])
+mic=cyl(mx,my,mic_bottom,7,P['mic_pcb_thickness'])
+# Conservative component clearance envelope; real solder joints remain unmeasured.
+components=box(bx+12,by+3,bz+P['board_thickness'],bl-16,bw-6,P['board_component_height'])
+mic_capsule=box(mx-3,my-2,mic_bottom-1.2,6,4,1.2)
+for name,a,b in [('usb-shell-base',usb_capsule(P['usb_front_recess'],8,8.94,3.31,bz+P['board_thickness']+3.31/2),base),('base-lid',base,lid),('board-base',board,base),('board-lid',board,lid),
+                 ('cap-lid',cap,lid),('mic-lid',mic,lid),('mic-clamp',mic,clamp),
+                 ('clamp-lid',clamp,lid),('clamp-base',clamp,base),('components-lid',components,lid),('clamp-components',clamp,components),
+                 ('mic-components',mic,components),('mic-capsule-components',mic_capsule,components),
+                 ('mic-capsule-clamp',mic_capsule,clamp)]:
     volume=(a^b).volume()
-    assert volume < 1e-5, (name, volume)
+    assert volume<1e-5,(name,volume)
     report['checks'][name+'_intersection_mm3']=round(volume,8)
 for label,extra in [('short',-0.4),('standard',0),('long',0.4)]:
     for travel in np.linspace(0,P['button_downstroke'],7):
-        for name,fixed in [('lid',lid),('base',base),('pcb',board)]:
+        for name,fixed in [('lid',lid),('base',base),('pcb',board),('mic-clamp',clamp)]:
             volume=(pin(extra).translate((0,0,-float(travel)))^fixed).volume()
-            assert volume < 1e-5, (label,travel,name,volume)
-        assert (cap.translate((0,0,-float(travel)))^lid).volume() < 1e-5
-report['checks']['button_motion_clearance']='3 pin lengths x 7 positions: no intersection with nominal lid/base/PCB'
-# Verify axial insertion into cap, not just the installed button-to-lid fit.
+            assert volume<1e-5,(label,travel,name,volume)
+        assert (cap.translate((0,0,-float(travel)))^lid).volume()<1e-5
 for insertion in np.linspace(-5,0,21):
-    overlap=(cap ^ pin().translate((0,0,float(insertion)))).volume()
-    assert overlap < 1e-5, ('pin-cap insertion interference',float(insertion),overlap)
-report['checks']['pin_cap_insertion']='21 insertion positions: no solid intersection'
-report['checks']['pin_socket_diametral_clearance_mm']=round(P['button_socket_diameter']-3.0,3)
-report['checks']['button_downstroke_mm']=P['button_downstroke']
-report['checks']['switch_motion_after_gap_mm']=P['button_downstroke']-P['button_initial_gap']
-report['checks']['real_hardware_fit']='UNVERIFIED: print fit tests and measure BOOT height before final assembly'
+    overlap=(cap^pin().translate((0,0,float(insertion)))).volume()
+    assert overlap<1e-5,('pin-cap insertion',float(insertion),overlap)
+# Apertures must remain true holes throughout the lid thickness.
+for dx in [-P['mic_hole_pitch'],0,P['mic_hole_pitch']]:
+    for dy in [-P['mic_hole_pitch'],0,P['mic_hole_pitch']]:
+        probe=cyl(mx+dx,my+dy,seam+0.01,P['mic_hole_diameter']/2-0.01,P['lid_thickness']-0.02)
+        assert (probe^lid).volume()<1e-5
+report['checks'].update(button_motion_clearance='3 pin lengths x 7 positions',
+    pin_cap_insertion='21 positions without solid intersection',
+    button_guide_length_mm=round(top-guide_bottom,3),
+    usb_front_recess_mm=P['usb_front_recess'],
+    usb_reference='GCT USB4105 shell 8.94 x 3.31 mm; not an identification of the actual PCB connector',
+    mic_holes='9 through holes, 2.4 mm diameter, 1.0 mm minimum web',
+    button_downstroke_mm=P['button_downstroke'],
+    real_hardware_fit='UNVERIFIED: USB dimensions, solder clearance and BOOT position/height need physical fitting')
 (ROOT/'validation.json').write_text(json.dumps(report,indent=2)+'\n')
 
 # Actual CAD preview, not an AI-generated concept image.
 fig=plt.figure(figsize=(14,9),facecolor='#f0f2f4')
 views=[('ASSEMBLED',[(base,'#343a40'),(lid,'#b9db42'),(cap,'#343a40')]),
-       ('EXPLODED',[(base,'#343a40'),(board,'#217a78'),(lid.translate((0,0,20)),'#b9db42'),(cap.translate((0,0,24)),'#444444'),(pin().translate((0,0,20)),'#888888')]),
+       ('STACKED / EXPLODED',[(base,'#343a40'),(board,'#217a78'),
+         (mic.translate((0,0,13)),'#217a78'),(clamp.translate((0,0,10)),'#666666'),
+         (lid.translate((0,0,20)),'#b9db42'),(cap.translate((0,0,24)),'#444444'),(pin().translate((0,0,20)),'#888888')]),
        ('BASE / PCB FIT',[(base,'#8a929c'),(board,'#217a78')]),
-       ('LID UNDERSIDE',[(lid,'#b9db42')])]
+       ('LID / GUIDE / MIC CLAMP',[(lid,'#b9db42'),(mic,'#217a78'),(clamp,'#666666')])]
 def raster(items, elevation=32):
     # Orthographic z-buffer: resolves occlusion of large coplanar CAD triangles.
     w,h=1000,640

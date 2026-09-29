@@ -1,122 +1,160 @@
 {
+  "revision": "v2-soldered-stacked",
   "parameters": {
-    "shell_length": 88,
-    "shell_width": 42,
-    "seam_z": 24,
+    "shell_length": 60,
+    "shell_width": 40,
+    "seam_z": 17,
     "lid_thickness": 2.4,
     "board_length": 51.45,
     "board_width": 28.33,
-    "board_x": 8,
-    "board_bottom_z": 10,
+    "board_bottom_z": 4,
     "board_thickness": 1.6,
+    "board_component_height": 4.5,
     "boot_offset_x": 3.1,
     "boot_offset_y": 6.0,
     "boot_height_above_pcb": 3.2,
-    "button_initial_gap": 0.3,
+    "button_initial_gap": 0.15,
     "button_downstroke": 0.6,
     "button_socket_diameter": 3.4,
+    "button_stem_width": 5,
+    "button_guide_clearance": 0.4,
+    "button_guide_bottom_z": 11.4,
     "mic_diameter": 14,
-    "mic_x": 73,
-    "usb_width": 14,
-    "usb_height": 9,
-    "usb_bottom_z": 10.2,
-    "button_socket_entry_diameter": 4.0,
-    "button_socket_entry_depth": 0.6
+    "mic_x": 29,
+    "mic_pcb_thickness": 1.6,
+    "mic_acoustic_gap": 0.4,
+    "mic_hole_diameter": 2.4,
+    "mic_hole_pitch": 3.4,
+    "usb_width": 9.8,
+    "usb_height": 4.2,
+    "usb_bottom_z": 5.2,
+    "usb_protrusion": 2.0,
+    "usb_front_recess": 0.4
   },
   "parts": {
     "base": {
       "size_mm": [
-        88.0,
-        42.0,
-        24.0
+        60.0,
+        40.0,
+        17.0
       ],
-      "volume_mm3": 19678.86,
+      "volume_mm3": 11069.02,
       "watertight": true,
       "connected_components": 1
     },
     "lid": {
       "size_mm": [
-        88.0,
-        42.0,
-        14.55
+        60.0,
+        40.0,
+        13.6
       ],
-      "volume_mm3": 9366.38,
+      "volume_mm3": 6192.34,
+      "watertight": true,
+      "connected_components": 1
+    },
+    "mic-clamp": {
+      "size_mm": [
+        26.0,
+        20.0,
+        1.4
+      ],
+      "volume_mm3": 386.84,
       "watertight": true,
       "connected_components": 1
     },
     "button-cap": {
       "size_mm": [
-        12.0,
         8.0,
-        5.2
+        8.0,
+        10.8
       ],
-      "volume_mm3": 240.38,
+      "volume_mm3": 300.49,
       "watertight": true,
       "connected_components": 1
     },
     "button-pin-standard": {
       "size_mm": [
-        10.0,
-        8.0,
-        12.9
+        7.0,
+        7.0,
+        6.45
       ],
-      "volume_mm3": 156.47,
+      "volume_mm3": 92.43,
       "watertight": true,
       "connected_components": 1
     },
     "button-pin-short": {
       "size_mm": [
-        10.0,
-        8.0,
-        12.5
+        7.0,
+        7.0,
+        6.05
       ],
-      "volume_mm3": 154.01,
+      "volume_mm3": 90.91,
       "watertight": true,
       "connected_components": 1
     },
     "button-pin-long": {
       "size_mm": [
-        10.0,
-        8.0,
-        13.3
+        7.0,
+        7.0,
+        6.85
       ],
-      "volume_mm3": 158.93,
+      "volume_mm3": 93.94,
       "watertight": true,
       "connected_components": 1
     },
     "board-fit-test": {
       "size_mm": [
-        61.45,
-        42.0,
-        12.2
+        60.0,
+        40.0,
+        6.6
       ],
-      "volume_mm3": 9153.13,
+      "volume_mm3": 6839.22,
+      "watertight": true,
+      "connected_components": 1
+    },
+    "usb-front-test": {
+      "size_mm": [
+        11.0,
+        40.0,
+        10.4
+      ],
+      "volume_mm3": 1954.01,
       "watertight": true,
       "connected_components": 1
     },
     "button-guide-test": {
       "size_mm": [
-        18.0,
-        18.0,
-        2.4
+        12.0,
+        12.0,
+        8.0
       ],
-      "volume_mm3": 674.55,
+      "volume_mm3": 386.72,
       "watertight": true,
       "connected_components": 1
     }
   },
   "checks": {
+    "usb-shell-base_intersection_mm3": 0.0,
     "base-lid_intersection_mm3": 0.0,
     "board-base_intersection_mm3": 0.0,
     "board-lid_intersection_mm3": 0.0,
-    "button-cap-lid_intersection_mm3": 0.0,
-    "button-pin-lid_intersection_mm3": 0.0,
-    "button-pin-base_intersection_mm3": 0.0,
-    "button_motion_clearance": "3 pin lengths x 7 positions: no intersection with nominal lid/base/PCB",
-    "pin_cap_insertion": "21 insertion positions: no solid intersection",
-    "pin_socket_diametral_clearance_mm": 0.4,
+    "cap-lid_intersection_mm3": 0.0,
+    "mic-lid_intersection_mm3": 0.0,
+    "mic-clamp_intersection_mm3": 0.0,
+    "clamp-lid_intersection_mm3": 0.0,
+    "clamp-base_intersection_mm3": 0.0,
+    "components-lid_intersection_mm3": 0.0,
+    "clamp-components_intersection_mm3": 0.0,
+    "mic-components_intersection_mm3": 0.0,
+    "mic-capsule-components_intersection_mm3": 0.0,
+    "mic-capsule-clamp_intersection_mm3": 0.0,
+    "button_motion_clearance": "3 pin lengths x 7 positions",
+    "pin_cap_insertion": "21 positions without solid intersection",
+    "button_guide_length_mm": 8.0,
+    "usb_front_recess_mm": 0.4,
+    "usb_reference": "GCT USB4105 shell 8.94 x 3.31 mm; not an identification of the actual PCB connector",
+    "mic_holes": "9 through holes, 2.4 mm diameter, 1.0 mm minimum web",
     "button_downstroke_mm": 0.6,
-    "switch_motion_after_gap_mm": 0.3,
-    "real_hardware_fit": "UNVERIFIED: print fit tests and measure BOOT height before final assembly"
+    "real_hardware_fit": "UNVERIFIED: USB dimensions, solder clearance and BOOT position/height need physical fitting"
   }
 }
