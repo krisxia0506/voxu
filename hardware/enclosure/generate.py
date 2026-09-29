@@ -62,14 +62,12 @@ for y in [by-1.4,by+bw+0.3]:
         base += box(x,y,2,4,1.1,bz+2-2)
 # Generous cable-plug entry, open toward PCB connector. Actual port Z remains adjustable.
 base -= box(-1,W/2-P['usb_width']/2,P['usb_bottom_z'],bx+1,P['usb_width'],P['usb_height'])
-# Lid, friction alignment skirt (0.3 mm per-side clearance), and two protective ribs.
+# Flat lid and friction alignment skirt (0.3 mm per-side clearance).
 lid = rr(0,0,seam,L,W,P['lid_thickness'],7)
 skirt = rr(2.3,2.3,seam-2,L-4.6,W-4.6,2.2,4.7)-rr(3.5,3.5,seam-2.1,L-7,W-7,2.5,3.5)
 for x,y in screws:
     skirt -= cyl(x,y,seam-3,3.5,4)
 lid += skirt
-for y in [6,W-8.4]:
-    lid += rr(18,y,top,L-36,2.4,3,1.19)
 # Hold-down fingers, 0.25 mm PCB clearance, directly above supporting corners.
 for x,y in corner_pads:
     lid += box(x+0.5,y+0.5,bz+P['board_thickness']+0.25,2,2,seam-(bz+P['board_thickness']+0.25)+0.1)
@@ -114,7 +112,7 @@ for name, solid in parts.items():
     assert str(solid.status()) == 'Error.NoError', (name,solid.status())
     assert t.is_watertight and t.is_winding_consistent and t.volume>0, name
     assert len(t.split()) == 1, (name,'disconnected shells')
-    # Lid upside down (supports required for ribs); cap flat top on bed.
+    # Flat exterior of lid and flat top of cap face the print bed.
     if name in ['lid','button-cap']:
         t.apply_transform(trimesh.transformations.rotation_matrix(np.pi,[1,0,0]))
     t.apply_translation(-t.bounds[0])
@@ -190,7 +188,7 @@ for i,(title,items) in enumerate(views):
     ax=fig.add_subplot(2,2,i+1)
     ax.imshow(raster(items,-35 if i==3 else 32))
     ax.set_axis_off();ax.set_title(title,fontsize=12)
-fig.suptitle(f'VOXU / P2S PROTOTYPE   {L} x {W} x {top+3:.1f} mm',fontsize=18)
+fig.suptitle(f'VOXU / P2S PROTOTYPE   {L} x {W} x {cap_bottom+2:.1f} mm',fontsize=18)
 fig.tight_layout()
 fig.savefig(ROOT/'preview.png',dpi=160)
 plt.close(fig)

@@ -36,9 +36,9 @@
       "size_mm": [
         88.0,
         42.0,
-        17.55
+        14.55
       ],
-      "volume_mm3": 10107.84,
+      "volume_mm3": 9366.38,
       "watertight": true,
       "connected_components": 1
     },
