@@ -1,0 +1,140 @@
+{
+  "revision": "v4-snap-shell",
+  "printer": "P2S 0.4 mm",
+  "material": "Generic PLA",
+  "layer_height_mm": 0.2,
+  "lid_no_support": {
+    "error_string": "Success.",
+    "export_time": 0,
+    "layer_height": 0.20000000298023224,
+    "plate_index": 0,
+    "prepare_time": 11,
+    "return_code": 0,
+    "sliced_plates": [
+      {
+        "feature_type_times": {
+          "Bottom surface": 74.65715789794922,
+          "Bridge": 85.45354461669922,
+          "Custom": 403.36224365234375,
+          "Flush": 26.0,
+          "Gap infill": 94.09429168701172,
+          "Inner wall": 132.316162109375,
+          "Internal solid infill": 233.75579833984375,
+          "Outer wall": 314.1986083984375,
+          "Overhang wall": 11.192842483520508,
+          "Sparse infill": 18.843345642089844,
+          "Top surface": 53.187644958496094,
+          "Travel": 214.38475036621094,
+          "Undefined": 207.09878540039062
+        },
+        "filament_change_times": 0,
+        "filaments": [
+          {
+            "filament_id": "GFL99",
+            "id": 1,
+            "main_used_g": 6.807332992553711,
+            "total_used_g": 6.807332992553711
+          }
+        ],
+        "generate_support_material_time": 9,
+        "id": 1,
+        "infill_time": 45,
+        "layer_filament_change": 0,
+        "main_predication": 1206.0633544921875,
+        "make_perimeters_time": 33,
+        "obj_cached_cnt": 0,
+        "objects": [
+          {
+            "bbox": {
+              "depth": 40.000003814697266,
+              "height": 13.59999942779541,
+              "width": 60.0,
+              "x": 98.0,
+              "y": 108.00000762939453,
+              "z": 0.0
+            },
+            "id": 5,
+            "name": "lid.stl",
+            "triangle_count": 6646
+          }
+        ],
+        "sliced_time": 228,
+        "sliced_time_with_cache": 133,
+        "total_predication": 1654.1396484375,
+        "triangle_count": 6646,
+        "warning_message": ""
+      }
+    ],
+    "sparse_infill_density": 15.0,
+    "wall_loops": 3
+  },
+  "base_with_support": {
+    "error_string": "Success.",
+    "export_time": 0,
+    "layer_height": 0.20000000298023224,
+    "plate_index": 0,
+    "prepare_time": 4,
+    "return_code": 0,
+    "sliced_plates": [
+      {
+        "feature_type_times": {
+          "Bottom surface": 72.70388793945312,
+          "Bridge": 96.96419525146484,
+          "Custom": 403.18426513671875,
+          "Flush": 26.0,
+          "Gap infill": 176.25115966796875,
+          "Inner wall": 317.7222900390625,
+          "Internal solid infill": 316.0958557128906,
+          "Outer wall": 294.2055969238281,
+          "Overhang wall": 10.415831565856934,
+          "Sparse infill": 6.1303629875183105,
+          "Support": 16.112855911254883,
+          "Support interface": 3.237915515899658,
+          "Top surface": 62.74903869628906,
+          "Travel": 322.9725341796875,
+          "Undefined": 315.8565368652344
+        },
+        "filament_change_times": 0,
+        "filaments": [
+          {
+            "filament_id": "GFL99",
+            "id": 1,
+            "main_used_g": 13.48638916015625,
+            "total_used_g": 13.486388206481934
+          }
+        ],
+        "generate_support_material_time": 31,
+        "id": 1,
+        "infill_time": 19,
+        "layer_filament_change": 0,
+        "main_predication": 1669.5404052734375,
+        "make_perimeters_time": 52,
+        "obj_cached_cnt": 0,
+        "objects": [
+          {
+            "bbox": {
+              "depth": 40.000003814697266,
+              "height": 17.0,
+              "width": 60.0,
+              "x": 98.0,
+              "y": 108.00000762939453,
+              "z": 0.0
+            },
+            "id": 5,
+            "name": "base.stl",
+            "triangle_count": 3058
+          }
+        ],
+        "sliced_time": 223,
+        "sliced_time_with_cache": 111,
+        "total_predication": 2117.608642578125,
+        "triangle_count": 3058,
+        "warning_message": ""
+      }
+    ],
+    "sparse_infill_density": 15.0,
+    "wall_loops": 3
+  },
+  "other_parts": "button-cap, default longest pin and optional mic-clamp unchanged from V3; not resliced",
+  "machine_gcode_warning": "CLI logs Invalid T command (T65535); G-code not delivered; reslice STL in Bambu Studio"
+}
