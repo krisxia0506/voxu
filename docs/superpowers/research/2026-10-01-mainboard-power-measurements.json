@@ -1,0 +1,72 @@
+{
+  "date": "2026-10-01",
+  "provenance": "User-reported multimeter readings; not independently instrumented by assistant",
+  "photo": {
+    "filename": "IMG_6063.jpeg",
+    "sha256": "1a302ff2b60caf063c2af9f92d3628bb713ca7744865e0aec585c4547a987a0c"
+  },
+  "orientation": "Photo has antenna at top and USB-C at bottom; measured small horizontal two-terminal component to the right of VIN silkscreen, below the larger regulator-adjacent component.",
+  "nodes": {
+    "A": "left terminal, VIN side",
+    "B": "right terminal, USB VBUS side"
+  },
+  "measurements": [
+    {
+      "mode": "resistance",
+      "range_ohm": 200,
+      "from": "A",
+      "to": "VIN",
+      "value_ohm": 0.1
+    },
+    {
+      "mode": "resistance",
+      "range_ohm": 200,
+      "from": "B",
+      "to": "VIN",
+      "display": "OL"
+    },
+    {
+      "mode": "resistance",
+      "range_ohm": 200,
+      "from": "B",
+      "to": "USB-A VBUS through cable",
+      "value_ohm": 0.3
+    },
+    {
+      "mode": "diode",
+      "from": "A",
+      "to": "B",
+      "display": "OL"
+    },
+    {
+      "mode": "diode",
+      "from": "B",
+      "to": "A",
+      "display": "OL"
+    },
+    {
+      "mode": "DC voltage",
+      "from": "B",
+      "to": "GND",
+      "value_v": 5.17
+    },
+    {
+      "mode": "DC voltage",
+      "from": "A",
+      "to": "GND",
+      "value_v": 4.78
+    }
+  ],
+  "derived": {
+    "powered_B_minus_A_v": 0.39,
+    "supported": "The two terminals are mapped to VBUS and VIN; powered voltage drop is consistent with a forward diode path.",
+    "not_proven": [
+      "exact component marking/type",
+      "reverse leakage/blocking",
+      "USB-UART supply net",
+      "off-state UART injection",
+      "net isolation after modification"
+    ]
+  },
+  "contradiction_to_resolve": "Both diode-mode readings were OL although the board powers over USB. Do not treat these readings as proof of reverse blocking or declare the component faulty."
+}
