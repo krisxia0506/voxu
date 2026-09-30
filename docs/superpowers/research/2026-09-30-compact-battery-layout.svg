@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="974.1375pt" height="421.88pt" viewBox="0 0 974.1375 421.88" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 421.88
+L 974.1375 421.88
+L 974.1375 0
+L 0 0
+z
+" style="fill: #f7f8fa"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 41.4975 361.44
+L 297.1775 361.44
+L 297.1775 67.68
+L 41.4975 67.68
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 52.3775 84
+L 286.2975 84
+L 286.2975 345.12
+L 52.3775 345.12
+z
+" clip-path="url(#p251fd408a4)" style="fill: #e3e4e8; stroke: #42506a; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 52.3775 84
+L 248.2175 84
+L 248.2175 225.44
+L 52.3775 225.44
+z
+" clip-path="url(#p251fd408a4)" style="fill: #b6d4e8; stroke: #42506a; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="m083791e1a9" d="M 0 0
+L 0 3.5
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m083791e1a9" x="52.3775" y="361.44" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: middle" x="52.3775" y="375.32" transform="rotate(-0 52.3775 375.32)">0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#m083791e1a9" x="106.7775" y="361.44" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: middle" x="106.7775" y="375.32" transform="rotate(-0 106.7775 375.32)">20</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#m083791e1a9" x="161.1775" y="361.44" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: middle" x="161.1775" y="375.32" transform="rotate(-0 161.1775 375.32)">40</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m083791e1a9" x="215.5775" y="361.44" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: middle" x="215.5775" y="375.32" transform="rotate(-0 215.5775 375.32)">60</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#m083791e1a9" x="269.9775" y="361.44" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: middle" x="269.9775" y="375.32" transform="rotate(-0 269.9775 375.32)">80</text>
+     </g>
+    </g>
+    <g id="text_6">
+     <text style="font-size: 10px; font-family: 'Heiti TC'; text-anchor: middle" x="169.3375" y="389.04" transform="rotate(-0 169.3375 389.04)">mm</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_6">
+      <defs>
+       <path id="mc81fb13457" d="M 0 0
+L -3.5 0
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#mc81fb13457" x="41.4975" y="84" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: end" x="34.4975" y="87.44" transform="rotate(-0 34.4975 87.44)">0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_7">
+      <g>
+       <use xlink:href="#mc81fb13457" x="41.4975" y="138.4" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: end" x="34.4975" y="141.84" transform="rotate(-0 34.4975 141.84)">20</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#mc81fb13457" x="41.4975" y="192.8" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: end" x="34.4975" y="196.24" transform="rotate(-0 34.4975 196.24)">40</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#mc81fb13457" x="41.4975" y="247.2" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: end" x="34.4975" y="250.64" transform="rotate(-0 34.4975 250.64)">60</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#mc81fb13457" x="41.4975" y="301.6" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: end" x="34.4975" y="305.04" transform="rotate(-0 34.4975 305.04)">80</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_11">
+      <g>
+       <use xlink:href="#mc81fb13457" x="41.4975" y="356" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: end" x="34.4975" y="359.44" transform="rotate(-0 34.4975 359.44)">100</text>
+     </g>
+    </g>
+    <g id="text_13">
+     <text style="font-size: 10px; font-family: 'Heiti TC'; text-anchor: middle" x="15.8" y="214.56" transform="rotate(-90 15.8 214.56)">mm</text>
+    </g>
+   </g>
+   <g id="patch_5">
+    <path d="M 41.4975 361.44
+L 41.4975 67.68
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 297.1775 361.44
+L 297.1775 67.68
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 41.4975 361.44
+L 297.1775 361.44
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 41.4975 67.68
+L 297.1775 67.68
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 12px; font-family: 'Heiti TC'" transform="translate(132.2975 152.86)">新目标</text>
+    <text style="font-size: 12px; font-family: 'Heiti TC'" transform="translate(102.846875 165.22)">72 × 52 × 39 mm</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 11px; font-family: 'Heiti TC'; fill: #655b60" transform="translate(136.3375 286.295)">旧方案已否决</text>
+    <text style="font-size: 11px; font-family: 'Heiti TC'; fill: #655b60" transform="translate(121.270078 297.625)">86 × 96 × 41.4 mm</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 11px; font-family: 'Heiti TC'; text-anchor: middle" x="169.3375" y="356" transform="rotate(-0 169.3375 356)">目标体积减少约 57%</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 13px; font-family: 'Heiti TC'; text-anchor: middle" x="169.3375" y="55.68" transform="rotate(-0 169.3375 55.68)">外形目标对比</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_9">
+    <path d="M 376.3775 361.44
+L 632.0575 361.44
+L 632.0575 67.68
+L 376.3775 67.68
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 387.2575 84
+L 583.0975 84
+L 583.0975 225.44
+L 387.2575 225.44
+z
+" clip-path="url(#p5114947b58)" style="fill: #ffffff; stroke: #42506a; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 398.1375 94.88
+L 566.7775 94.88
+L 566.7775 203.68
+L 398.1375 203.68
+z
+" clip-path="url(#p5114947b58)" style="fill: #f5d49a; stroke: #42506a; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 387.2575 249.92
+L 583.0975 249.92
+L 583.0975 345.12
+L 387.2575 345.12
+z
+" clip-path="url(#p5114947b58)" style="fill: #f4f6f7; stroke: #42506a; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 409.0175 268.96
+L 531.4175 268.96
+L 531.4175 323.36
+L 409.0175 323.36
+z
+" clip-path="url(#p5114947b58)" style="fill: #b8d9cb; stroke: #42506a; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_6">
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m083791e1a9" x="387.2575" y="361.44" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_18">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: middle" x="387.2575" y="375.32" transform="rotate(-0 387.2575 375.32)">0</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_13">
+      <g>
+       <use xlink:href="#m083791e1a9" x="441.6575" y="361.44" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_19">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: middle" x="441.6575" y="375.32" transform="rotate(-0 441.6575 375.32)">20</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m083791e1a9" x="496.0575" y="361.44" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_20">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: middle" x="496.0575" y="375.32" transform="rotate(-0 496.0575 375.32)">40</text>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#m083791e1a9" x="550.4575" y="361.44" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: middle" x="550.4575" y="375.32" transform="rotate(-0 550.4575 375.32)">60</text>
+     </g>
+    </g>
+    <g id="xtick_10">
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m083791e1a9" x="604.8575" y="361.44" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: middle" x="604.8575" y="375.32" transform="rotate(-0 604.8575 375.32)">80</text>
+     </g>
+    </g>
+    <g id="text_23">
+     <text style="font-size: 10px; font-family: 'Heiti TC'; text-anchor: middle" x="504.2175" y="389.04" transform="rotate(-0 504.2175 389.04)">mm</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_7">
+     <g id="line2d_17">
+      <g>
+       <use xlink:href="#mc81fb13457" x="376.3775" y="84" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_24">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: end" x="369.3775" y="87.44" transform="rotate(-0 369.3775 87.44)">0</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#mc81fb13457" x="376.3775" y="138.4" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_25">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: end" x="369.3775" y="141.84" transform="rotate(-0 369.3775 141.84)">20</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_19">
+      <g>
+       <use xlink:href="#mc81fb13457" x="376.3775" y="192.8" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_26">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: end" x="369.3775" y="196.24" transform="rotate(-0 369.3775 196.24)">40</text>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#mc81fb13457" x="376.3775" y="247.2" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_27">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: end" x="369.3775" y="250.64" transform="rotate(-0 369.3775 250.64)">60</text>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_21">
+      <g>
+       <use xlink:href="#mc81fb13457" x="376.3775" y="301.6" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_28">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: end" x="369.3775" y="305.04" transform="rotate(-0 369.3775 305.04)">80</text>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#mc81fb13457" x="376.3775" y="356" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_29">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: end" x="369.3775" y="359.44" transform="rotate(-0 369.3775 359.44)">100</text>
+     </g>
+    </g>
+    <g id="text_30">
+     <text style="font-size: 10px; font-family: 'Heiti TC'; text-anchor: middle" x="350.68" y="214.56" transform="rotate(-90 350.68 214.56)">mm</text>
+    </g>
+   </g>
+   <g id="patch_14">
+    <path d="M 376.3775 361.44
+L 376.3775 67.68
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 632.0575 361.44
+L 632.0575 67.68
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 376.3775 361.44
+L 632.0575 361.44
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 376.3775 67.68
+L 632.0575 67.68
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_31">
+    <text style="font-size: 10px; font-family: 'Heiti TC'" transform="translate(432.436406 147.73)">2000 mAh 电池仓预算</text>
+    <text style="font-size: 10px; font-family: 'Heiti TC'" transform="translate(445.685625 158.03)">62 × 40 × 9 mm</text>
+   </g>
+   <g id="text_32">
+    <text style="font-size: 9px; font-family: 'Heiti TC'" transform="translate(422.646875 294.765)">定制小板：45 × 20 mm</text>
+    <text style="font-size: 9px; font-family: 'Heiti TC'" transform="translate(438.7175 304.035)">需实际布线证明</text>
+   </g>
+   <g id="text_33">
+    <text style="font-size: 9px; font-family: 'Heiti TC'; text-anchor: middle" x="485.1775" y="241.76" transform="rotate(-0 485.1775 241.76)">中层实装将旋转 90°，靠 USB 端</text>
+   </g>
+   <g id="text_34">
+    <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: middle; fill: #954e28" x="485.1775" y="356" transform="rotate(-0 485.1775 356)">电池与小板的连接器/线束尚未建模</text>
+   </g>
+   <g id="text_35">
+    <text style="font-size: 13px; font-family: 'Heiti TC'; text-anchor: middle" x="504.2175" y="55.68" transform="rotate(-0 504.2175 55.68)">下层与中层（分开展示）</text>
+   </g>
+  </g>
+  <g id="axes_3">
+   <g id="patch_18">
+    <path d="M 711.2575 361.44
+L 966.9375 361.44
+L 966.9375 67.68
+L 711.2575 67.68
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="patch_19">
+    <path d="M 722.1375 84
+L 917.9775 84
+L 917.9775 225.44
+L 722.1375 225.44
+z
+" clip-path="url(#pfa849a8f6a)" style="fill: #ffffff; stroke: #42506a; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_20">
+    <path d="M 728.6655 116.1912
+L 868.6095 116.1912
+L 868.6095 193.2488
+L 728.6655 193.2488
+z
+" clip-path="url(#pfa849a8f6a)" style="fill: #b6d4e8; stroke: #42506a; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_21">
+    <path d="M 835.9695 116.1912
+L 868.6095 116.1912
+L 868.6095 193.2488
+L 835.9695 193.2488
+z
+" clip-path="url(#pfa849a8f6a)" style="fill: #eebdb7; stroke: #42506a; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_22">
+    <path d="M 783.3375 135.68
+C 788.386967 135.68 793.230301 137.686175 796.800813 141.256687
+C 800.371325 144.827199 802.3775 149.670533 802.3775 154.72
+C 802.3775 159.769467 800.371325 164.612801 796.800813 168.183313
+C 793.230301 171.753825 788.386967 173.76 783.3375 173.76
+C 778.288033 173.76 773.444699 171.753825 769.874187 168.183313
+C 766.303675 164.612801 764.2975 159.769467 764.2975 154.72
+C 764.2975 149.670533 766.303675 144.827199 769.874187 141.256687
+C 773.444699 137.686175 778.288033 135.68 783.3375 135.68
+L 783.3375 135.68
+z
+" clip-path="url(#pfa849a8f6a)" style="fill: none; stroke-dasharray: 5.92,2.56; stroke-dashoffset: 0; stroke: #2e647c; stroke-width: 1.6; stroke-linejoin: miter"/>
+   </g>
+   <g id="matplotlib.axis_5">
+    <g id="xtick_11">
+     <g id="line2d_23">
+      <g>
+       <use xlink:href="#m083791e1a9" x="722.1375" y="361.44" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_36">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: middle" x="722.1375" y="375.32" transform="rotate(-0 722.1375 375.32)">0</text>
+     </g>
+    </g>
+    <g id="xtick_12">
+     <g id="line2d_24">
+      <g>
+       <use xlink:href="#m083791e1a9" x="776.5375" y="361.44" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_37">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: middle" x="776.5375" y="375.32" transform="rotate(-0 776.5375 375.32)">20</text>
+     </g>
+    </g>
+    <g id="xtick_13">
+     <g id="line2d_25">
+      <g>
+       <use xlink:href="#m083791e1a9" x="830.9375" y="361.44" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_38">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: middle" x="830.9375" y="375.32" transform="rotate(-0 830.9375 375.32)">40</text>
+     </g>
+    </g>
+    <g id="xtick_14">
+     <g id="line2d_26">
+      <g>
+       <use xlink:href="#m083791e1a9" x="885.3375" y="361.44" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_39">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: middle" x="885.3375" y="375.32" transform="rotate(-0 885.3375 375.32)">60</text>
+     </g>
+    </g>
+    <g id="xtick_15">
+     <g id="line2d_27">
+      <g>
+       <use xlink:href="#m083791e1a9" x="939.7375" y="361.44" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_40">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: middle" x="939.7375" y="375.32" transform="rotate(-0 939.7375 375.32)">80</text>
+     </g>
+    </g>
+    <g id="text_41">
+     <text style="font-size: 10px; font-family: 'Heiti TC'; text-anchor: middle" x="839.0975" y="389.04" transform="rotate(-0 839.0975 389.04)">mm</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_6">
+    <g id="ytick_13">
+     <g id="line2d_28">
+      <g>
+       <use xlink:href="#mc81fb13457" x="711.2575" y="84" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_42">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: end" x="704.2575" y="87.44" transform="rotate(-0 704.2575 87.44)">0</text>
+     </g>
+    </g>
+    <g id="ytick_14">
+     <g id="line2d_29">
+      <g>
+       <use xlink:href="#mc81fb13457" x="711.2575" y="138.4" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_43">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: end" x="704.2575" y="141.84" transform="rotate(-0 704.2575 141.84)">20</text>
+     </g>
+    </g>
+    <g id="ytick_15">
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#mc81fb13457" x="711.2575" y="192.8" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_44">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: end" x="704.2575" y="196.24" transform="rotate(-0 704.2575 196.24)">40</text>
+     </g>
+    </g>
+    <g id="ytick_16">
+     <g id="line2d_31">
+      <g>
+       <use xlink:href="#mc81fb13457" x="711.2575" y="247.2" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_45">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: end" x="704.2575" y="250.64" transform="rotate(-0 704.2575 250.64)">60</text>
+     </g>
+    </g>
+    <g id="ytick_17">
+     <g id="line2d_32">
+      <g>
+       <use xlink:href="#mc81fb13457" x="711.2575" y="301.6" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_46">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: end" x="704.2575" y="305.04" transform="rotate(-0 704.2575 305.04)">80</text>
+     </g>
+    </g>
+    <g id="ytick_18">
+     <g id="line2d_33">
+      <g>
+       <use xlink:href="#mc81fb13457" x="711.2575" y="356" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_47">
+      <text style="font-size: 8px; font-family: 'Heiti TC'; text-anchor: end" x="704.2575" y="359.44" transform="rotate(-0 704.2575 359.44)">100</text>
+     </g>
+    </g>
+    <g id="text_48">
+     <text style="font-size: 10px; font-family: 'Heiti TC'; text-anchor: middle" x="685.56" y="214.56" transform="rotate(-90 685.56 214.56)">mm</text>
+    </g>
+   </g>
+   <g id="line2d_34">
+    <path d="M 722.1375 154.72
+L 728.6655 154.72
+" clip-path="url(#pfa849a8f6a)" style="fill: none; stroke: #2461a0; stroke-width: 5; stroke-linecap: square"/>
+   </g>
+   <g id="patch_23">
+    <path d="M 711.2575 361.44
+L 711.2575 67.68
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_24">
+    <path d="M 966.9375 361.44
+L 966.9375 67.68
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_25">
+    <path d="M 711.2575 361.44
+L 966.9375 361.44
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_26">
+    <path d="M 711.2575 67.68
+L 966.9375 67.68
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_49">
+    <text style="font-size: 9px; font-family: 'Heiti TC'" transform="translate(776.209219 153.325)">ESP32 主板</text>
+    <text style="font-size: 9px; font-family: 'Heiti TC'" transform="translate(770.667188 162.595)">51.45 × 28.33</text>
+   </g>
+   <g id="text_50">
+    <text style="font-size: 8px; font-family: 'Heiti TC'" transform="translate(844.2895 153.48)">天线</text>
+    <text style="font-size: 8px; font-family: 'Heiti TC'" transform="translate(840.2895 161.72)">假定区</text>
+   </g>
+   <g id="patch_27">
+    <path d="M 750.958499 251.003077
+Q 736.835172 203.820902 723.032457 157.709805
+" style="fill: none; stroke: #000000; stroke-linecap: round"/>
+    <path d="M 722.263511 162.115338
+L 723.032457 157.709805
+L 726.095516 160.968281
+" style="fill: none; stroke: #000000; stroke-linecap: round"/>
+   </g>
+   <g id="text_51">
+    <text style="font-size: 10px; font-family: 'Heiti TC'; text-anchor: start" x="733.0175" y="263.52" transform="rotate(-0 733.0175 263.52)">原 USB-C</text>
+   </g>
+   <g id="text_52">
+    <text style="font-size: 11px; font-family: 'Heiti TC'" transform="translate(759.622813 284.83)">上盖保留麦克风和 BOOT</text>
+    <text style="font-size: 11px; font-family: 'Heiti TC'" transform="translate(754.0575 296.16)">仅设运行开关，无模式切换</text>
+   </g>
+   <g id="text_53">
+    <text style="font-size: 9px; font-family: 'Heiti TC'; text-anchor: middle; fill: #954e28" x="820.0575" y="345.12" transform="rotate(-0 820.0575 345.12)">3.3 V 直供；原串口桥与稳压需隔离</text>
+   </g>
+   <g id="text_54">
+    <text style="font-size: 13px; font-family: 'Heiti TC'; text-anchor: middle" x="839.0975" y="55.68" transform="rotate(-0 839.0975 55.68)">上层主板与外观布局</text>
+   </g>
+  </g>
+  <g id="text_55">
+   <text style="font-size: 18px; font-family: 'Heiti TC'; text-anchor: middle" x="484.0575" y="22.68" transform="rotate(-0 484.0575 22.68)">紧凑电池版：集成小板 + 多类型 USB 充电识别</text>
+  </g>
+  <g id="text_56">
+   <text style="font-size: 10px; font-family: 'Heiti TC'; text-anchor: middle; fill: #954e28" x="484.0575" y="413.28" transform="rotate(-0 484.0575 413.28)">架构占位图，不是 PCB/CAD 成品。尺寸、续航和兼容性均待实现与验证；定制板需贴片加工。</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p251fd408a4">
+   <rect x="41.4975" y="67.68" width="255.68" height="293.76"/>
+  </clipPath>
+  <clipPath id="p5114947b58">
+   <rect x="376.3775" y="67.68" width="255.68" height="293.76"/>
+  </clipPath>
+  <clipPath id="pfa849a8f6a">
+   <rect x="711.2575" y="67.68" width="255.68" height="293.76"/>
+  </clipPath>
+ </defs>
+</svg>

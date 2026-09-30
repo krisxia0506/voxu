@@ -50,7 +50,7 @@ ax.annotate('',xy=(69,26),xytext=(69,10.3),arrowprops={'arrowstyle':'<->','color
 ax.text(72,18,'15.7\nmm',fontsize=9,va='center')
 ax.text(43,45,'壳体提案：86 × 96 × 41.4 mm',ha='center',fontsize=12)
 ax.text(43,-3,'端子、焊线、托盘与螺钉包络未验证',ha='center',fontsize=9,color='#994b20')
-fig.suptitle('VOXU 电池版 · 现成模块布局提案',fontsize=19,y=.97)
+fig.suptitle('已否决 · 大尺寸现成模块布局（历史记录）',fontsize=19,y=.97)
 fig.text(.5,.075,'一个外部 USB-C · 一个运行开关 · 无电脑/充电器切换开关',ha='center',fontsize=12)
 fig.text(.5,.035,'设计占位图，非可打印模型。高度、原板天线范围和控制小板尺寸含假设；不构成装配或电气验证。',ha='center',fontsize=10,color='#884522')
 fig.subplots_adjust(left=.05,right=.985,top=.88,bottom=.15,wspace=.28)
