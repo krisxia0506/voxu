@@ -184,3 +184,5 @@ BQ24074 若继续采用，其 EN1/EN2 应由确定的自动控制电路驱动，
 选型调查见 [USB-C 自动充电模块证据](../research/2026-09-30-usbc-power-options.md)，包含 HUSB238 输出开关限制、PTN5150A 无电池接入能力及 FT231X 备用方案。
 
 现成模块的 [分层布局提案](../research/2026-09-30-battery-layout-proposal.md) 已绘制为约 **86 × 96 × 41.4 mm** 占位，替代 80 × 88 × 42 mm 的旧口头预算；包含未验证连接器、控制小板和天线假设，尚未冻结最终外形。
+
+只读 USB 检查发现当前主机一个 WCH `1a86:7523` 设备的 `bMaxPower=49`（98 mA）。详见 [证据记录](../research/2026-09-30-usb-readonly-evidence.json)；与照片板的对应关系和 CC 授权尚未确认，不能据此假设已有 500 mA 枚举预算。

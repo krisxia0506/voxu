@@ -1,0 +1,30 @@
+{
+  "observed_at_utc": "2026-09-30T09:46:15.900725+00:00",
+  "scope": "WCH 1a86:7523 attached to current execution host; association with the photographed board not independently confirmed",
+  "method": "libusb device-list enumeration and get_active_config_descriptor; no libusb_open, interface claim, serial open, reset or control transfer",
+  "device_configurations": [
+    {
+      "vid": "1a86",
+      "pid": "7523",
+      "usb_bcd": "0x110",
+      "device_bcd": "0x264",
+      "active_config_rc": 0,
+      "configuration": 1,
+      "bmAttributes": "0x80",
+      "bMaxPower": 49,
+      "maximum_bus_current_mA": 98,
+      "self_powered": false
+    }
+  ],
+  "macos_port_properties": {
+    "kUSBSleepPortCurrentLimit": 3000,
+    "kUSBWakePortCurrentLimit": 3000,
+    "usb-port-current-limit_hex": "b80b0000"
+  },
+  "port_property_method": "Read ancestor AppleUSB20XHCIARMPort in IOService registry for matching device",
+  "limitations": [
+    "Port limit properties do not prove current CC advertisement or actual load current.",
+    "Descriptor maximum bus current is not measured device consumption.",
+    "No battery charging, reverse-current, runtime or audio test was performed."
+  ]
+}
