@@ -1,0 +1,94 @@
+{
+  "status": "conditional_space_probe_NOT_final_CAD",
+  "cad_source_sha256": "250ead274f9f3b9289d00e0d7f72e25002c30095be39fa922f6ec5e24ee506d6",
+  "outer_target_mm": [
+    60,
+    40,
+    30.0
+  ],
+  "height_increase_mm": 10.6,
+  "main_pcb_lift_mm": 7.3,
+  "module_allowance_mm": [
+    9.0,
+    8.07,
+    2.5,
+    46.068,
+    31.93,
+    10.5
+  ],
+  "battery_allowance_mm": [
+    10.0,
+    5.0,
+    18.0,
+    47.0,
+    35.0,
+    23.75
+  ],
+  "assumptions": [
+    "Module 8 mm total height is unverified; 1 mm added to PCB XY dimensions.",
+    "Battery 36 x 29 x 4.75 mm reference enlarged by 1 mm per dimension; lead/plug not included.",
+    "Lid and original microphone geometry translated together; support and button lengths not redesigned."
+  ],
+  "original_height_probe_collisions_mm3": {
+    "lid": 105.687784,
+    "clamp": 386.838865,
+    "mic": 207.482683,
+    "mic_capsule": 28.8
+  },
+  "candidate_partial_intersections_mm3": {
+    "battery_allowance": {
+      "wall_envelope": 0.0,
+      "main_pcb": 0.0,
+      "main_component_envelope": 0.0,
+      "translated_lid": 0.0,
+      "translated_mic": 0.0,
+      "translated_mic_capsule": 0.0,
+      "translated_optional_clamp": 0.0,
+      "extended_corner_pad_0": 0.0,
+      "extended_corner_pad_1": 0.0,
+      "extended_corner_pad_2": 0.0,
+      "extended_corner_pad_3": 0.0
+    },
+    "module_allowance": {
+      "wall_envelope": 0.0,
+      "main_pcb": 0.0,
+      "main_component_envelope": 0.0,
+      "translated_lid": 0.0,
+      "translated_mic": 0.0,
+      "translated_mic_capsule": 0.0,
+      "translated_optional_clamp": 0.0,
+      "extended_corner_pad_0": 0.0,
+      "extended_corner_pad_1": 0.0,
+      "extended_corner_pad_2": 0.0,
+      "extended_corner_pad_3": 0.0
+    },
+    "battery_module_overlap_mm3": 0.0
+  },
+  "gaps_mm": {
+    "module_to_main_pcb": 0.8,
+    "main_components_to_battery": 0.6,
+    "battery_to_optional_clamp": 0.45
+  },
+  "rf": {
+    "assumed_antenna_x_range": [
+      41.85,
+      53.85
+    ],
+    "battery_overlaps_antenna_in_plan": true,
+    "vertical_gap_to_assumed_pcb_antenna_plane_mm": 5.1,
+    "recommended_clearance_reference_mm": 15,
+    "assessment": "does_not_meet_assumed_15mm_keepout; RF performance unknown; do not freeze this placement"
+  },
+  "omitted": [
+    "Measured antenna boundary",
+    "Measured module connector height",
+    "wiring and battery plug",
+    "redesigned supports and trays",
+    "new button and retaining geometry",
+    "switch placement",
+    "thermal",
+    "RF test",
+    "electrical design",
+    "printing"
+  ]
+}
