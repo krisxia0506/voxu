@@ -42,7 +42,7 @@ axes[2].add_patch(plt.Circle((22.5,26),7,fill=False,edgecolor='#2e647c',lw=1.6,l
 axes[2].annotate('原 USB-C',xy=(0,26),xytext=(4,66),arrowprops={'arrowstyle':'->'},fontsize=10)
 axes[2].text(36,78,'上盖保留麦克风和 BOOT\n仅设运行开关，无模式切换',ha='center',fontsize=11)
 axes[2].text(36,96,'3.3 V 直供；原串口桥与稳压需隔离',ha='center',fontsize=9,color='#954e28')
-fig.suptitle('紧凑电池版：集成小板 + 多类型 USB 充电识别',fontsize=18,y=.97)
+fig.suptitle('已撤回：72 × 52 mm 定制小板方案',fontsize=18,y=.97)
 fig.text(.5,.03,'架构占位图，不是 PCB/CAD 成品。尺寸、续航和兼容性均待实现与验证；定制板需贴片加工。',ha='center',fontsize=10,color='#954e28')
 fig.subplots_adjust(left=.06,right=.98,top=.83,bottom=.15,wspace=.3)
 svg=ROOT/'2026-09-30-compact-battery-layout.svg'

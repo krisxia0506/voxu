@@ -1,0 +1,56 @@
+{
+  "status": "design_evidence_not_fit_or_electrical_validation",
+  "baseline_main": "81804c4e1a96be76775e57599574d65482b3d14e",
+  "fixed_shell_xy_mm": [
+    60,
+    40
+  ],
+  "original_shell_height_mm": 19.4,
+  "original_space_mm": {
+    "under_pcb_before_supports_and_solder": 2,
+    "component_to_optional_clamp": 3.5,
+    "rear_pcb_to_inner_wall": 4.15
+  },
+  "powerboost_1000c_rev_b": {
+    "repository": "https://github.com/adafruit/Adafruit-PowerBoost-1000C",
+    "pcb_outline_bounds_mm": [
+      0.0,
+      0.0,
+      36.068,
+      22.86
+    ],
+    "source_sha256": "a7cf8c4e0de0597d009340d0f4f226e90fb3a21f8a44586d50fb94d56a8ab352",
+    "schematic_sha256": "c21bb1d248f9f321a47ada8d0c23c575091b5b7ec7b450e8b8bd3c4fd78c0a04",
+    "body_height_mm": null,
+    "exclude_loose_usb_a_connector": true,
+    "r16_default_ohm": 1000,
+    "r16_candidate_ohm": 10000,
+    "charge_current_candidate_ma": [
+      90,
+      110
+    ],
+    "input_current_limit_changed_by_r16": false
+  },
+  "reference_battery": {
+    "sku": "Adafruit 1578",
+    "body_mm": [
+      36,
+      29,
+      4.75
+    ],
+    "capacity_mah": 500,
+    "max_continuous_discharge_a": 0.5,
+    "purchase_selection_confirmed": false
+  },
+  "not_verified": [
+    "assembled_module_envelope",
+    "battery_fit_in_actual_shell",
+    "input_current_and_usb_authorization",
+    "actual_mainboard_power_nets",
+    "battery_peak_current",
+    "rf_performance",
+    "thermal",
+    "runtime",
+    "printing"
+  ]
+}
