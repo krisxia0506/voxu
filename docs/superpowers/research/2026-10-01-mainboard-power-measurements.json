@@ -63,10 +63,38 @@
     "not_proven": [
       "exact component marking/type",
       "reverse leakage/blocking",
-      "USB-UART supply net",
       "off-state UART injection",
       "net isolation after modification"
     ]
   },
-  "contradiction_to_resolve": "Both diode-mode readings were OL although the board powers over USB. Do not treat these readings as proof of reverse blocking or declare the component faulty."
+  "contradiction_to_resolve": "Both diode-mode readings were OL although the board powers over USB. Do not treat these readings as proof of reverse blocking or declare the component faulty.",
+  "ch340c": {
+    "provenance": "User-reported measurements, received before 2026-10-10; exact measurement date unspecified",
+    "marking": "CH340C",
+    "orientation": "USB-C bottom; pin-1 mark top-left; VCC16 top-right",
+    "measurements": [
+      {
+        "from": "VCC16",
+        "to": "3V3",
+        "mode": "resistance",
+        "range_ohm": 200,
+        "display": "OL"
+      },
+      {
+        "from": "VCC16",
+        "to": "VIN",
+        "mode": "resistance",
+        "range_ohm": 200,
+        "display": "OL"
+      },
+      {
+        "from": "VCC16",
+        "to": "B (USB VBUS)",
+        "mode": "resistance",
+        "range_ohm": 200,
+        "value_ohm": 0.1
+      }
+    ],
+    "supported": "CH340C VCC is on raw USB VBUS, not the switched VIN/3V3 supply. Other IO paths and post-rework isolation unverified."
+  }
 }
