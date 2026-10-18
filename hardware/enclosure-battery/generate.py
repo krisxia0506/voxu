@@ -49,11 +49,17 @@ for x,y in screws:
 corner_pads = [(bx,by),(bx+bl-6,by),(bx,by+bw-6),(bx+bl-6,by+bw-6)]
 hold_downs = [(bx,by),(bx+bl-3,by),(bx,by+bw-3),(bx+bl-3,by+bw-3)]
 for x,y in corner_pads:
-    base += box(x,y,2,6,6,bz-2)
+    if x==bx and y==by:
+        # Bridge the UPS under the front PCB support from an outer buttress.
+        base += box(x,3.5,2,6,3.5,bz-2)
+        base += box(x,3.5,9.6,6,by+6-3.5,bz-9.6)
+    else:
+        base += box(x,y,2,6,6,bz-2)
 # PCB is located by front wall, side fences and rear fence, not pin headers.
 for y in [by-1.3,by+bw+0.3]:
     for x in [bx+4,bx+bl-8]:
-        base += box(x,y,2,4,1,bz+P['board_thickness']+0.3-2)
+        fence_z=9.6 if y==by-1.3 and x==bx+4 else 2
+        base += box(x,y,fence_z,4,1,bz+P['board_thickness']+0.3-fence_z)
 for y in [by,by+bw-4]:
     base += box(bx+bl+0.3,y,2,1,4,bz+P['board_thickness']+0.3-2)
 # Side clips bend laterally along 12 mm horizontal cantilever arms.
@@ -76,6 +82,12 @@ for root_x in [bx+7.6,bx+26.6]:
     clip=root+arm+lip
     mirrored=clip.mirror((0,1,0)).translate((0,W,0))
     clips.extend([clip,mirrored])
+    # Lower side root steps outward below the UPS clearance envelope.
+    low_root=box(root_x,5.2,2,2,1.8,bz-2)
+    low_root += (box(root_x-3,4.8,1.8,5,2.2,1)+box(root_x,5.2,bz-2,2,1.8,.4)).hull()
+    low_root += box(root_x,5.2,9.6,2,by-.2-5.2,bz+0.7-9.6)
+    clip=low_root+arm+lip
+    clips[-2]=clip
     base += clip+mirrored
 # Front-face capsule opening based on GCT USB4105 drawing; actual PCB socket
 # part number is unknown. User measured 2 mm projection past the board edge.
@@ -86,8 +98,7 @@ def usb_capsule(x, length, width, height, zcenter):
     b=b.translate((x,W/2+(width-height)/2,zcenter))
     return (a+b).hull()
 usb_z=P['usb_bottom_z']+P['usb_height']/2
-base -= usb_capsule(-1,bx+2,P['usb_width'],P['usb_height'],usb_z)
-base -= usb_capsule(-0.1,0.9,P['usb_width']+2,P['usb_height']+2,usb_z)
+# ESP32 USB is internal; remove the PCB from its clips for occasional flashing.
 lid = rr(0,0,seam,L,W,P['lid_thickness'],4)
 skirt = rr(2.3,2.3,seam-1.6,L-4.6,W-4.6,1.8,1.7)-rr(3.5,3.5,seam-1.7,L-7,W-7,2.1,0.5)
 for x,y in screws:
@@ -189,7 +200,7 @@ gap=P['battery_clearance_xy']
 ex,ey=cell_x-gap,cell_y-gap
 el,ew=cell_l+2*gap,cell_w+2*gap
 tray=box(ex-0.8,ey-0.8,tray_z,el+1.6,ew+1.6,0.8)
-tray += box(6,W/2-3,tray_z,5,6,0.8)+box(46,W/2-3,tray_z,8.2,6,0.8)
+tray += box(8,W/2-3,tray_z,5,6,0.8)+box(48,W/2-3,tray_z,8.2,6,0.8)
 # Battery wire exits at front (low X), through a broad interruption in the rail.
 for yy in [ey-0.8,ey+ew]:
     tray += box(ex-0.8,yy,tray_z+0.7,el+1.6,0.8,2.0)
@@ -197,7 +208,7 @@ tray += box(ex+el,ey,tray_z+0.7,0.8,ew,2.0)
 for yy in [ey,ey+ew-5]:
     tray += box(ex-0.8,yy,tray_z+0.7,0.8,5,2.0)
 # Wrap PI tape around the removable tray without tightening against the pouch.
-tray_screws=[(7.8,W/2),(52,W/2)]
+tray_screws=[(9.8,W/2),(54,W/2)]
 tray_screw_heads=m.Manifold()
 for x,y in tray_screws:
     tray -= cyl(x,y,tray_z-0.1,1.1,1.1)
@@ -207,7 +218,7 @@ for x,y in tray_screws:
 battery=box(ex,ey,cell_z,el,ew,cell_h+P['battery_top_clearance'])
 actual_battery=box(cell_x,cell_y,cell_z,cell_l,cell_w,cell_h)
 
-# Integrated UPS: USB faces low X, its switch faces low Y. The USB stays internal.
+# Integrated UPS: USB faces low X, its switch faces low Y. The USB faces the centered external charging opening.
 px,py,pz=P['power_module_origin_mm']
 pl,pw,ph=P['power_module_size_mm']
 pg=P['power_clearance_xy']
@@ -215,7 +226,7 @@ power_module=box(px-pg,py-pg,pz,pl+2*pg,pw+2*pg,ph+0.4)
 actual_power=box(px,py,pz,pl,pw,ph)
 # A flat bed for the documented flat back, with 0.2 mm insulation/tape allowance.
 # Open-center locating rails do not clamp components or depend on mounting holes.
-base += box(px-pg-1,py-pg-1,2,pl+2*pg+2,pw+2*pg+2,pz-0.2-2)
+base += box(max(2,px-pg-1),py-pg-1,2,px+pl+pg+1-max(2,px-pg-1),pw+2*pg+2,pz-0.2-2)
 for yy in [py-pg-1,py+pw+pg]:
     base += box(px-pg-1,yy,2,pl+2*pg+2,1,2.2)
 for xx in [px-pg-1,px+pl+pg]:
@@ -228,14 +239,18 @@ switch_access=box(wx,-1,wz,wl,py+1,wh)
 base -= switch_access
 # PI tape can loop around the USB shell and the insulated output end of the PCB.
 # Slots are outside the electrical envelope; tape is fitted before the main PCB.
-for xx in [12,42]:
+for xx in [px+2,px+pl-3]:
     for yy in [py-pg-0.9,py+pw+pg+0.1]:
         base -= box(xx,yy,-0.1,3,0.8,4.4)
+# Plug-body access is centered on the front face; module USB center is a photo-derived nominal.
+assert abs(py+P['ups_usb_center_offset_y']-W/2)<1e-6
+charging_access=usb_capsule(-1,px+1,P['ups_usb_window_width'],P['ups_usb_window_height'],P['ups_usb_center_z'])
+base -= charging_access
 # Continuous side routing lane for power/battery leads; avoids the PCB pin rows.
 wire_lane=box(10,W-7,3,35,3,22)
 parts={'base':base,'lid':lid,'mic-clamp':clamp,'button-cap':cap,
        'button-pin':pin(),'battery-tray':tray}
-report={'revision':'integrated-ups-fit-3','parameters':P,'parts':{},'checks':{}}
+report={'revision':'integrated-ups-fit-4','parameters':P,'parts':{},'checks':{}}
 for name,solid in parts.items():
     t=mesh(solid)
     assert str(solid.status())=='Error.NoError',(name,solid.status())
@@ -297,6 +312,9 @@ for name,fixed in [('base',base),('lid',lid),('board',board),('tray',tray),('bat
     report['checks']['wire-lane-'+name+'_intersection_mm3']=round(volume,8)
 # Window must be empty all the way from the outer wall to the module edge.
 assert (switch_access^base).volume()<1e-5
+assert (charging_access^base).volume()<1e-5
+report['checks']['charging_port_center_y_mm']=W/2
+report['checks']['charging_port_nominal_offset']='15 mm from UPS lower-Y edge, inferred from photo; 14 x 8 mm plug access allows fit tolerance'
 report['checks']['switch_access_window_mm']=[wl,wh]
 report['checks']['battery_to_antenna_projection_gap_mm']=round(bx+bl-6-(cell_x+cell_l),2)
 for label,extra in [('default-long',P['button_pin_extension'])]:
@@ -399,7 +417,7 @@ for i,(title,items) in enumerate(views):
     ax=fig.add_subplot(2,2,i+1)
     ax.imshow(raster(items,-35 if i==3 else 32))
     ax.set_axis_off();ax.set_title(title,fontsize=12)
-fig.suptitle(f'VOXU / INTEGRATED UPS / FIT REV 3   {L} x {W} x {cap_bottom+2:.1f} mm',fontsize=18)
+fig.suptitle(f'VOXU / INTEGRATED UPS / FIT REV 4   {L} x {W} x {cap_bottom+2:.1f} mm',fontsize=18)
 fig.tight_layout()
 fig.savefig(ROOT/'preview.png',dpi=160)
 plt.close(fig)
@@ -412,14 +430,14 @@ for ax, title in zip(axes, ['BOTTOM / UPS POSITION', 'TOP / BATTERY POSITION']):
     ax.text(27,W-5.5,'WIRE CHANNEL',ha='center',va='center',fontsize=9)
     ax.set(xlim=(-7,L+3),ylim=(-7,W+4),aspect='equal',title=title,xlabel='mm',ylabel='mm')
     ax.grid(alpha=.15)
-    ax.annotate('Original USB-C',xy=(0,W/2),xytext=(-6,5),fontsize=9,
+    ax.annotate('UPS charging USB-C',xy=(0,W/2),xytext=(-6,5),fontsize=9,
                 rotation=90,arrowprops={'arrowstyle':'->'})
 px,py,pz=P['power_module_origin_mm']
 ax=axes[0]
 ax.add_patch(Rectangle((px,py),35,20,color='#d67b26',alpha=.7))
 ax.text(px+17.5,py+10,'UPS 35 x 20 mm\ncomponents face up',ha='center',va='center')
-ax.plot([32,43],[0,0],lw=5,color='#bd4853')
-ax.annotate('Recessed switch access\nplastic tool required',xy=(37.5,0),xytext=(22,-6),fontsize=9,
+ax.plot([P['switch_window_x'],P['switch_window_x']+P['switch_window_length']],[0,0],lw=5,color='#bd4853')
+ax.annotate('Recessed switch access\nplastic tool required',xy=(P['switch_window_x']+P['switch_window_length']/2,0),xytext=(22,-6),fontsize=9,
             arrowprops={'arrowstyle':'->'})
 bx,by,bz=P['battery_origin_mm']
 ax=axes[1]
@@ -427,7 +445,7 @@ ax.add_patch(Rectangle((bx,by),35.7,24.9,color='#ab69ad',alpha=.5))
 ax.text(bx+17.85,by+12.45,'CELL 35.7 x 24.9 mm\n4.7 mm thick\nin removable tray',ha='center',va='center')
 ax.annotate('Lead exit toward USB end',xy=(bx,by+12),xytext=(8,-5),fontsize=9,
             arrowprops={'arrowstyle':'->'})
-fig.suptitle('VOXU 60 x 46 mm / MEASURED OUTLINES / FIT REV 3',fontsize=15)
+fig.suptitle('VOXU 62 x 46 mm / MEASURED OUTLINES / FIT REV 4',fontsize=15)
 fig.tight_layout()
 fig.savefig(ROOT/'layout.png',dpi=160)
 plt.close(fig)
