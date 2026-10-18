@@ -1,5 +1,5 @@
 {
-  "revision": "integrated-ups-fit-4",
+  "revision": "integrated-ups-fit-5",
   "parameters": {
     "shell_length": 62,
     "shell_width": 46,
@@ -62,14 +62,25 @@
     "battery_clearance_xy": 0.5,
     "battery_top_clearance": 1.0,
     "power_clearance_xy": 0.5,
-    "switch_window_x": 24,
-    "switch_window_length": 6.5,
-    "switch_window_bottom_z": 3.4,
-    "switch_window_height": 7.2,
     "ups_usb_center_offset_y": 15,
     "ups_usb_center_z": 6.1,
     "ups_usb_window_width": 14,
-    "ups_usb_window_height": 8
+    "ups_usb_window_height": 8,
+    "power_pcb_thickness": 1.4,
+    "power_retainer_rim_overlap": 0.45,
+    "power_retainer_vertical_clearance": 0.25,
+    "external_switch_origin_mm": [
+      40,
+      1.2,
+      4
+    ],
+    "external_switch_body_mm": [
+      8.6,
+      3.5,
+      3.6
+    ],
+    "external_switch_handle_length": 3,
+    "external_switch_travel": 2
   },
   "parts": {
     "base": {
@@ -78,7 +89,7 @@
         46.0,
         29.0
       ],
-      "volume_mm3": 20323.03,
+      "volume_mm3": 21144.67,
       "watertight": true,
       "connected_components": 1
     },
@@ -131,6 +142,36 @@
       "volume_mm3": 1055.05,
       "watertight": true,
       "connected_components": 1
+    },
+    "ups-clamp-right": {
+      "size_mm": [
+        5.0,
+        5.45,
+        2.0
+      ],
+      "volume_mm3": 46.91,
+      "watertight": true,
+      "connected_components": 1
+    },
+    "ups-clamp-left": {
+      "size_mm": [
+        5.0,
+        6.15,
+        2.0
+      ],
+      "volume_mm3": 53.91,
+      "watertight": true,
+      "connected_components": 1
+    },
+    "switch-retainer": {
+      "size_mm": [
+        18.2,
+        4.4,
+        5.6
+      ],
+      "volume_mm3": 131.34,
+      "watertight": true,
+      "connected_components": 1
     }
   },
   "checks": {
@@ -148,6 +189,33 @@
     "mic-components_intersection_mm3": 0.0,
     "mic-capsule-components_intersection_mm3": 0.0,
     "mic-capsule-clamp_intersection_mm3": 0.0,
+    "external-switch-base_intersection_mm3": 0.0,
+    "external-switch-lid_intersection_mm3": 0.0,
+    "external-switch-PCB_intersection_mm3": 0.0,
+    "external-switch-components_intersection_mm3": 0.0,
+    "external-switch-mic_intersection_mm3": 0.0,
+    "external-switch-mic-clamp_intersection_mm3": 0.0,
+    "external-switch-mic-capsule_intersection_mm3": 0.0,
+    "external-switch-button-cap_intersection_mm3": 0.0,
+    "external-switch-button-pin_intersection_mm3": 0.0,
+    "ups-retainer-base_intersection_mm3": -0.0,
+    "ups-retainer-lid_intersection_mm3": 0.0,
+    "ups-retainer-PCB_intersection_mm3": 0.0,
+    "ups-retainer-components_intersection_mm3": 0.0,
+    "ups-retainer-mic_intersection_mm3": 0.0,
+    "ups-retainer-mic-clamp_intersection_mm3": 0.0,
+    "ups-retainer-mic-capsule_intersection_mm3": 0.0,
+    "ups-retainer-button-cap_intersection_mm3": 0.0,
+    "ups-retainer-button-pin_intersection_mm3": 0.0,
+    "switch-retainer-base_intersection_mm3": -0.0,
+    "switch-retainer-lid_intersection_mm3": 0.0,
+    "switch-retainer-PCB_intersection_mm3": 0.0,
+    "switch-retainer-components_intersection_mm3": 0.0,
+    "switch-retainer-mic_intersection_mm3": 0.0,
+    "switch-retainer-mic-clamp_intersection_mm3": 0.0,
+    "switch-retainer-mic-capsule_intersection_mm3": 0.0,
+    "switch-retainer-button-cap_intersection_mm3": 0.0,
+    "switch-retainer-button-pin_intersection_mm3": 0.0,
     "battery-base_intersection_mm3": 0.0,
     "battery-lid_intersection_mm3": 0.0,
     "battery-PCB_intersection_mm3": 0.0,
@@ -194,9 +262,15 @@
     "charging_port_center_y_mm": 23.0,
     "charging_port_nominal_offset": "15 mm from UPS lower-Y edge, inferred from photo; 14 x 8 mm plug access allows fit tolerance",
     "switch_access_window_mm": [
-      6.5,
-      7.2
+      4.1,
+      2.1
     ],
+    "switch_handle_travel_mm": 2,
+    "switch_six_direction_capture": "body captured by pocket and screwed cap; travel sweep clear",
+    "switch_insertion": "49 horizontal insertion positions, cap and main PCB removed",
+    "retainer_screw_heads": "4 mm diameter x 1.5 mm heads clear PCB/electronics",
+    "ups_six_direction_capture": "PCB blocked in +/- X, +/- Y, +/- Z; no force simulation",
+    "retainer_removal": "right clamp slides outward 0.9 mm then lifts; left clamp/cap lift; main PCB removed first",
     "battery_to_antenna_projection_gap_mm": 1.75,
     "shell_snap_retention": "4 seated catches clear base; each blocks 0.5 mm upward lid movement",
     "shell_snap_release": "4 sheared-arm clearance envelopes x 25 extraction positions; real force/fatigue not simulated",
@@ -218,11 +292,11 @@
   },
   "limitations": [
     "Mechanical design for measured parts; electrical charging compatibility is unresolved",
-    "Switch position inferred from supplied photo; generous access window requires physical fit check",
-    "Power PCB flat back uses insulating tape and PI retention straps; do not clamp components",
+    "External SS12D00G3 mechanical mount based on vendor drawing; control wiring remains unresolved",
+    "UPS PCB measured 1.4 mm; retainer overlaps rim 0.45 mm with 0.25 mm vertical clearance; inspect rim solder/component clearance",
     "Battery is outside the last 6 mm antenna projection, but full RF clearance/range is not validated",
     "Wire routing lane is a reserved volume; exact solder joints and connector bends require fit check",
-    "Printed clips, tape retention, pouch clearance and thermal behavior require assembly verification"
+    "Printed retainers, pouch clearance and thermal behavior require assembly verification"
   ],
   "body_size_mm": [
     62,
@@ -245,8 +319,9 @@
     5.6
   ],
   "module_envelope_mm": [
-    36.0,
-    21.0,
+    35,
+    20,
     6.0
-  ]
+  ],
+  "module_component_edge_inset_mm": 0.6
 }

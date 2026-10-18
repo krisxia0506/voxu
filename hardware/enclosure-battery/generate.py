@@ -224,24 +224,63 @@ pl,pw,ph=P['power_module_size_mm']
 pg=P['power_clearance_xy']
 power_module=box(px-pg,py-pg,pz,pl+2*pg,pw+2*pg,ph+0.4)
 actual_power=box(px,py,pz,pl,pw,ph)
-# A flat bed for the documented flat back, with 0.2 mm insulation/tape allowance.
-# Open-center locating rails do not clamp components or depend on mounting holes.
-base += box(max(2,px-pg-1),py-pg-1,2,px+pl+pg+1-max(2,px-pg-1),pw+2*pg+2,pz-0.2-2)
-for yy in [py-pg-1,py+pw+pg]:
-    base += box(px-pg-1,yy,2,pl+2*pg+2,1,2.2)
-for xx in [px-pg-1,px+pl+pg]:
-    for yy in [py-pg-1,py+pw+pg-3]:
-        base += box(xx,yy,2,1,4,2.2)
-# Lower side access for the existing slide switch; no additional switch is needed.
-wx=P['switch_window_x'];wl=P['switch_window_length']
-wz=P['switch_window_bottom_z'];wh=P['switch_window_height']
-switch_access=box(wx,-1,wz,wl,py+1,wh)
+# Rigid bed, PCB-edge stops and two removable clamps. No adhesive carries loads.
+# PCB thickness 1.4 mm measured by user. Only 0.45 mm of the PCB rim is captured.
+pt=P['power_pcb_thickness']; rim=P['power_retainer_rim_overlap']
+rz=pz+pt+P['power_retainer_vertical_clearance']
+base += box(2,6.5,2,37.7,23.2,pz-2)
+for yy in [py-1.5,py+pw+0.15]:
+    base += box(2,yy,2,37.7,1.35,pz+pt-2)
+# Front/rear stops transfer cable insertion and withdrawal loads to the shell.
+base += box(2,py,2,0.35,pw,pz+pt-2)
+base += box(px+pl+0.15,py,2,2,pw,pz+pt-2)
+# Two thick edge clamps avoid all components; independent removal clears PCB clips.
+ups_clamps=[box(18.2,3,rz,5,py+rim-3,2),
+            box(18.2,py+pw-rim,rz,5,33.7-(py+pw-rim),2)]
+retainer_screws=[(20.7,5.2),(20.7,31.5)]
+for i,(xx,yy) in enumerate(retainer_screws):
+    base += cyl(xx,yy,2,2.2,rz-2)
+    base -= cyl(xx,yy,rz-1.9,0.85,2.0)
+    ups_clamps[i] -= cyl(xx,yy,rz-0.1,1.1,2.2)
+    # Paired guides stop rotation about the screw; low-side clamp slides outward.
+    for gx in [16.8,23.4]:
+        base += box(gx,3 if i==0 else 29,2,1.2,4.4,rz+1.8-2)
+retainer=ups_clamps[0]+ups_clamps[1]
+# Split PCB and component envelopes so rim contacts are explicit and testable.
+# 0.6 mm edge keepout is photo-derived: check no component/solder lies under lips.
+power_pcb=box(px,py,pz,pl,pw,pt)
+power_components=box(px,py+0.6,pz+pt,pl,pw-1.2,ph+0.4-pt)
+power_module=power_pcb+power_components
+actual_power=power_pcb+box(px,py+0.6,pz+pt,pl,pw-1.2,ph-pt)
+
+# SS12D00G3: actuator faces y=0 (right side when looking into front USB face).
+# Drawing: body 8.5 x 3.5 x 3.5, pin pitch 2.5, total body+pins 7.2,
+# handle width 1.5, travel 2; pocket uses user's larger 8.6 x 3.6 outline.
+sx,sy,sz=P['external_switch_origin_mm']; sl,sd,sh=P['external_switch_body_mm']
+switch_body=box(sx,sy,sz,sl,sd,sh)
+switch_pins=box(sx+1.3,sy+sd,sz+1.25,6,4.2,1.1)
+switch_handle=box(sx+sl/2-1.75,sy-3,sz+sh/2-0.75,1.5,3,1.5)
+switch_sweep=box(sx+sl/2-1.75,sy-3,sz+sh/2-0.75,3.5,3,1.5)
+actual_switch=switch_body+switch_handle
+switch_access=box(sx+sl/2-2.05,-2,sz+sh/2-1.05,4.1,3.3,2.1)
+# Sidewalls and back support react the switch force; top cap prevents lift-out.
+base += box(sx-1.8,1,2,sl+3.6,5.6,sz+sh+0.2-2)
+base -= box(sx-0.2,sy-0.2,sz-0.2,sl+0.4,sd+0.4,6)
+base -= box(sx-0.2,sy+sd,sz-0.2,sl+0.4,2.2,6)
+base -= switch_pins
 base -= switch_access
-# PI tape can loop around the USB shell and the insulated output end of the PCB.
-# Slots are outside the electrical envelope; tape is fitted before the main PCB.
-for xx in [px+2,px+pl-3]:
-    for yy in [py-pg-0.9,py+pw+pg+0.1]:
-        base -= box(xx,yy,-0.1,3,0.8,4.4)
+# Relieve only the lower tip of the rear PCB fence for horizontal switch insertion.
+# Mainboard support pad and the upper fence remain unchanged.
+base -= box(sx-0.2,6.6,sz-0.2,sl+0.4,2.3,sh+0.4)
+switch_cap=box(35.3,2.2,7.8,18.2,4.4,1.6)
+# Back shoulders belong to the removable cap: switch slides in from inside.
+for xx in [sx-0.2,sx+sl-1.0]:
+    switch_cap += box(xx,sy+sd+0.2,sz-0.2,1.2,1.6,7.9-(sz-0.2))
+switch_screws=[(37.5,4.4),(51.3,4.4)]
+for xx,yy in switch_screws:
+    base += cyl(xx,yy,2,2.2,5.8)
+    base -= cyl(xx,yy,5.2,0.85,2.7)
+    switch_cap -= cyl(xx,yy,7.7,1.1,1.8)
 # Plug-body access is centered on the front face; module USB center is a photo-derived nominal.
 assert abs(py+P['ups_usb_center_offset_y']-W/2)<1e-6
 charging_access=usb_capsule(-1,px+1,P['ups_usb_window_width'],P['ups_usb_window_height'],P['ups_usb_center_z'])
@@ -249,14 +288,14 @@ base -= charging_access
 # Continuous side routing lane for power/battery leads; avoids the PCB pin rows.
 wire_lane=box(10,W-7,3,35,3,22)
 parts={'base':base,'lid':lid,'mic-clamp':clamp,'button-cap':cap,
-       'button-pin':pin(),'battery-tray':tray}
-report={'revision':'integrated-ups-fit-4','parameters':P,'parts':{},'checks':{}}
+       'button-pin':pin(),'battery-tray':tray,'ups-clamp-right':ups_clamps[0],'ups-clamp-left':ups_clamps[1],'switch-retainer':switch_cap}
+report={'revision':'integrated-ups-fit-5','parameters':P,'parts':{},'checks':{}}
 for name,solid in parts.items():
     t=mesh(solid)
     assert str(solid.status())=='Error.NoError',(name,solid.status())
     assert t.is_watertight and t.is_winding_consistent and t.volume>0,name
     assert len(t.split())==1,(name,'disconnected shells')
-    if name in ['lid','button-cap']:
+    if name in ['lid','button-cap','switch-retainer']:
         t.apply_transform(trimesh.transformations.rotation_matrix(np.pi,[1,0,0]))
     t.apply_translation(-t.bounds[0])
     assert np.all(t.extents<256),name
@@ -276,7 +315,7 @@ for name,a,b in [('usb-shell-base',usb_capsule(P['usb_front_recess'],8,8.94,3.31
     assert volume<1e-5,(name,volume)
     report['checks'][name+'_intersection_mm3']=round(volume,8)
 # Independent envelope/fastener checks. These do not simulate wires or cell swelling.
-for moving_name,moving in [('battery',battery),('battery-tray',tray),
+for moving_name,moving in [('external-switch',switch_body+switch_pins+switch_sweep),('ups-retainer',retainer),('switch-retainer',switch_cap),('battery',battery),('battery-tray',tray),
                            ('tray-screw-heads',tray_screw_heads),('power-module',power_module)]:
     for fixed_name,fixed in [('base',base),('lid',lid),('PCB',board),
                              ('components',components),('mic',mic),('mic-clamp',clamp),
@@ -296,16 +335,17 @@ for lift in np.linspace(0,32,33):
 report['checks']['battery_tray_removal']='33 vertical lift positions; wires excluded'
 report['limitations']=[
     'Mechanical design for measured parts; electrical charging compatibility is unresolved',
-    'Switch position inferred from supplied photo; generous access window requires physical fit check',
-    'Power PCB flat back uses insulating tape and PI retention straps; do not clamp components',
+    'External SS12D00G3 mechanical mount based on vendor drawing; control wiring remains unresolved',
+    'UPS PCB measured 1.4 mm; retainer overlaps rim 0.45 mm with 0.25 mm vertical clearance; inspect rim solder/component clearance',
     'Battery is outside the last 6 mm antenna projection, but full RF clearance/range is not validated',
     'Wire routing lane is a reserved volume; exact solder joints and connector bends require fit check',
-    'Printed clips, tape retention, pouch clearance and thermal behavior require assembly verification']
+    'Printed retainers, pouch clearance and thermal behavior require assembly verification']
 report['body_size_mm']=[L,W,top]
 report['battery_measured_mm']=P['battery_size_mm']
 report['battery_envelope_mm']=[el,ew,cell_h+P['battery_top_clearance']]
 report['module_measured_mm']=P['power_module_size_mm']
-report['module_envelope_mm']=[pl+2*pg,pw+2*pg,ph+0.4]
+report['module_envelope_mm']=[pl,pw,ph+0.4]
+report['module_component_edge_inset_mm']=0.6
 for name,fixed in [('base',base),('lid',lid),('board',board),('tray',tray),('battery',battery),('power',power_module)]:
     volume=(wire_lane^fixed).volume()
     assert volume<1e-5,('wire-lane',name,volume)
@@ -315,7 +355,35 @@ assert (switch_access^base).volume()<1e-5
 assert (charging_access^base).volume()<1e-5
 report['checks']['charging_port_center_y_mm']=W/2
 report['checks']['charging_port_nominal_offset']='15 mm from UPS lower-Y edge, inferred from photo; 14 x 8 mm plug access allows fit tolerance'
-report['checks']['switch_access_window_mm']=[wl,wh]
+report['checks']['switch_access_window_mm']=[4.1,2.1]
+report['checks']['switch_handle_travel_mm']=2
+for direction,delta in [('x-',(-0.5,0,0)),('x+',(0.5,0,0)),('y-',(0,-0.5,0)),('y+',(0,0.5,0)),('z-',(0,0,-0.5)),('z+',(0,0,0.5))]:
+    assert (switch_body.translate(delta)^(base+switch_cap)).volume()>0.001,('switch capture',direction)
+report['checks']['switch_six_direction_capture']='body captured by pocket and screwed cap; travel sweep clear'
+for offset in np.linspace(0,12,49):
+    assert ((switch_body+switch_pins+switch_sweep).translate((0,float(offset),0))^base).volume()<1e-5,('switch insertion',offset)
+report['checks']['switch_insertion']='49 horizontal insertion positions, cap and main PCB removed'
+fastener_heads=m.Manifold()
+for xx,yy in retainer_screws:
+    fastener_heads += cyl(xx,yy,rz+2,2,1.5)
+for xx,yy in switch_screws:
+    fastener_heads += cyl(xx,yy,9.4,2,1.5)
+for name,fixed in [('base',base),('board',board),('battery',battery),('tray',tray),('switch',switch_body+switch_pins),('UPS',power_module)]:
+    assert (fastener_heads^fixed).volume()<1e-5,('retainer screw heads',name)
+report['checks']['retainer_screw_heads']='4 mm diameter x 1.5 mm heads clear PCB/electronics'
+for moving,delta in [('front',(-0.4,0,0)),('rear',(0.4,0,0)),('left',(0,-0.4,0)),('right',(0,0.4,0)),('down',(0,0,-0.3)),('up',(0,0,0.5))]:
+    obstacle=retainer if moving=='up' else base
+    assert (power_pcb.translate(delta)^obstacle).volume()>0.001,('UPS capture',moving)
+report['checks']['ups_six_direction_capture']='PCB blocked in +/- X, +/- Y, +/- Z; no force simulation'
+for a,b in [(retainer,power_module),(switch_cap,switch_body),(retainer,switch_cap),(retainer,switch_pins)]:
+    assert (a^b).volume()<1e-5
+# Retainers lift away vertically before installing/removing the main PCB.
+for shift in np.linspace(0,0.9,10):
+    assert (ups_clamps[0].translate((0,-float(shift),0.1))^base).volume()<1e-5,('clamp slide',shift)
+for lift in np.linspace(0.1,15,31):
+    for a in [ups_clamps[0].translate((0,-0.9,0)),ups_clamps[1],switch_cap]:
+        assert (a.translate((0,0,float(lift)))^base).volume()<1e-5,('retainer-removal',lift)
+report['checks']['retainer_removal']='right clamp slides outward 0.9 mm then lifts; left clamp/cap lift; main PCB removed first'
 report['checks']['battery_to_antenna_projection_gap_mm']=round(bx+bl-6-(cell_x+cell_l),2)
 for label,extra in [('default-long',P['button_pin_extension'])]:
     for travel in np.linspace(0,P['button_downstroke'],7):
@@ -367,7 +435,7 @@ report['checks'].update(button_motion_clearance='user-confirmed long pin x 7 pos
 # Actual CAD preview, not an AI-generated concept image.
 fig=plt.figure(figsize=(14,9),facecolor='#f0f2f4')
 views=[(f'BODY {L} x {W} x {top:.1f} mm',[(base,'#343a40'),(lid,'#b9db42'),(cap,'#343a40')]),
-       ('EXPLODED / BATTERY TRAY',[(base,'#8a929c'),(actual_power,'#d67b26'),
+       ('EXPLODED / BATTERY TRAY',[(base,'#8a929c'),(actual_power,'#d67b26'),(retainer.translate((0,0,4)),'#55a9e0'),(switch_cap.translate((0,0,4)),'#e47d88'),(actual_switch,'#e6b44d'),
          (board.translate((0,0,9)),'#217a78'),(tray.translate((0,0,18)),'#ab69ad'),
          (battery.translate((0,0,21)),'#d9d9dc'),(lid.translate((0,0,35)),'#b9db42')]),
        ('STACK / ENVELOPES ONLY',[(actual_power,'#d67b26'),(board,'#217a78'),
@@ -417,10 +485,14 @@ for i,(title,items) in enumerate(views):
     ax=fig.add_subplot(2,2,i+1)
     ax.imshow(raster(items,-35 if i==3 else 32))
     ax.set_axis_off();ax.set_title(title,fontsize=12)
-fig.suptitle(f'VOXU / INTEGRATED UPS / FIT REV 4   {L} x {W} x {cap_bottom+2:.1f} mm',fontsize=18)
+fig.suptitle(f'VOXU / INTEGRATED UPS / FIT REV 5   {L} x {W} x {cap_bottom+2:.1f} mm',fontsize=18)
 fig.tight_layout()
 fig.savefig(ROOT/'preview.png',dpi=160)
 plt.close(fig)
+fig=plt.figure(figsize=(10,8))
+plt.imshow(raster([(base,'#8a929c'),(actual_power,'#d67b26'),(retainer,'#55a9e0'),(actual_switch,'#e6b44d'),(switch_cap,'#e47d88')],85))
+plt.axis('off');plt.title('V5 / RIGID UPS CLAMPS + SIDE SWITCH / MAINBOARD HIDDEN')
+fig.tight_layout();fig.savefig(ROOT/'mounting.png',dpi=150);plt.close(fig)
 # Dimensioned schematic uses the same measured placement parameters as the CAD.
 from matplotlib.patches import Rectangle
 fig, axes = plt.subplots(1, 2, figsize=(12, 6))
@@ -436,23 +508,28 @@ px,py,pz=P['power_module_origin_mm']
 ax=axes[0]
 ax.add_patch(Rectangle((px,py),35,20,color='#d67b26',alpha=.7))
 ax.text(px+17.5,py+10,'UPS 35 x 20 mm\ncomponents face up',ha='center',va='center')
-ax.plot([P['switch_window_x'],P['switch_window_x']+P['switch_window_length']],[0,0],lw=5,color='#bd4853')
-ax.annotate('Recessed switch access\nplastic tool required',xy=(P['switch_window_x']+P['switch_window_length']/2,0),xytext=(22,-6),fontsize=9,
-            arrowprops={'arrowstyle':'->'})
+ax.add_patch(Rectangle((sx,sy),sl,sd,color='#bd4853',alpha=.8))
+ax.annotate('SS12D00G3 / right side',xy=(sx+sl/2,0),xytext=(24,-6),fontsize=9,arrowprops={'arrowstyle':'->'})
+for cy in [3,27.55]:
+ ax.add_patch(Rectangle((18.2,cy),5,5.45,fill=False,lw=2,edgecolor='#3989cc'))
 bx,by,bz=P['battery_origin_mm']
 ax=axes[1]
 ax.add_patch(Rectangle((bx,by),35.7,24.9,color='#ab69ad',alpha=.5))
 ax.text(bx+17.85,by+12.45,'CELL 35.7 x 24.9 mm\n4.7 mm thick\nin removable tray',ha='center',va='center')
 ax.annotate('Lead exit toward USB end',xy=(bx,by+12),xytext=(8,-5),fontsize=9,
             arrowprops={'arrowstyle':'->'})
-fig.suptitle('VOXU 62 x 46 mm / MEASURED OUTLINES / FIT REV 4',fontsize=15)
+fig.suptitle('VOXU 62 x 46 mm / MEASURED OUTLINES / FIT REV 5',fontsize=15)
 fig.tight_layout()
 fig.savefig(ROOT/'layout.png',dpi=160)
 plt.close(fig)
 from preview_html import write_preview
 write_preview(ROOT, [(name, mesh(solid), color, level) for name,solid,color,level in [
- ('底座 · 加固卡扣根部',base,'#9aa7b6',0),
- ('一体 UPS 板（外形包络）',actual_power,'#ef9a48',1),
+ ('底座 · UPS硬限位 / 右侧开关座',base,'#9aa7b6',0),
+ ('一体 UPS 板（外形包络）',actual_power,'#ef9a48',0.4),
+ ('UPS 右压片 · M2×4',ups_clamps[0],'#55a9e0',1),
+ ('UPS 左压片 · M2×4',ups_clamps[1],'#55a9e0',1),
+ ('SS12D00G3 开关',actual_switch,'#e6b44d',0.4),
+ ('开关压盖 · 2枚M2×4',switch_cap,'#e47d88',1),
  ('ESP32 主板（外形包络）',board,'#329b8f',2),
  ('电池托盘',tray,'#ad78bf',3),
  ('550mAh 电池（外形包络）',actual_battery,'#c4cbd5',4),
@@ -465,7 +542,7 @@ with zipfile.ZipFile(ROOT/'voxu-battery-fit-prototype.zip','w',zipfile.ZIP_DEFLA
     for name in sorted(parts):
         p=OUT/(name+'.stl')
         z.write(p,'stl/'+p.name)
-    for name in ['README.md','parameters.json','validation.json','preview.png','layout.png','preview.html','preview_html.py','preview-template.html','wiring-panel.html','generate.py','requirements.txt','slicer-result.json','wiring.md','slice.py']:
+    for name in ['README.md','parameters.json','validation.json','preview.png','mounting.png','layout.png','preview.html','preview_html.py','preview-template.html','wiring-panel.html','generate.py','requirements.txt','slicer-result.json','wiring.md','slice.py']:
         p=ROOT/name
         if p.exists(): z.write(p,name)
 print(json.dumps(report,indent=2))

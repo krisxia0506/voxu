@@ -60,12 +60,23 @@
   "battery_clearance_xy": 0.5,
   "battery_top_clearance": 1.0,
   "power_clearance_xy": 0.5,
-  "switch_window_x": 24,
-  "switch_window_length": 6.5,
-  "switch_window_bottom_z": 3.4,
-  "switch_window_height": 7.2,
   "ups_usb_center_offset_y": 15,
   "ups_usb_center_z": 6.1,
   "ups_usb_window_width": 14,
-  "ups_usb_window_height": 8
+  "ups_usb_window_height": 8,
+  "power_pcb_thickness": 1.4,
+  "power_retainer_rim_overlap": 0.45,
+  "power_retainer_vertical_clearance": 0.25,
+  "external_switch_origin_mm": [
+    40,
+    1.2,
+    4
+  ],
+  "external_switch_body_mm": [
+    8.6,
+    3.5,
+    3.6
+  ],
+  "external_switch_handle_length": 3,
+  "external_switch_travel": 2
 }

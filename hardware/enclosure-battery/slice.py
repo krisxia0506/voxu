@@ -20,7 +20,7 @@ root=Path(__file__).resolve().parents[2]
 report={'revision':json.loads((root/'hardware/enclosure-battery/validation.json').read_text())['revision'],
  'date':str(date.today()),'printer':'P2S 0.4 mm','material':'Generic PLA',
  'layer_height_mm':0.2,'wall_loops':3,'infill_percent':15,'parts':{}}
-for part in (sys.argv[1:] or ['base','lid','battery-tray','button-cap','button-pin','mic-clamp']):
+for part in (sys.argv[1:] or ['base','lid','battery-tray','button-cap','button-pin','mic-clamp','ups-clamp-right','ups-clamp-left','switch-retainer']):
  dest=out/part;dest.mkdir(exist_ok=True)
  process['enable_support']='1' if part in ['base','button-pin'] else '0'
  pp=dest/'process.json';pp.write_text(json.dumps(process,indent=2))
