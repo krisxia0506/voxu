@@ -465,7 +465,7 @@ with zipfile.ZipFile(ROOT/'voxu-battery-fit-prototype.zip','w',zipfile.ZIP_DEFLA
     for name in sorted(parts):
         p=OUT/(name+'.stl')
         z.write(p,'stl/'+p.name)
-    for name in ['README.md','parameters.json','validation.json','preview.png','layout.png','preview.html','preview_html.py','preview-template.html','generate.py','requirements.txt','slicer-result.json','wiring.md','slice.py']:
+    for name in ['README.md','parameters.json','validation.json','preview.png','layout.png','preview.html','preview_html.py','preview-template.html','wiring-panel.html','generate.py','requirements.txt','slicer-result.json','wiring.md','slice.py']:
         p=ROOT/name
         if p.exists(): z.write(p,name)
 print(json.dumps(report,indent=2))
