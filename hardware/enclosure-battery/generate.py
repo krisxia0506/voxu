@@ -588,10 +588,27 @@ assert len(preview_fasteners)==12
 # Display-only ESP32 USB shell: reference dimensions, not measured connector CAD.
 esp_usb_shell=box(P['usb_front_recess'],W/2-4.47,P['usb_bottom_z'],7.2,8.94,P['usb_height'])
 esp_usb_shell-=box(P['usb_front_recess']-0.1,W/2-3.97,P['usb_bottom_z']+0.5,6.7,7.94,P['usb_height']-1)
+# Photo-derived display proxies only: never used as clearance or print geometry.
+zups=pz+pt
+zesp=bz+P['board_thickness']
+preview_components=[
+ ('UPS元件 · 白色电池插座',box(px+0.8,py+12,zups,5.5,7,3.5),'#eee4cc',0.4),
+ ('UPS元件 · 板载拨动开关',box(px+18,py+16.8,zups,7,2.8,2.4)+box(px+20,py+17.3,zups+2.4,2,1.8,1),'#586474',0.4),
+ ('UPS元件 · 1R5电感',box(px+25,py+10,zups,6,6,3.8),'#7c8290',0.4),
+ ('UPS元件 · 电容',box(px+19,py+6,zups,4,3.5,3.6),'#3d6668',0.4),
+ ('UPS元件 · 充电控制芯片（位置示意）',box(px+9,py+7,zups,4,4,1.2),'#333846',0.4),
+ ('UPS元件 · 电源芯片（位置示意）',box(px+26,py+3,zups,4,4,1.2),'#333846',0.4),
+ ('ESP32元件 · ESP32-WROOM金属屏蔽罩',box(bx+23,by+5,zesp,20,18,2.8),'#b6c1c7',2),
+ ('ESP32元件 · CH340C USB串口芯片',box(bx+7,by+10,zesp,9,5,1.5),'#303744',2),
+ ('ESP32元件 · 稳压器（位置示意）',box(bx+11,by+3,zesp,6,5,1.5),'#505765',2),
+ ('ESP32元件 · BOOT按钮',box(bootx-1.7,booty-1.7,zesp,3.4,3.4,2.5),'#d4b16e',2),
+ ('ESP32元件 · EN复位按钮',box(bootx-1.7,W-booty-1.7,zesp,3.4,3.4,2.5),'#d4b16e',2),
+ ('ESP32元件 · PCB天线区',box(bx+bl-6,by+4,zesp,6,20,0.35),'#273342',2),
+]
 from preview_html import write_preview
 write_preview(ROOT, [(name, mesh(solid), color, level) for name,solid,color,level in [
  ('底座 · UPS硬限位 / 右侧开关座',base,'#9aa7b6',0),
- ('一体 UPS 板（元件朝上 / 外形包络）',actual_power,'#ef9a48',0.4),
+ ('一体 UPS 板（元器件朝上）',power_pcb,'#244b50',0.4),
  ('UPS Type-C 金属接口（偏置方向）',ups_usb_shell,'#d8e1e8',0.4),
  ('UPS 外侧压片 · M2×4',ups_clamps[0],'#55a9e0',1),
  ('UPS 内侧压片 · M2×4',ups_clamps[1],'#55a9e0',1),
@@ -605,7 +622,7 @@ write_preview(ROOT, [(name, mesh(solid), color, level) for name,solid,color,leve
  ('上盖',lid,'#bbd555',6),
  ('BOOT 按帽',cap,'#71839b',6),
  ('BOOT 顶杆',pin(),'#f0bf61',5),
- ('麦克风压框',clamp,'#ad78bf',5)]+preview_fasteners], annotations=[
+ ('麦克风压框',clamp,'#ad78bf',5)]+preview_components+preview_fasteners], annotations=[
  dict(part='一体 UPS 板',at=[px+18,py+10,pz+ph],title='UPS 正面：元器件朝上',note='PCB背面朝底壳；不可翻面安装',side='left'),
  dict(part='UPS Type-C',at=[1.0,W/2,pz+pt+1.65],title='UPS Type-C：充电口',note='位于前端；俯视时在PCB左侧',side='left'),
  dict(part='一体 UPS 板',at=[px+3,py+16,pz+ph],title='UPS 白色电池插座',note='正面靠USB旁，位置按照片示意',side='left'),
