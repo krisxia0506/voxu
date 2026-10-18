@@ -1,8 +1,8 @@
 {
-  "revision": "battery-fit-prototype-1",
+  "revision": "integrated-ups-fit-2",
   "parameters": {
     "shell_length": 60,
-    "shell_width": 40,
+    "shell_width": 46,
     "seam_z": 29,
     "lid_thickness": 2.4,
     "board_length": 51.45,
@@ -37,26 +37,54 @@
     "shell_snap_bottom_z": 14.8,
     "shell_snap_hook_height": 1.3,
     "shell_snap_projection": 0.8,
-    "shell_snap_release_deflection": 0.9
+    "shell_snap_release_deflection": 0.9,
+    "battery_size_mm": [
+      35.7,
+      24.9,
+      4.7
+    ],
+    "battery_capacity_mah": 550,
+    "power_module_size_mm": [
+      35,
+      20,
+      5.6
+    ],
+    "power_module_origin_mm": [
+      10,
+      10,
+      3.2
+    ],
+    "battery_origin_mm": [
+      10.4,
+      10.55,
+      19.6
+    ],
+    "battery_clearance_xy": 0.5,
+    "battery_top_clearance": 1.0,
+    "power_clearance_xy": 0.5,
+    "switch_window_x": 32,
+    "switch_window_length": 11,
+    "switch_window_bottom_z": 3.4,
+    "switch_window_height": 7.2
   },
   "parts": {
     "base": {
       "size_mm": [
         60.0,
-        40.0,
+        46.0,
         29.0
       ],
-      "volume_mm3": 17797.15,
+      "volume_mm3": 19952.51,
       "watertight": true,
       "connected_components": 1
     },
     "lid": {
       "size_mm": [
         60.0,
-        40.0,
+        46.0,
         17.6
       ],
-      "volume_mm3": 6814.94,
+      "volume_mm3": 7697.91,
       "watertight": true,
       "connected_components": 1
     },
@@ -93,10 +121,10 @@
     "battery-tray": {
       "size_mm": [
         48.2,
-        31.6,
-        2.1
+        27.5,
+        2.7
       ],
-      "volume_mm3": 847.36,
+      "volume_mm3": 1055.05,
       "watertight": true,
       "connected_components": 1
     }
@@ -143,7 +171,7 @@
     "tray-screw-heads-mic-capsule_intersection_mm3": 0.0,
     "tray-screw-heads-button-cap_intersection_mm3": 0.0,
     "tray-screw-heads-button-pin_intersection_mm3": 0.0,
-    "power-module-base_intersection_mm3": 0.0,
+    "power-module-base_intersection_mm3": -0.0,
     "power-module-lid_intersection_mm3": 0.0,
     "power-module-PCB_intersection_mm3": 0.0,
     "power-module-components_intersection_mm3": 0.0,
@@ -153,6 +181,17 @@
     "power-module-button-cap_intersection_mm3": 0.0,
     "power-module-button-pin_intersection_mm3": 0.0,
     "battery_tray_removal": "33 vertical lift positions; wires excluded",
+    "wire-lane-base_intersection_mm3": 0.0,
+    "wire-lane-lid_intersection_mm3": 0.0,
+    "wire-lane-board_intersection_mm3": 0.0,
+    "wire-lane-tray_intersection_mm3": 0.0,
+    "wire-lane-battery_intersection_mm3": 0.0,
+    "wire-lane-power_intersection_mm3": 0.0,
+    "switch_access_window_mm": [
+      11,
+      7.2
+    ],
+    "battery_to_antenna_projection_gap_mm": 1.75,
     "shell_snap_retention": "4 seated catches clear base; each blocks 0.5 mm upward lid movement",
     "shell_snap_release": "4 sheared-arm clearance envelopes x 25 extraction positions; real force/fatigue not simulated",
     "pcb_support_pad_size_mm": [
@@ -167,30 +206,40 @@
     "usb_reference": "GCT USB4105 shell 8.94 x 3.31 mm; not an identification of the actual PCB connector",
     "mic_holes": "9 through holes, 2.4 mm diameter, 1.0 mm minimum web",
     "button_downstroke_mm": 0.6,
-    "user_verified": "Original USB version only; battery prototype has not been fitted",
-    "real_hardware_fit": "All battery prototype assembly and fit remain unverified"
+    "user_verified": "Original USB version and supplied battery/module measurements; no electrical tests requested",
+    "real_hardware_fit": "Measured module and cell outlines; assembled fit remains unverified"
   },
   "limitations": [
-    "Mechanical fit prototype, not validated battery electronics or final manufacturing release",
-    "Power module 8 mm assembly height is provisional; connectors and leads require measurement",
-    "Battery overlaps antenna projection; radio performance and range untested",
-    "Rear opening is a temporary EN wire outlet; final switch mount not designed",
-    "Power module mounting and wiring paths not finalized; do not energize loose assembly",
-    "Tray print strength, fasteners, tolerances and thermal clearance require physical testing"
+    "Mechanical design for measured parts; electrical charging compatibility is unresolved",
+    "Switch position inferred from supplied photo; generous access window requires physical fit check",
+    "Power PCB flat back uses insulating tape and PI retention straps; do not clamp components",
+    "Battery is outside the last 6 mm antenna projection, but full RF clearance/range is not validated",
+    "Wire routing lane is a reserved volume; exact solder joints and connector bends require fit check",
+    "Printed clips, tape retention, pouch clearance and thermal behavior require assembly verification"
   ],
   "body_size_mm": [
     60,
-    40,
+    46,
     31.4
   ],
+  "battery_measured_mm": [
+    35.7,
+    24.9,
+    4.7
+  ],
   "battery_envelope_mm": [
-    37,
-    30,
-    5.75
+    36.7,
+    25.9,
+    5.7
+  ],
+  "module_measured_mm": [
+    35,
+    20,
+    5.6
   ],
   "module_envelope_mm": [
-    37.068,
-    23.86,
-    8
+    36.0,
+    21.0,
+    6.0
   ]
 }

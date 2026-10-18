@@ -175,32 +175,62 @@ def pin(extra=P['button_pin_extension']):
     a += cyl(bootx,booty,neck_bottom-0.1,1.5,4.3)
     return a
 
-# Removable battery tray: screw ears lie outside the component envelope.
-# Envelope includes 0.5 mm clearance around the reference cell, not its loose lead.
+# Measured 550 mAh cell; full rectangular keepout includes soft-pouch clearance.
+# Cell rests on an insulating tape layer, never on screws or the mainboard.
 tray_z=18.6
-tray=box(9.2,4.2,tray_z,38.6,31.6,0.6)
-tray += box(6,17,tray_z,5,6,0.6)+box(46,17,tray_z,8.2,6,0.6)
-for x in [9.2,47.3]:
-    # Split front rail for the battery lead exit; avoid the BOOT guide.
-    for y in [5,25]:
-        tray += box(x,y,tray_z+0.5,0.5,10,1.6)
-for y in [4.2,35.3]:
-    tray += box(10,y,tray_z+0.5,37,0.5,1.6)
-tray_screws=[(7.8,20),(52,20)]
+cell_x,cell_y,cell_z=P['battery_origin_mm']
+cell_l,cell_w,cell_h=P['battery_size_mm']
+gap=P['battery_clearance_xy']
+ex,ey=cell_x-gap,cell_y-gap
+el,ew=cell_l+2*gap,cell_w+2*gap
+tray=box(ex-0.8,ey-0.8,tray_z,el+1.6,ew+1.6,0.8)
+tray += box(6,W/2-3,tray_z,5,6,0.8)+box(46,W/2-3,tray_z,8.2,6,0.8)
+# Battery wire exits at front (low X), through a broad interruption in the rail.
+for yy in [ey-0.8,ey+ew]:
+    tray += box(ex-0.8,yy,tray_z+0.7,el+1.6,0.8,2.0)
+tray += box(ex+el,ey,tray_z+0.7,0.8,ew,2.0)
+for yy in [ey,ey+ew-5]:
+    tray += box(ex-0.8,yy,tray_z+0.7,0.8,5,2.0)
+# Wrap PI tape around the removable tray without tightening against the pouch.
+tray_screws=[(7.8,W/2),(52,W/2)]
 tray_screw_heads=m.Manifold()
 for x,y in tray_screws:
-    tray -= cyl(x,y,tray_z-0.1,1.1,1)
-    lid += cyl(x,y,tray_z+0.6,1.8,seam-(tray_z+0.6)+0.1)
-    lid -= cyl(x,y,tray_z+0.5,0.85,5.2)
+    tray -= cyl(x,y,tray_z-0.1,1.1,1.1)
+    lid += cyl(x,y,tray_z+0.8,1.8,seam-(tray_z+0.8)+0.1)
+    lid -= cyl(x,y,tray_z+0.7,0.85,5.2)
     tray_screw_heads += cyl(x,y,tray_z-1.5,2,1.5)
-battery=box(10,5,19.2,37,30,5.75)
-power_module=box(9,8.07,2.5,37.068,23.86,8)
-# Rear lower service opening routes EN switch wires for bench testing.
-# Not a validated mounting cutout for any switch or a second USB connector.
-base -= box(57,18,4,4,4,2)
+battery=box(ex,ey,cell_z,el,ew,cell_h+P['battery_top_clearance'])
+actual_battery=box(cell_x,cell_y,cell_z,cell_l,cell_w,cell_h)
+
+# Integrated UPS: USB faces low X, its switch faces low Y. The USB stays internal.
+px,py,pz=P['power_module_origin_mm']
+pl,pw,ph=P['power_module_size_mm']
+pg=P['power_clearance_xy']
+power_module=box(px-pg,py-pg,pz,pl+2*pg,pw+2*pg,ph+0.4)
+actual_power=box(px,py,pz,pl,pw,ph)
+# A flat bed for the documented flat back, with 0.2 mm insulation/tape allowance.
+# Open-center locating rails do not clamp components or depend on mounting holes.
+base += box(px-pg-1,py-pg-1,2,pl+2*pg+2,pw+2*pg+2,pz-0.2-2)
+for yy in [py-pg-1,py+pw+pg]:
+    base += box(px-pg-1,yy,2,pl+2*pg+2,1,2.2)
+for xx in [px-pg-1,px+pl+pg]:
+    for yy in [py-pg-1,py+pw+pg-3]:
+        base += box(xx,yy,2,1,4,2.2)
+# Lower side access for the existing slide switch; no additional switch is needed.
+wx=P['switch_window_x'];wl=P['switch_window_length']
+wz=P['switch_window_bottom_z'];wh=P['switch_window_height']
+switch_access=box(wx,-1,wz,wl,py+1,wh)
+base -= switch_access
+# PI tape can loop around the USB shell and the insulated output end of the PCB.
+# Slots are outside the electrical envelope; tape is fitted before the main PCB.
+for xx in [12,42]:
+    for yy in [py-pg-0.9,py+pw+pg+0.1]:
+        base -= box(xx,yy,-0.1,3,0.8,4.4)
+# Continuous side routing lane for power/battery leads; avoids the PCB pin rows.
+wire_lane=box(10,W-7,3,35,3,22)
 parts={'base':base,'lid':lid,'mic-clamp':clamp,'button-cap':cap,
        'button-pin':pin(),'battery-tray':tray}
-report={'revision':'battery-fit-prototype-1','parameters':P,'parts':{},'checks':{}}
+report={'revision':'integrated-ups-fit-2','parameters':P,'parts':{},'checks':{}}
 for name,solid in parts.items():
     t=mesh(solid)
     assert str(solid.status())=='Error.NoError',(name,solid.status())
@@ -245,15 +275,25 @@ for lift in np.linspace(0,32,33):
             assert (moving^fixed).volume()<1e-5,('tray-removal',lift,name,fixed_name)
 report['checks']['battery_tray_removal']='33 vertical lift positions; wires excluded'
 report['limitations']=[
-    'Mechanical fit prototype, not validated battery electronics or final manufacturing release',
-    'Power module 8 mm assembly height is provisional; connectors and leads require measurement',
-    'Battery overlaps antenna projection; radio performance and range untested',
-    'Rear opening is a temporary EN wire outlet; final switch mount not designed',
-    'Power module mounting and wiring paths not finalized; do not energize loose assembly',
-    'Tray print strength, fasteners, tolerances and thermal clearance require physical testing']
+    'Mechanical design for measured parts; electrical charging compatibility is unresolved',
+    'Switch position inferred from supplied photo; generous access window requires physical fit check',
+    'Power PCB flat back uses insulating tape and PI retention straps; do not clamp components',
+    'Battery is outside the last 6 mm antenna projection, but full RF clearance/range is not validated',
+    'Wire routing lane is a reserved volume; exact solder joints and connector bends require fit check',
+    'Printed clips, tape retention, pouch clearance and thermal behavior require assembly verification']
 report['body_size_mm']=[L,W,top]
-report['battery_envelope_mm']=[37,30,5.75]
-report['module_envelope_mm']=[37.068,23.86,8]
+report['battery_measured_mm']=P['battery_size_mm']
+report['battery_envelope_mm']=[el,ew,cell_h+P['battery_top_clearance']]
+report['module_measured_mm']=P['power_module_size_mm']
+report['module_envelope_mm']=[pl+2*pg,pw+2*pg,ph+0.4]
+for name,fixed in [('base',base),('lid',lid),('board',board),('tray',tray),('battery',battery),('power',power_module)]:
+    volume=(wire_lane^fixed).volume()
+    assert volume<1e-5,('wire-lane',name,volume)
+    report['checks']['wire-lane-'+name+'_intersection_mm3']=round(volume,8)
+# Window must be empty all the way from the outer wall to the module edge.
+assert (switch_access^base).volume()<1e-5
+report['checks']['switch_access_window_mm']=[wl,wh]
+report['checks']['battery_to_antenna_projection_gap_mm']=round(bx+bl-6-(cell_x+cell_l),2)
 for label,extra in [('default-long',P['button_pin_extension'])]:
     for travel in np.linspace(0,P['button_downstroke'],7):
         for name,fixed in [('lid',lid),('base',base),('pcb',board),('mic-clamp',clamp)]:
@@ -296,18 +336,18 @@ report['checks'].update(button_motion_clearance='user-confirmed long pin x 7 pos
     usb_reference='GCT USB4105 shell 8.94 x 3.31 mm; not an identification of the actual PCB connector',
     mic_holes='9 through holes, 2.4 mm diameter, 1.0 mm minimum web',
     button_downstroke_mm=P['button_downstroke'],
-    user_verified='Original USB version only; battery prototype has not been fitted',
-    real_hardware_fit='All battery prototype assembly and fit remain unverified')
+    user_verified='Original USB version and supplied battery/module measurements; no electrical tests requested',
+    real_hardware_fit='Measured module and cell outlines; assembled fit remains unverified')
 (ROOT/'validation.json').write_text(json.dumps(report,indent=2)+'\n')
 
 # Actual CAD preview, not an AI-generated concept image.
 fig=plt.figure(figsize=(14,9),facecolor='#f0f2f4')
-views=[('BODY 60 x 40 x 31.4 mm',[(base,'#343a40'),(lid,'#b9db42'),(cap,'#343a40')]),
-       ('EXPLODED / BATTERY TRAY',[(base,'#8a929c'),(power_module,'#d67b26'),
+views=[(f'BODY {L} x {W} x {top:.1f} mm',[(base,'#343a40'),(lid,'#b9db42'),(cap,'#343a40')]),
+       ('EXPLODED / BATTERY TRAY',[(base,'#8a929c'),(actual_power,'#d67b26'),
          (board.translate((0,0,9)),'#217a78'),(tray.translate((0,0,18)),'#ab69ad'),
          (battery.translate((0,0,21)),'#d9d9dc'),(lid.translate((0,0,35)),'#b9db42')]),
-       ('STACK / ENVELOPES ONLY',[(power_module,'#d67b26'),(board,'#217a78'),
-          (tray,'#ab69ad'),(battery,'#d9d9dc'),(mic,'#217a78')]),
+       ('STACK / ENVELOPES ONLY',[(actual_power,'#d67b26'),(board,'#217a78'),
+          (tray,'#ab69ad'),(actual_battery,'#d9d9dc'),(mic,'#217a78')]),
        ('LID / REMOVABLE TRAY POSTS',[(lid,'#b9db42'),(mic,'#217a78')])]
 def raster(items, elevation=32):
     # Orthographic z-buffer: resolves occlusion of large coplanar CAD triangles.
@@ -353,15 +393,43 @@ for i,(title,items) in enumerate(views):
     ax=fig.add_subplot(2,2,i+1)
     ax.imshow(raster(items,-35 if i==3 else 32))
     ax.set_axis_off();ax.set_title(title,fontsize=12)
-fig.suptitle(f'VOXU / BATTERY FIT PROTOTYPE   {L} x {W} x {cap_bottom+2:.1f} mm',fontsize=18)
+fig.suptitle(f'VOXU / INTEGRATED UPS / FIT REV 2   {L} x {W} x {cap_bottom+2:.1f} mm',fontsize=18)
 fig.tight_layout()
 fig.savefig(ROOT/'preview.png',dpi=160)
+plt.close(fig)
+# Dimensioned schematic uses the same measured placement parameters as the CAD.
+from matplotlib.patches import Rectangle
+fig, axes = plt.subplots(1, 2, figsize=(12, 6))
+for ax, title in zip(axes, ['BOTTOM / UPS POSITION', 'TOP / BATTERY POSITION']):
+    ax.add_patch(Rectangle((0,0),L,W,fill=False,lw=2))
+    ax.add_patch(Rectangle((10,W-7),35,3,color='#79c9de',alpha=.6))
+    ax.text(27,W-5.5,'WIRE CHANNEL',ha='center',va='center',fontsize=9)
+    ax.set(xlim=(-7,L+3),ylim=(-7,W+4),aspect='equal',title=title,xlabel='mm',ylabel='mm')
+    ax.grid(alpha=.15)
+    ax.annotate('Original USB-C',xy=(0,W/2),xytext=(-6,5),fontsize=9,
+                rotation=90,arrowprops={'arrowstyle':'->'})
+px,py,pz=P['power_module_origin_mm']
+ax=axes[0]
+ax.add_patch(Rectangle((px,py),35,20,color='#d67b26',alpha=.7))
+ax.text(px+17.5,py+10,'UPS 35 x 20 mm\ncomponents face up',ha='center',va='center')
+ax.plot([32,43],[0,0],lw=5,color='#bd4853')
+ax.annotate('Recessed switch access\nplastic tool required',xy=(37.5,0),xytext=(22,-6),fontsize=9,
+            arrowprops={'arrowstyle':'->'})
+bx,by,bz=P['battery_origin_mm']
+ax=axes[1]
+ax.add_patch(Rectangle((bx,by),35.7,24.9,color='#ab69ad',alpha=.5))
+ax.text(bx+17.85,by+12.45,'CELL 35.7 x 24.9 mm\n4.7 mm thick\nin removable tray',ha='center',va='center')
+ax.annotate('Lead exit toward USB end',xy=(bx,by+12),xytext=(8,-5),fontsize=9,
+            arrowprops={'arrowstyle':'->'})
+fig.suptitle('VOXU 60 x 46 mm / MEASURED OUTLINES / FIT REV 2',fontsize=15)
+fig.tight_layout()
+fig.savefig(ROOT/'layout.png',dpi=160)
 plt.close(fig)
 with zipfile.ZipFile(ROOT/'voxu-battery-fit-prototype.zip','w',zipfile.ZIP_DEFLATED) as z:
     for name in sorted(parts):
         p=OUT/(name+'.stl')
         z.write(p,'stl/'+p.name)
-    for name in ['README.md','parameters.json','validation.json','preview.png','generate.py','requirements.txt','slicer-result.json','wiring.md','slice.py']:
+    for name in ['README.md','parameters.json','validation.json','preview.png','layout.png','generate.py','requirements.txt','slicer-result.json','wiring.md','slice.py']:
         p=ROOT/name
         if p.exists(): z.write(p,name)
 print(json.dumps(report,indent=2))
