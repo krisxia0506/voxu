@@ -1,5 +1,5 @@
 {
-  "revision": "integrated-ups-fit-2",
+  "revision": "integrated-ups-fit-3",
   "parameters": {
     "shell_length": 60,
     "shell_width": 46,
@@ -74,7 +74,7 @@
         46.0,
         29.0
       ],
-      "volume_mm3": 19952.51,
+      "volume_mm3": 20042.42,
       "watertight": true,
       "connected_components": 1
     },
@@ -194,6 +194,7 @@
     "battery_to_antenna_projection_gap_mm": 1.75,
     "shell_snap_retention": "4 seated catches clear base; each blocks 0.5 mm upward lid movement",
     "shell_snap_release": "4 sheared-arm clearance envelopes x 25 extraction positions; real force/fatigue not simulated",
+    "pcb_clip_root_reinforcement": "4 tapered 5 x 2 mm feet into 2 x 1 mm uprights; free horizontal spring arms unchanged; strength not simulated",
     "pcb_support_pad_size_mm": [
       6,
       6

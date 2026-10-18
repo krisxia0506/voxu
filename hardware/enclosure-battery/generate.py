@@ -65,6 +65,11 @@ for root_x in [bx+7.6,bx+26.6]:
     tip_x=root_x+14
     # Build the lower-Y clip then mirror it for the other side of the board.
     root=box(root_x,by-1.2,2,2,1,4.7+(bz-4))
+    # Broad foot tapers into the original upright below the free spring arm.
+    # Keep expansion within the module and side wire-channel clearances.
+    foot=box(root_x-3,by-1.6,1.8,5,2,1.0)
+    shoulder=box(root_x,by-1.2,bz-2,2,1,0.4)
+    root += (foot+shoulder).hull()
     arm=box(root_x+1.8,by-1.2,bz,12.2,1,2.7)
     lip=(box(tip_x-2.4,by-0.3,clip_lip_z,2.4,0.8,0.06)
          +box(tip_x-2.4,by-0.3,clip_lip_z+1.0,2.4,0.1,0.06)).hull()
@@ -230,7 +235,7 @@ for xx in [12,42]:
 wire_lane=box(10,W-7,3,35,3,22)
 parts={'base':base,'lid':lid,'mic-clamp':clamp,'button-cap':cap,
        'button-pin':pin(),'battery-tray':tray}
-report={'revision':'integrated-ups-fit-2','parameters':P,'parts':{},'checks':{}}
+report={'revision':'integrated-ups-fit-3','parameters':P,'parts':{},'checks':{}}
 for name,solid in parts.items():
     t=mesh(solid)
     assert str(solid.status())=='Error.NoError',(name,solid.status())
@@ -327,6 +332,7 @@ for i,(catch,direction) in enumerate(shell_snaps):
             assert (moving^fixed).volume()<1e-5, ('shell-release-collision',i,lift,name)
 report['checks']['shell_snap_retention']='4 seated catches clear base; each blocks 0.5 mm upward lid movement'
 report['checks']['shell_snap_release']='4 sheared-arm clearance envelopes x 25 extraction positions; real force/fatigue not simulated'
+report['checks']['pcb_clip_root_reinforcement']='4 tapered 5 x 2 mm feet into 2 x 1 mm uprights; free horizontal spring arms unchanged; strength not simulated'
 report['checks']['pcb_support_pad_size_mm']=[6,6]
 report['checks']['pcb_snap_retention']='4 clips clear seated PCB; each intercepts PCB lifted 0.3 mm; real flex/force unverified'
 report['checks'].update(button_motion_clearance='user-confirmed long pin x 7 positions',
@@ -393,7 +399,7 @@ for i,(title,items) in enumerate(views):
     ax=fig.add_subplot(2,2,i+1)
     ax.imshow(raster(items,-35 if i==3 else 32))
     ax.set_axis_off();ax.set_title(title,fontsize=12)
-fig.suptitle(f'VOXU / INTEGRATED UPS / FIT REV 2   {L} x {W} x {cap_bottom+2:.1f} mm',fontsize=18)
+fig.suptitle(f'VOXU / INTEGRATED UPS / FIT REV 3   {L} x {W} x {cap_bottom+2:.1f} mm',fontsize=18)
 fig.tight_layout()
 fig.savefig(ROOT/'preview.png',dpi=160)
 plt.close(fig)
@@ -421,15 +427,27 @@ ax.add_patch(Rectangle((bx,by),35.7,24.9,color='#ab69ad',alpha=.5))
 ax.text(bx+17.85,by+12.45,'CELL 35.7 x 24.9 mm\n4.7 mm thick\nin removable tray',ha='center',va='center')
 ax.annotate('Lead exit toward USB end',xy=(bx,by+12),xytext=(8,-5),fontsize=9,
             arrowprops={'arrowstyle':'->'})
-fig.suptitle('VOXU 60 x 46 mm / MEASURED OUTLINES / FIT REV 2',fontsize=15)
+fig.suptitle('VOXU 60 x 46 mm / MEASURED OUTLINES / FIT REV 3',fontsize=15)
 fig.tight_layout()
 fig.savefig(ROOT/'layout.png',dpi=160)
 plt.close(fig)
+from preview_html import write_preview
+write_preview(ROOT, [(name, mesh(solid), color, level) for name,solid,color,level in [
+ ('底座 · 加固卡扣根部',base,'#9aa7b6',0),
+ ('一体 UPS 板（外形包络）',actual_power,'#ef9a48',1),
+ ('ESP32 主板（外形包络）',board,'#329b8f',2),
+ ('电池托盘',tray,'#ad78bf',3),
+ ('550mAh 电池（外形包络）',actual_battery,'#c4cbd5',4),
+ ('麦克风（外形包络）',mic,'#329b8f',5),
+ ('上盖',lid,'#bbd555',6),
+ ('BOOT 按帽',cap,'#71839b',6),
+ ('BOOT 顶杆',pin(),'#f0bf61',5),
+ ('麦克风压框',clamp,'#ad78bf',5)]])
 with zipfile.ZipFile(ROOT/'voxu-battery-fit-prototype.zip','w',zipfile.ZIP_DEFLATED) as z:
     for name in sorted(parts):
         p=OUT/(name+'.stl')
         z.write(p,'stl/'+p.name)
-    for name in ['README.md','parameters.json','validation.json','preview.png','layout.png','generate.py','requirements.txt','slicer-result.json','wiring.md','slice.py']:
+    for name in ['README.md','parameters.json','validation.json','preview.png','layout.png','preview.html','preview_html.py','preview-template.html','generate.py','requirements.txt','slicer-result.json','wiring.md','slice.py']:
         p=ROOT/name
         if p.exists(): z.write(p,name)
 print(json.dumps(report,indent=2))
