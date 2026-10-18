@@ -29,8 +29,9 @@ static size_t ring_write;
 static size_t ring_count;
 static portMUX_TYPE ring_lock = portMUX_INITIALIZER_UNLOCKED;
 static esp_bd_addr_t peer_address;
-static volatile bool audio_connected;
-static volatile bool wideband;
+static bool audio_connected;
+static uint32_t audio_epoch;
+static bool wideband;
 static volatile bool service_connected;
 static hfp_reconnect_t reconnect;
 static nvs_handle_t peer_store;
@@ -70,16 +71,23 @@ static void reconnect_task(void *arg)
     }
 }
 
-static void ring_reset(void)
+static void audio_state_set(bool connected, bool msbc)
 {
     portENTER_CRITICAL(&ring_lock);
+    audio_connected = connected;
+    wideband = msbc;
+    ++audio_epoch;
     ring_read = ring_write = ring_count = 0;
     portEXIT_CRITICAL(&ring_lock);
 }
 
-static void ring_push(int16_t value)
+static void ring_push(int16_t value, uint32_t epoch)
 {
     portENTER_CRITICAL(&ring_lock);
+    if (!audio_connected || audio_epoch != epoch) {
+        portEXIT_CRITICAL(&ring_lock);
+        return;
+    }
     if (ring_count == AUDIO_RING_SAMPLES) {
         ring_read = (ring_read + 1) % AUDIO_RING_SAMPLES;
         --ring_count;
@@ -92,12 +100,12 @@ static void ring_push(int16_t value)
 
 static uint32_t outgoing_audio(uint8_t *buffer, uint32_t length)
 {
-    if (!audio_connected || length % sizeof(int16_t) != 0) {
+    if (length % sizeof(int16_t) != 0) {
         return 0;
     }
     size_t wanted = length / sizeof(int16_t);
     portENTER_CRITICAL(&ring_lock);
-    if (ring_count < wanted) {
+    if (!audio_connected || ring_count < wanted) {
         portEXIT_CRITICAL(&ring_lock);
         return 0;
     }
@@ -150,22 +158,19 @@ static void hf_callback(esp_hf_client_cb_event_t event, esp_hf_client_cb_param_t
         } else if (param->conn_stat.state == ESP_HF_CLIENT_CONNECTION_STATE_DISCONNECTED) {
             service_connected = false;
             boot_hid_set_hfp_connected(false, NULL);
-            audio_connected = false;
-            ring_reset();
+            audio_state_set(false, false);
         }
         break;
     case ESP_HF_CLIENT_AUDIO_STATE_EVT:
         ESP_LOGI(TAG, "SCO audio state=%d", param->audio_stat.state);
         if (param->audio_stat.state == ESP_HF_CLIENT_AUDIO_STATE_CONNECTED ||
             param->audio_stat.state == ESP_HF_CLIENT_AUDIO_STATE_CONNECTED_MSBC) {
-            wideband = param->audio_stat.state == ESP_HF_CLIENT_AUDIO_STATE_CONNECTED_MSBC;
-            ring_reset();
+            bool msbc = param->audio_stat.state == ESP_HF_CLIENT_AUDIO_STATE_CONNECTED_MSBC;
             ESP_ERROR_CHECK(esp_hf_client_register_data_callback(incoming_audio, outgoing_audio));
-            audio_connected = true;
-            ESP_LOGI(TAG, "audio ready: %s", wideband ? "mSBC 16 kHz" : "CVSD 8 kHz");
+            audio_state_set(true, msbc);
+            ESP_LOGI(TAG, "audio ready: %s", msbc ? "mSBC 16 kHz" : "CVSD 8 kHz");
         } else if (param->audio_stat.state == ESP_HF_CLIENT_AUDIO_STATE_DISCONNECTED) {
-            audio_connected = false;
-            ring_reset();
+            audio_state_set(false, false);
         }
         break;
     case ESP_HF_CLIENT_PROF_STATE_EVT:
@@ -221,13 +226,37 @@ static void mic_task(void *arg)
     };
     config.slot_cfg.slot_mask = I2S_STD_SLOT_LEFT;
     ESP_ERROR_CHECK(i2s_channel_init_std_mode(rx, &config));
-    ESP_ERROR_CHECK(i2s_channel_enable(rx));
-    ESP_LOGI(TAG, "INMP441 ready: D26=SCK D25=WS D33=SD, 16 kHz");
+    ESP_LOGI(TAG, "MIC paused: no SCO; I2S clocks stopped");
+    bool running = false;
+    uint32_t capture_epoch = 0;
 
     uint32_t blocks = 0;
     while (true) {
+        portENTER_CRITICAL(&ring_lock);
+        bool connected = audio_connected;
+        bool msbc = wideband;
+        uint32_t epoch = audio_epoch;
+        portEXIT_CRITICAL(&ring_lock);
+        // Only this task owns the I2S driver. A new epoch also catches a rapid
+        // disconnect/reconnect while a read was in progress.
+        if (running && (!connected || epoch != capture_epoch)) {
+            ESP_ERROR_CHECK(i2s_channel_disable(rx));
+            running = false;
+            ESP_LOGI(TAG, "MIC paused: audio session ended; I2S clocks stopped");
+        }
+        if (!connected) {
+            vTaskDelay(pdMS_TO_TICKS(50));
+            continue;
+        }
+        if (!running) {
+            ESP_ERROR_CHECK(i2s_channel_enable(rx));
+            running = true;
+            capture_epoch = epoch;
+            blocks = 0;
+            ESP_LOGI(TAG, "MIC active: SCO connected; sampling 16 kHz");
+        }
         size_t bytes_read = 0;
-        if (i2s_channel_read(rx, mic_samples, sizeof(mic_samples), &bytes_read, 1000) != ESP_OK) {
+        if (i2s_channel_read(rx, mic_samples, sizeof(mic_samples), &bytes_read, 50) != ESP_OK) {
             continue;
         }
         int64_t sum_abs = 0;
@@ -235,17 +264,20 @@ static void mic_task(void *arg)
         for (size_t i = 0; i < count; ++i) {
             int32_t sample = mic_samples[i] >> 16;
             sum_abs += sample < 0 ? -sample : sample;
-            if (audio_connected && (wideband || i % 2 == 0)) {
-                ring_push((int16_t)sample);
+            if (msbc || i % 2 == 0) {
+                ring_push((int16_t)sample, epoch);
             }
         }
-        if (audio_connected) {
+        portENTER_CRITICAL(&ring_lock);
+        bool current = audio_connected && audio_epoch == epoch;
+        portEXIT_CRITICAL(&ring_lock);
+        if (current) {
             esp_hf_client_outgoing_data_ready();
         }
         if (++blocks % 125 == 0 && count > 0) {
             ESP_LOGI(TAG, "mic mean_abs=%ld, HFP=%d, SCO=%d, codec=%s",
-                     (long)(sum_abs / count), service_connected, audio_connected,
-                     wideband ? "mSBC" : "CVSD");
+                     (long)(sum_abs / count), service_connected, current,
+                     msbc ? "mSBC" : "CVSD");
         }
     }
 }
