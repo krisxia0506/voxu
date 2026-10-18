@@ -522,6 +522,31 @@ fig.suptitle('VOXU 62 x 46 mm / MEASURED OUTLINES / FIT REV 5',fontsize=15)
 fig.tight_layout()
 fig.savefig(ROOT/'layout.png',dpi=160)
 plt.close(fig)
+# Display-only fasteners, aligned to the same hole coordinates as printable parts.
+# Length is measured under the head; threads are omitted from these envelopes.
+def preview_screw(x, y, seat, length, upward=False):
+    shaft = cyl(0,0,-length,1,length+0.05)
+    head = cyl(0,0,0,2,1.5)
+    head -= box(-1.5,-0.3,0.95,3,0.6,0.7)
+    head -= box(-0.3,-1.5,0.95,0.6,3,0.7)
+    solid = shaft + head
+    if upward:
+        solid = solid.rotate((180,0,0))
+    return solid.translate((x,y,seat))
+
+preview_fasteners=[]
+for label, points, seat, length, upward, level in [
+    ('UPS 压片',retainer_screws,rz+2,4,False,1.5),
+    ('开关压盖',switch_screws,9.4,4,False,1.5),
+    ('电池托盘（从下向上）',tray_screws,tray_z,4,True,2.7),
+    ('麦克风压框（从下向上）',mic_screws,mic_bottom-1.4,4,True,4.7),
+    ('上盖四角（可选加固）',screws,top-1,8,False,6.7),
+]:
+    for index,(x,y) in enumerate(points,1):
+        solid=preview_screw(x,y,seat,length,upward)
+        assert solid.status() == m.Error.NoError
+        preview_fasteners.append((f'螺丝 · {label} {index} · M2×{length}',solid,'#e3c17c',level))
+assert len(preview_fasteners)==12
 from preview_html import write_preview
 write_preview(ROOT, [(name, mesh(solid), color, level) for name,solid,color,level in [
  ('底座 · UPS硬限位 / 右侧开关座',base,'#9aa7b6',0),
@@ -537,7 +562,7 @@ write_preview(ROOT, [(name, mesh(solid), color, level) for name,solid,color,leve
  ('上盖',lid,'#bbd555',6),
  ('BOOT 按帽',cap,'#71839b',6),
  ('BOOT 顶杆',pin(),'#f0bf61',5),
- ('麦克风压框',clamp,'#ad78bf',5)]])
+ ('麦克风压框',clamp,'#ad78bf',5)]+preview_fasteners])
 with zipfile.ZipFile(ROOT/'voxu-battery-fit-prototype.zip','w',zipfile.ZIP_DEFLATED) as z:
     for name in sorted(parts):
         p=OUT/(name+'.stl')
