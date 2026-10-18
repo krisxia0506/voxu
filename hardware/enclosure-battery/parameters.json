@@ -1,5 +1,5 @@
 {
-  "shell_length": 60,
+  "shell_length": 62,
   "shell_width": 46,
   "seam_z": 29,
   "lid_thickness": 2.4,
@@ -27,7 +27,7 @@
   "usb_height": 4.2,
   "usb_bottom_z": 13.2,
   "usb_protrusion": 2.0,
-  "usb_front_recess": 0.4,
+  "usb_front_recess": 2.4,
   "button_pin_extension": 0.4,
   "board_clip_clearance": 0.05,
   "shell_snap_width": 6.0,
@@ -48,20 +48,24 @@
     5.6
   ],
   "power_module_origin_mm": [
-    10,
-    10,
+    2.5,
+    8,
     3.2
   ],
   "battery_origin_mm": [
-    10.4,
+    12.4,
     10.55,
     19.6
   ],
   "battery_clearance_xy": 0.5,
   "battery_top_clearance": 1.0,
   "power_clearance_xy": 0.5,
-  "switch_window_x": 32,
-  "switch_window_length": 11,
+  "switch_window_x": 24,
+  "switch_window_length": 6.5,
   "switch_window_bottom_z": 3.4,
-  "switch_window_height": 7.2
+  "switch_window_height": 7.2,
+  "ups_usb_center_offset_y": 15,
+  "ups_usb_center_z": 6.1,
+  "ups_usb_window_width": 14,
+  "ups_usb_window_height": 8
 }
