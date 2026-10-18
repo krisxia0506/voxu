@@ -48,20 +48,21 @@ for x,y in screws:
 # Expand inward under the PCB; keep the board, USB and lid hold-down coordinates.
 corner_pads = [(bx,by),(bx+bl-6,by),(bx,by+bw-6),(bx+bl-6,by+bw-6)]
 hold_downs = [(bx,by),(bx+bl-3,by),(bx,by+bw-3),(bx+bl-3,by+bw-3)]
+pcb_mount=m.Manifold()
 for x,y in corner_pads:
     if x==bx and y==by:
         # Bridge the UPS under the front PCB support from an outer buttress.
-        base += box(x,3.5,2,6,3.5,bz-2)
-        base += box(x,3.5,9.6,6,by+6-3.5,bz-9.6)
+        pcb_mount += box(x,3.5,2,6,3.5,bz-2)
+        pcb_mount += box(x,3.5,9.6,6,by+6-3.5,bz-9.6)
     else:
-        base += box(x,y,2,6,6,bz-2)
+        pcb_mount += box(x,y,2,6,6,bz-2)
 # PCB is located by front wall, side fences and rear fence, not pin headers.
 for y in [by-1.3,by+bw+0.3]:
     for x in [bx+4,bx+bl-8]:
         fence_z=9.6 if y==by-1.3 and x==bx+4 else 2
-        base += box(x,y,fence_z,4,1,bz+P['board_thickness']+0.3-fence_z)
+        pcb_mount += box(x,y,fence_z,4,1,bz+P['board_thickness']+0.3-fence_z)
 for y in [by,by+bw-4]:
-    base += box(bx+bl+0.3,y,2,1,4,bz+P['board_thickness']+0.3-2)
+    pcb_mount += box(bx+bl+0.3,y,2,1,4,bz+P['board_thickness']+0.3-2)
 # Side clips bend laterally along 12 mm horizontal cantilever arms.
 # Under-arm clearance allows flex; keep support away from the spring if possible.
 # Retaining lips overlap only the PCB rim, not components or solder pads.
@@ -88,7 +89,10 @@ for root_x in [bx+7.6,bx+26.6]:
     low_root += box(root_x,5.2,9.6,2,by-.2-5.2,bz+0.7-9.6)
     clip=low_root+arm+lip
     clips[-2]=clip
-    base += clip+mirrored
+    pcb_mount += clip+mirrored
+# Move the low-level PCB bridges to the corrected UPS side.
+base += pcb_mount.mirror((0,1,0)).translate((0,W,0))
+clips=[c.mirror((0,1,0)).translate((0,W,0)) for c in clips]
 # Front-face capsule opening based on GCT USB4105 drawing; actual PCB socket
 # part number is unknown. User measured 2 mm projection past the board edge.
 def usb_capsule(x, length, width, height, zcenter):
@@ -218,8 +222,11 @@ for x,y in tray_screws:
 battery=box(ex,ey,cell_z,el,ew,cell_h+P['battery_top_clearance'])
 actual_battery=box(cell_x,cell_y,cell_z,cell_l,cell_w,cell_h)
 
-# Integrated UPS: USB faces low X, its switch faces low Y. The USB faces the centered external charging opening.
-px,py,pz=P['power_module_origin_mm']
+# Integrated UPS: component side up, USB faces low X; handedness corrected below.
+px,target_py,pz=P['power_module_origin_mm']
+# Construct the existing mount locally, then reflect its handedness.
+py=8.0
+ups_mount=m.Manifold()
 pl,pw,ph=P['power_module_size_mm']
 pg=P['power_clearance_xy']
 power_module=box(px-pg,py-pg,pz,pl+2*pg,pw+2*pg,ph+0.4)
@@ -228,23 +235,23 @@ actual_power=box(px,py,pz,pl,pw,ph)
 # PCB thickness 1.4 mm measured by user. Only 0.45 mm of the PCB rim is captured.
 pt=P['power_pcb_thickness']; rim=P['power_retainer_rim_overlap']
 rz=pz+pt+P['power_retainer_vertical_clearance']
-base += box(2,6.5,2,37.7,23.2,pz-2)
+ups_mount += box(2,6.5,2,37.7,23.2,pz-2)
 for yy in [py-1.5,py+pw+0.15]:
-    base += box(2,yy,2,37.7,1.35,pz+pt-2)
+    ups_mount += box(2,yy,2,37.7,1.35,pz+pt-2)
 # Front/rear stops transfer cable insertion and withdrawal loads to the shell.
-base += box(2,py,2,0.35,pw,pz+pt-2)
-base += box(px+pl+0.15,py,2,2,pw,pz+pt-2)
+ups_mount += box(2,py,2,0.35,pw,pz+pt-2)
+ups_mount += box(px+pl+0.15,py,2,2,pw,pz+pt-2)
 # Two thick edge clamps avoid all components; independent removal clears PCB clips.
 ups_clamps=[box(18.2,3,rz,5,py+rim-3,2),
             box(18.2,py+pw-rim,rz,5,33.7-(py+pw-rim),2)]
 retainer_screws=[(20.7,5.2),(20.7,31.5)]
 for i,(xx,yy) in enumerate(retainer_screws):
-    base += cyl(xx,yy,2,2.2,rz-2)
-    base -= cyl(xx,yy,rz-1.9,0.85,2.0)
+    ups_mount += cyl(xx,yy,2,2.2,rz-2)
+    ups_mount -= cyl(xx,yy,rz-1.9,0.85,2.0)
     ups_clamps[i] -= cyl(xx,yy,rz-0.1,1.1,2.2)
     # Paired guides stop rotation about the screw; low-side clamp slides outward.
     for gx in [16.8,23.4]:
-        base += box(gx,3 if i==0 else 29,2,1.2,4.4,rz+1.8-2)
+        ups_mount += box(gx,3 if i==0 else 29,2,1.2,4.4,rz+1.8-2)
 retainer=ups_clamps[0]+ups_clamps[1]
 # Split PCB and component envelopes so rim contacts are explicit and testable.
 # 0.6 mm edge keepout is photo-derived: check no component/solder lies under lips.
@@ -253,6 +260,30 @@ power_components=box(px,py+0.6,pz+pt,pl,pw-1.2,ph+0.4-pt)
 power_module=power_pcb+power_components
 actual_power=power_pcb+box(px,py+0.6,pz+pt,pl,pw-1.2,ph-pt)
 
+# Correct handedness from the component-side photo; the user measured 11 mm
+# from the USB shell right edge to the PCB right edge. Shell width is reference.
+mirror_plane_sum=target_py+py+pw
+def orient_ups(solid):
+    return solid.mirror((0,1,0)).translate((0,mirror_plane_sum,0))
+base += orient_ups(ups_mount)
+ups_clamps=[orient_ups(c) for c in ups_clamps]
+# Keep 1.05 mm outward release space to the inner shell wall.
+ups_clamps[0] -= box(17,W-3.05,rz-0.1,8,5,2.2)
+retainer=ups_clamps[0]+ups_clamps[1]
+retainer_screws=[(x,mirror_plane_sum-y) for x,y in retainer_screws]
+power_pcb=orient_ups(power_pcb)
+power_components=orient_ups(power_components)
+power_module=orient_ups(power_module)
+actual_power=orient_ups(actual_power)
+py=target_py
+# Explicit asymmetrical USB shell in assembly preview, never a printable part.
+usb_shell_width=P['ups_usb_shell_width_reference_mm']
+ups_usb_shell=box(0.8,W/2-usb_shell_width/2,pz+pt,7.2,usb_shell_width,3.31)
+ups_usb_shell-=box(0.7,W/2-usb_shell_width/2+0.5,pz+pt+0.5,6.7,usb_shell_width-1,2.31)
+# Avoid hiding the explicit socket inside the coarse component display envelope.
+actual_power -= box(px,W/2-usb_shell_width/2,pz+pt,5.5,usb_shell_width,ph)
+# Recess PCB bridges above the actual component envelope, keeping their seats intact.
+base -= box(px-0.05,py-0.05,pz,pl+0.1,pw+0.1,ph+0.45)
 # SS12D00G3: actuator faces y=0 (right side when looking into front USB face).
 # Drawing: body 8.5 x 3.5 x 3.5, pin pitch 2.5, total body+pins 7.2,
 # handle width 1.5, travel 2; pocket uses user's larger 8.6 x 3.6 outline.
@@ -281,15 +312,18 @@ for xx,yy in switch_screws:
     base += cyl(xx,yy,2,2.2,5.8)
     base -= cyl(xx,yy,5.2,0.85,2.7)
     switch_cap -= cyl(xx,yy,7.7,1.1,1.8)
-# Plug-body access is centered on the front face; module USB center is a photo-derived nominal.
+# Plug-body access remains centered; lateral placement uses measured right-edge gap.
 assert abs(py+P['ups_usb_center_offset_y']-W/2)<1e-6
+assert abs((py+pw)-(W/2+usb_shell_width/2)-P['ups_usb_right_edge_to_pcb_right_mm'])<1e-6
+assert P['ups_usb_center_offset_y']<pw/2  # component-side photo: socket left of PCB center
+assert pz+pt < pz+ph  # components remain above, never below the PCB
 charging_access=usb_capsule(-1,px+1,P['ups_usb_window_width'],P['ups_usb_window_height'],P['ups_usb_center_z'])
 base -= charging_access
 # Continuous side routing lane for power/battery leads; avoids the PCB pin rows.
-wire_lane=box(10,W-7,3,35,3,22)
+wire_lane=box(10,4,3,25,3,22)
 parts={'base':base,'lid':lid,'mic-clamp':clamp,'button-cap':cap,
        'button-pin':pin(),'battery-tray':tray,'ups-clamp-right':ups_clamps[0],'ups-clamp-left':ups_clamps[1],'switch-retainer':switch_cap}
-report={'revision':'integrated-ups-fit-5','parameters':P,'parts':{},'checks':{}}
+report={'revision':'integrated-ups-fit-6','parameters':P,'parts':{},'checks':{}}
 for name,solid in parts.items():
     t=mesh(solid)
     assert str(solid.status())=='Error.NoError',(name,solid.status())
@@ -335,7 +369,7 @@ for lift in np.linspace(0,32,33):
 report['checks']['battery_tray_removal']='33 vertical lift positions; wires excluded'
 report['limitations']=[
     'Mechanical design for measured parts; electrical charging compatibility is unresolved',
-    'External SS12D00G3 mechanical mount based on vendor drawing; control wiring remains unresolved',
+    'External SS12D00G3 mechanical mount based on vendor drawing; SW/G switching verified by user; onboard switch position not recorded',
     'UPS PCB measured 1.4 mm; retainer overlaps rim 0.45 mm with 0.25 mm vertical clearance; inspect rim solder/component clearance',
     'Battery is outside the last 6 mm antenna projection, but full RF clearance/range is not validated',
     'Wire routing lane is a reserved volume; exact solder joints and connector bends require fit check',
@@ -354,7 +388,11 @@ for name,fixed in [('base',base),('lid',lid),('board',board),('tray',tray),('bat
 assert (switch_access^base).volume()<1e-5
 assert (charging_access^base).volume()<1e-5
 report['checks']['charging_port_center_y_mm']=W/2
-report['checks']['charging_port_nominal_offset']='15 mm from UPS lower-Y edge, inferred from photo; 14 x 8 mm plug access allows fit tolerance'
+report['checks']['ups_orientation']='component side up; connector left of PCB center in USB-up plan view'
+report['checks']['ups_measured_right_edge_gap_mm']=round(py+pw-(W/2+usb_shell_width/2),3)
+report['checks']['ups_usb_shell_base_clearance_mm3']=round((ups_usb_shell^base).volume(),8)
+assert (ups_usb_shell^base).volume()<1e-5
+report['checks']['charging_port_nominal_offset']={'pcb_right_to_usb_shell_right_mm':11,'usb_shell_width_reference_mm':usb_shell_width,'center_from_pcb_left_mm':P['ups_usb_center_offset_y'],'note':'shell width remains reference, not measured'}
 report['checks']['switch_access_window_mm']=[4.1,2.1]
 report['checks']['switch_handle_travel_mm']=2
 for direction,delta in [('x-',(-0.5,0,0)),('x+',(0.5,0,0)),('y-',(0,-0.5,0)),('y+',(0,0.5,0)),('z-',(0,0,-0.5)),('z+',(0,0,0.5))]:
@@ -379,11 +417,11 @@ for a,b in [(retainer,power_module),(switch_cap,switch_body),(retainer,switch_ca
     assert (a^b).volume()<1e-5
 # Retainers lift away vertically before installing/removing the main PCB.
 for shift in np.linspace(0,0.9,10):
-    assert (ups_clamps[0].translate((0,-float(shift),0.1))^base).volume()<1e-5,('clamp slide',shift)
+    assert (ups_clamps[0].translate((0,float(shift),0.1))^base).volume()<1e-5,('clamp slide',shift)
 for lift in np.linspace(0.1,15,31):
-    for a in [ups_clamps[0].translate((0,-0.9,0)),ups_clamps[1],switch_cap]:
+    for a in [ups_clamps[0].translate((0,0.9,0)),ups_clamps[1],switch_cap]:
         assert (a.translate((0,0,float(lift)))^base).volume()<1e-5,('retainer-removal',lift)
-report['checks']['retainer_removal']='right clamp slides outward 0.9 mm then lifts; left clamp/cap lift; main PCB removed first'
+report['checks']['retainer_removal']='high-Y clamp slides outward 0.9 mm then lifts; low-Y clamp/cap lift; main PCB removed first'
 report['checks']['battery_to_antenna_projection_gap_mm']=round(bx+bl-6-(cell_x+cell_l),2)
 for label,extra in [('default-long',P['button_pin_extension'])]:
     for travel in np.linspace(0,P['button_downstroke'],7):
@@ -485,7 +523,7 @@ for i,(title,items) in enumerate(views):
     ax=fig.add_subplot(2,2,i+1)
     ax.imshow(raster(items,-35 if i==3 else 32))
     ax.set_axis_off();ax.set_title(title,fontsize=12)
-fig.suptitle(f'VOXU / INTEGRATED UPS / FIT REV 5   {L} x {W} x {cap_bottom+2:.1f} mm',fontsize=18)
+fig.suptitle(f'VOXU / INTEGRATED UPS / FIT REV 6   {L} x {W} x {cap_bottom+2:.1f} mm',fontsize=18)
 fig.tight_layout()
 fig.savefig(ROOT/'preview.png',dpi=160)
 plt.close(fig)
@@ -518,7 +556,7 @@ ax.add_patch(Rectangle((bx,by),35.7,24.9,color='#ab69ad',alpha=.5))
 ax.text(bx+17.85,by+12.45,'CELL 35.7 x 24.9 mm\n4.7 mm thick\nin removable tray',ha='center',va='center')
 ax.annotate('Lead exit toward USB end',xy=(bx,by+12),xytext=(8,-5),fontsize=9,
             arrowprops={'arrowstyle':'->'})
-fig.suptitle('VOXU 62 x 46 mm / MEASURED OUTLINES / FIT REV 5',fontsize=15)
+fig.suptitle('VOXU 62 x 46 mm / MEASURED OUTLINES / FIT REV 6',fontsize=15)
 fig.tight_layout()
 fig.savefig(ROOT/'layout.png',dpi=160)
 plt.close(fig)
@@ -550,9 +588,10 @@ assert len(preview_fasteners)==12
 from preview_html import write_preview
 write_preview(ROOT, [(name, mesh(solid), color, level) for name,solid,color,level in [
  ('底座 · UPS硬限位 / 右侧开关座',base,'#9aa7b6',0),
- ('一体 UPS 板（外形包络）',actual_power,'#ef9a48',0.4),
- ('UPS 右压片 · M2×4',ups_clamps[0],'#55a9e0',1),
- ('UPS 左压片 · M2×4',ups_clamps[1],'#55a9e0',1),
+ ('一体 UPS 板（元件朝上 / 外形包络）',actual_power,'#ef9a48',0.4),
+ ('UPS Type-C 金属接口（偏置方向）',ups_usb_shell,'#d8e1e8',0.4),
+ ('UPS 外侧压片 · M2×4',ups_clamps[0],'#55a9e0',1),
+ ('UPS 内侧压片 · M2×4',ups_clamps[1],'#55a9e0',1),
  ('SS12D00G3 开关',actual_switch,'#e6b44d',0.4),
  ('开关压盖 · 2枚M2×4',switch_cap,'#e47d88',1),
  ('ESP32 主板（外形包络）',board,'#329b8f',2),
