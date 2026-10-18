@@ -1,5 +1,5 @@
 {
-  "revision": "integrated-ups-fit-5",
+  "revision": "integrated-ups-fit-6",
   "date": "2026-10-18",
   "printer": "P2S 0.4 mm",
   "material": "Generic PLA",
@@ -8,7 +8,7 @@
   "infill_percent": 15,
   "parts": {
     "base": {
-      "stl_sha256": "0e9da2b877e127ae4c62ae04d5b09457f6327b6a389f7f763eab14728321b897",
+      "stl_sha256": "cdad1b319436de897d67d2a235e64f17092d26f0ce40c46c02909041e01cdd9e",
       "supports": true,
       "process_return_code": 0,
       "result": {
@@ -16,42 +16,42 @@
         "export_time": 0,
         "layer_height": 0.20000000298023224,
         "plate_index": 0,
-        "prepare_time": 8,
+        "prepare_time": 7,
         "return_code": 0,
         "sliced_plates": [
           {
             "feature_type_times": {
               "Bottom surface": 84.5866928100586,
-              "Bridge": 138.30995178222656,
-              "Custom": 402.581787109375,
+              "Bridge": 137.1373748779297,
+              "Custom": 402.5816650390625,
               "Flush": 26.0,
-              "Gap infill": 331.1720275878906,
-              "Inner wall": 664.9169921875,
-              "Internal solid infill": 573.5475463867188,
-              "Outer wall": 624.4166870117188,
-              "Overhang wall": 19.58647918701172,
-              "Sparse infill": 25.134918212890625,
-              "Support": 98.7591552734375,
-              "Support interface": 7.550741672515869,
-              "Top surface": 89.3759765625,
-              "Travel": 730.4862060546875,
-              "Undefined": 723.9702758789062
+              "Gap infill": 325.84173583984375,
+              "Inner wall": 666.3833618164062,
+              "Internal solid infill": 572.4999389648438,
+              "Outer wall": 623.4965209960938,
+              "Overhang wall": 19.430030822753906,
+              "Sparse infill": 24.965024948120117,
+              "Support": 102.45954895019531,
+              "Support interface": 7.5781965255737305,
+              "Top surface": 88.48214721679688,
+              "Travel": 743.315185546875,
+              "Undefined": 736.7992553710938
             },
             "filament_change_times": 0,
             "filaments": [
               {
                 "filament_id": "GFL99",
                 "id": 1,
-                "main_used_g": 24.672473907470703,
-                "total_used_g": 24.672475814819336
+                "main_used_g": 24.650121688842773,
+                "total_used_g": 24.650121688842773
               }
             ],
-            "generate_support_material_time": 105,
+            "generate_support_material_time": 107,
             "id": 1,
-            "infill_time": 60,
+            "infill_time": 55,
             "layer_filament_change": 0,
-            "main_predication": 3361.93017578125,
-            "make_perimeters_time": 92,
+            "main_predication": 3370.283935546875,
+            "make_perimeters_time": 96,
             "obj_cached_cnt": 0,
             "objects": [
               {
@@ -68,9 +68,9 @@
                 "triangle_count": 5172
               }
             ],
-            "sliced_time": 494,
+            "sliced_time": 492,
             "sliced_time_with_cache": 219,
-            "total_predication": 3809.995849609375,
+            "total_predication": 3818.349609375,
             "triangle_count": 5172,
             "warning_message": ""
           }
@@ -79,11 +79,11 @@
         "wall_loops": 3
       },
       "log_warnings": [
-        "[2026-10-18 21:42:11.580958] [0x00000001f08c3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
-        "[2026-10-18 21:42:11.585177] [0x00000001f08c3f80] [warning] no filament colors found in projects",
-        "[2026-10-18 21:42:11.741101] [0x00000001f08c3f80] [warning] tree support default to organic support",
-        "[2026-10-18 21:42:11.817813] [0x00000001f08c3f80] [warning] tree support default to organic support",
-        "[2026-10-18 21:42:12.060372] [0x00000001f08c3f80] [error]   Invalid T command (T65535)."
+        "[2026-10-18 22:52:32.546964] [0x00000001f08c3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
+        "[2026-10-18 22:52:32.551064] [0x00000001f08c3f80] [warning] no filament colors found in projects",
+        "[2026-10-18 22:52:32.705153] [0x00000001f08c3f80] [warning] tree support default to organic support",
+        "[2026-10-18 22:52:32.781316] [0x00000001f08c3f80] [warning] tree support default to organic support",
+        "[2026-10-18 22:52:33.023040] [0x00000001f08c3f80] [error]   Invalid T command (T65535)."
       ]
     },
     "lid": {
@@ -125,10 +125,10 @@
             ],
             "generate_support_material_time": 14,
             "id": 1,
-            "infill_time": 61,
+            "infill_time": 54,
             "layer_filament_change": 0,
             "main_predication": 1528.0189208984375,
-            "make_perimeters_time": 51,
+            "make_perimeters_time": 48,
             "obj_cached_cnt": 0,
             "objects": [
               {
@@ -145,8 +145,8 @@
                 "triangle_count": 7660
               }
             ],
-            "sliced_time": 313,
-            "sliced_time_with_cache": 177,
+            "sliced_time": 290,
+            "sliced_time_with_cache": 165,
             "total_predication": 1976.0948486328125,
             "triangle_count": 7660,
             "warning_message": ""
@@ -156,10 +156,10 @@
         "wall_loops": 3
       },
       "log_warnings": [
-        "[2026-10-18 21:42:12.138939] [0x00000001f08c3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
-        "[2026-10-18 21:42:12.143280] [0x00000001f08c3f80] [warning] no filament colors found in projects",
-        "[2026-10-18 21:42:12.258489] [0x00000001f08c3f80] [warning] tree support default to organic support",
-        "[2026-10-18 21:42:12.450621] [0x00000001f08c3f80] [error]   Invalid T command (T65535)."
+        "[2026-10-18 22:52:33.099932] [0x00000001f08c3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
+        "[2026-10-18 22:52:33.104052] [0x00000001f08c3f80] [warning] no filament colors found in projects",
+        "[2026-10-18 22:52:33.209332] [0x00000001f08c3f80] [warning] tree support default to organic support",
+        "[2026-10-18 22:52:33.388253] [0x00000001f08c3f80] [error]   Invalid T command (T65535)."
       ]
     },
     "battery-tray": {
@@ -198,10 +198,10 @@
             ],
             "generate_support_material_time": 1,
             "id": 1,
-            "infill_time": 4,
+            "infill_time": 3,
             "layer_filament_change": 0,
             "main_predication": 192.535400390625,
-            "make_perimeters_time": 4,
+            "make_perimeters_time": 5,
             "obj_cached_cnt": 0,
             "objects": [
               {
@@ -218,7 +218,7 @@
                 "triangle_count": 644
               }
             ],
-            "sliced_time": 29,
+            "sliced_time": 30,
             "sliced_time_with_cache": 18,
             "total_predication": 640.618408203125,
             "triangle_count": 644,
@@ -229,10 +229,10 @@
         "wall_loops": 3
       },
       "log_warnings": [
-        "[2026-10-18 21:42:12.511239] [0x00000001f08c3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
-        "[2026-10-18 21:42:12.513024] [0x00000001f08c3f80] [warning] no filament colors found in projects",
-        "[2026-10-18 21:42:12.523216] [0x00000001f08c3f80] [warning] tree support default to organic support",
-        "[2026-10-18 21:42:12.542047] [0x00000001f08c3f80] [error]   Invalid T command (T65535)."
+        "[2026-10-18 22:52:33.448731] [0x00000001f08c3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
+        "[2026-10-18 22:52:33.450512] [0x00000001f08c3f80] [warning] no filament colors found in projects",
+        "[2026-10-18 22:52:33.460938] [0x00000001f08c3f80] [warning] tree support default to organic support",
+        "[2026-10-18 22:52:33.479947] [0x00000001f08c3f80] [error]   Invalid T command (T65535)."
       ]
     },
     "button-cap": {
@@ -271,7 +271,7 @@
                 "total_used_g": 0.4725983738899231
               }
             ],
-            "generate_support_material_time": 1,
+            "generate_support_material_time": 2,
             "id": 1,
             "infill_time": 3,
             "layer_filament_change": 0,
@@ -293,8 +293,8 @@
                 "triangle_count": 668
               }
             ],
-            "sliced_time": 45,
-            "sliced_time_with_cache": 31,
+            "sliced_time": 48,
+            "sliced_time_with_cache": 34,
             "total_predication": 745.46630859375,
             "triangle_count": 668,
             "warning_message": ""
@@ -304,10 +304,10 @@
         "wall_loops": 3
       },
       "log_warnings": [
-        "[2026-10-18 21:42:12.593644] [0x00000001f08c3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
-        "[2026-10-18 21:42:12.595802] [0x00000001f08c3f80] [warning] no filament colors found in projects",
-        "[2026-10-18 21:42:12.607372] [0x00000001f08c3f80] [warning] tree support default to organic support",
-        "[2026-10-18 21:42:12.639820] [0x00000001f08c3f80] [error]   Invalid T command (T65535)."
+        "[2026-10-18 22:52:33.534408] [0x00000001f08c3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
+        "[2026-10-18 22:52:33.536779] [0x00000001f08c3f80] [warning] no filament colors found in projects",
+        "[2026-10-18 22:52:33.548710] [0x00000001f08c3f80] [warning] tree support default to organic support",
+        "[2026-10-18 22:52:33.583652] [0x00000001f08c3f80] [error]   Invalid T command (T65535)."
       ]
     },
     "button-pin": {
@@ -347,12 +347,12 @@
                 "total_used_g": 0.16252590715885162
               }
             ],
-            "generate_support_material_time": 10,
+            "generate_support_material_time": 11,
             "id": 1,
             "infill_time": 4,
             "layer_filament_change": 0,
             "main_predication": 92.67880249023438,
-            "make_perimeters_time": 7,
+            "make_perimeters_time": 5,
             "obj_cached_cnt": 0,
             "objects": [
               {
@@ -369,8 +369,8 @@
                 "triangle_count": 524
               }
             ],
-            "sliced_time": 55,
-            "sliced_time_with_cache": 33,
+            "sliced_time": 58,
+            "sliced_time_with_cache": 35,
             "total_predication": 540.741455078125,
             "triangle_count": 524,
             "warning_message": ""
@@ -380,11 +380,11 @@
         "wall_loops": 3
       },
       "log_warnings": [
-        "[2026-10-18 21:42:12.691700] [0x00000001f08c3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
-        "[2026-10-18 21:42:12.693720] [0x00000001f08c3f80] [warning] no filament colors found in projects",
-        "[2026-10-18 21:42:12.706167] [0x00000001f08c3f80] [warning] tree support default to organic support",
-        "[2026-10-18 21:42:12.709364] [0x00000001f08c3f80] [warning] tree support default to organic support",
-        "[2026-10-18 21:42:12.748904] [0x00000001f08c3f80] [error]   Invalid T command (T65535)."
+        "[2026-10-18 22:52:33.637911] [0x00000001f08c3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
+        "[2026-10-18 22:52:33.640000] [0x00000001f08c3f80] [warning] no filament colors found in projects",
+        "[2026-10-18 22:52:33.651423] [0x00000001f08c3f80] [warning] tree support default to organic support",
+        "[2026-10-18 22:52:33.654852] [0x00000001f08c3f80] [warning] tree support default to organic support",
+        "[2026-10-18 22:52:33.698441] [0x00000001f08c3f80] [error]   Invalid T command (T65535)."
       ]
     },
     "mic-clamp": {
@@ -426,7 +426,7 @@
             "infill_time": 5,
             "layer_filament_change": 0,
             "main_predication": 84.91046142578125,
-            "make_perimeters_time": 7,
+            "make_perimeters_time": 8,
             "obj_cached_cnt": 0,
             "objects": [
               {
@@ -443,8 +443,8 @@
                 "triangle_count": 1096
               }
             ],
-            "sliced_time": 35,
-            "sliced_time_with_cache": 19,
+            "sliced_time": 39,
+            "sliced_time_with_cache": 22,
             "total_predication": 532.981201171875,
             "triangle_count": 1096,
             "warning_message": ""
@@ -454,14 +454,14 @@
         "wall_loops": 3
       },
       "log_warnings": [
-        "[2026-10-18 21:42:12.800090] [0x00000001f08c3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
-        "[2026-10-18 21:42:12.802413] [0x00000001f08c3f80] [warning] no filament colors found in projects",
-        "[2026-10-18 21:42:12.817241] [0x00000001f08c3f80] [warning] tree support default to organic support",
-        "[2026-10-18 21:42:12.838473] [0x00000001f08c3f80] [error]   Invalid T command (T65535)."
+        "[2026-10-18 22:52:33.751757] [0x00000001f08c3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
+        "[2026-10-18 22:52:33.754138] [0x00000001f08c3f80] [warning] no filament colors found in projects",
+        "[2026-10-18 22:52:33.769605] [0x00000001f08c3f80] [warning] tree support default to organic support",
+        "[2026-10-18 22:52:33.793009] [0x00000001f08c3f80] [error]   Invalid T command (T65535)."
       ]
     },
     "ups-clamp-right": {
-      "stl_sha256": "79103c22b4726613a0c15b823a357c7d59363c7c79759043f08127f25e3a23c3",
+      "stl_sha256": "9e13177c760a62e2c0b1e62df1b7b679978d4393c25947d291be87d930676899",
       "supports": false,
       "process_return_code": 0,
       "result": {
@@ -474,39 +474,39 @@
         "sliced_plates": [
           {
             "feature_type_times": {
-              "Custom": 403.935791015625,
+              "Custom": 403.9417724609375,
               "Flush": 26.0,
-              "Gap infill": 10.300858497619629,
-              "Inner wall": 13.4236478805542,
-              "Outer wall": 14.572561264038086,
-              "Top surface": 1.54424250125885,
-              "Travel": 17.52863311767578,
-              "Undefined": 9.662665367126465
+              "Gap infill": 10.01354694366455,
+              "Inner wall": 13.325027465820312,
+              "Outer wall": 14.646750450134277,
+              "Top surface": 1.2606754302978516,
+              "Travel": 19.759490966796875,
+              "Undefined": 11.893524169921875
             },
             "filament_change_times": 0,
             "filaments": [
               {
                 "filament_id": "GFL99",
                 "id": 1,
-                "main_used_g": 0.053599968552589417,
-                "total_used_g": 0.053599968552589417
+                "main_used_g": 0.04821542277932167,
+                "total_used_g": 0.04821542277932167
               }
             ],
-            "generate_support_material_time": 0,
+            "generate_support_material_time": 1,
             "id": 1,
             "infill_time": 1,
             "layer_filament_change": 0,
-            "main_predication": 31.371826171875,
+            "main_predication": 33.006866455078125,
             "make_perimeters_time": 3,
             "obj_cached_cnt": 0,
             "objects": [
               {
                 "bbox": {
-                  "depth": 5.450000762939453,
+                  "depth": 4.929996490478516,
                   "height": 2.0,
                   "width": 5.0,
                   "x": 125.5,
-                  "y": 125.27500915527344,
+                  "y": 125.53500366210938,
                   "z": 0.0
                 },
                 "id": 5,
@@ -514,9 +514,9 @@
                 "triangle_count": 272
               }
             ],
-            "sliced_time": 21,
-            "sliced_time_with_cache": 14,
-            "total_predication": 479.4416198730469,
+            "sliced_time": 23,
+            "sliced_time_with_cache": 17,
+            "total_predication": 481.0826416015625,
             "triangle_count": 272,
             "warning_message": ""
           }
@@ -525,14 +525,14 @@
         "wall_loops": 3
       },
       "log_warnings": [
-        "[2026-10-18 21:42:12.890143] [0x00000001f08c3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
-        "[2026-10-18 21:42:12.891824] [0x00000001f08c3f80] [warning] no filament colors found in projects",
-        "[2026-10-18 21:42:12.898371] [0x00000001f08c3f80] [warning] tree support default to organic support",
-        "[2026-10-18 21:42:12.913324] [0x00000001f08c3f80] [error]   Invalid T command (T65535)."
+        "[2026-10-18 22:52:33.845948] [0x00000001f08c3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
+        "[2026-10-18 22:52:33.847632] [0x00000001f08c3f80] [warning] no filament colors found in projects",
+        "[2026-10-18 22:52:33.853739] [0x00000001f08c3f80] [warning] tree support default to organic support",
+        "[2026-10-18 22:52:33.870242] [0x00000001f08c3f80] [error]   Invalid T command (T65535)."
       ]
     },
     "ups-clamp-left": {
-      "stl_sha256": "b8be59e3d68ef3809fdcd4812b7a7acf5a21feddb1ae91c4838e4f59b3fbd128",
+      "stl_sha256": "4a4c15708a591b361e5c8aeb21a4cb5fb7449a3a2cc9c1c2c579b61513137616",
       "supports": false,
       "process_return_code": 0,
       "result": {
@@ -545,39 +545,39 @@
         "sliced_plates": [
           {
             "feature_type_times": {
-              "Custom": 403.9381408691406,
+              "Custom": 403.94085693359375,
               "Flush": 26.0,
-              "Gap infill": 6.368170738220215,
-              "Inner wall": 15.677815437316895,
-              "Outer wall": 15.227439880371094,
-              "Top surface": 1.8457860946655273,
-              "Travel": 22.423192977905273,
-              "Undefined": 14.557225227355957
+              "Gap infill": 11.363678932189941,
+              "Inner wall": 15.877912521362305,
+              "Outer wall": 15.802236557006836,
+              "Top surface": 1.6925163269042969,
+              "Travel": 18.014297485351562,
+              "Undefined": 10.14832878112793
             },
             "filament_change_times": 0,
             "filaments": [
               {
                 "filament_id": "GFL99",
                 "id": 1,
-                "main_used_g": 0.06293526291847229,
-                "total_used_g": 0.06293526291847229
+                "main_used_g": 0.06299932301044464,
+                "total_used_g": 0.06299932301044464
               }
             ],
-            "generate_support_material_time": 1,
+            "generate_support_material_time": 0,
             "id": 1,
             "infill_time": 1,
             "layer_filament_change": 0,
-            "main_predication": 35.542755126953125,
-            "make_perimeters_time": 3,
+            "main_predication": 36.751312255859375,
+            "make_perimeters_time": 4,
             "obj_cached_cnt": 0,
             "objects": [
               {
                 "bbox": {
-                  "depth": 6.149998664855957,
+                  "depth": 6.149999141693115,
                   "height": 2.0,
                   "width": 5.0,
                   "x": 125.5,
-                  "y": 124.92500305175781,
+                  "y": 124.92501068115234,
                   "z": 0.0
                 },
                 "id": 5,
@@ -585,9 +585,9 @@
                 "triangle_count": 272
               }
             ],
-            "sliced_time": 21,
-            "sliced_time_with_cache": 14,
-            "total_predication": 483.6148986816406,
+            "sliced_time": 24,
+            "sliced_time_with_cache": 16,
+            "total_predication": 484.826171875,
             "triangle_count": 272,
             "warning_message": ""
           }
@@ -596,10 +596,10 @@
         "wall_loops": 3
       },
       "log_warnings": [
-        "[2026-10-18 21:42:12.964374] [0x00000001f08c3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
-        "[2026-10-18 21:42:12.966031] [0x00000001f08c3f80] [warning] no filament colors found in projects",
-        "[2026-10-18 21:42:12.972478] [0x00000001f08c3f80] [warning] tree support default to organic support",
-        "[2026-10-18 21:42:12.987060] [0x00000001f08c3f80] [error]   Invalid T command (T65535)."
+        "[2026-10-18 22:52:33.924560] [0x00000001f08c3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
+        "[2026-10-18 22:52:33.926425] [0x00000001f08c3f80] [warning] no filament colors found in projects",
+        "[2026-10-18 22:52:33.933225] [0x00000001f08c3f80] [warning] tree support default to organic support",
+        "[2026-10-18 22:52:33.949768] [0x00000001f08c3f80] [error]   Invalid T command (T65535)."
       ]
     },
     "switch-retainer": {
@@ -636,9 +636,9 @@
                 "total_used_g": 0.15393538773059845
               }
             ],
-            "generate_support_material_time": 1,
+            "generate_support_material_time": 2,
             "id": 1,
-            "infill_time": 3,
+            "infill_time": 2,
             "layer_filament_change": 0,
             "main_predication": 80.05386352539062,
             "make_perimeters_time": 5,
@@ -658,8 +658,8 @@
                 "triangle_count": 564
               }
             ],
-            "sliced_time": 34,
-            "sliced_time_with_cache": 22,
+            "sliced_time": 35,
+            "sliced_time_with_cache": 24,
             "total_predication": 528.12744140625,
             "triangle_count": 564,
             "warning_message": ""
@@ -669,10 +669,10 @@
         "wall_loops": 3
       },
       "log_warnings": [
-        "[2026-10-18 21:42:13.036973] [0x00000001f08c3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
-        "[2026-10-18 21:42:13.038698] [0x00000001f08c3f80] [warning] no filament colors found in projects",
-        "[2026-10-18 21:42:13.048336] [0x00000001f08c3f80] [warning] tree support default to organic support",
-        "[2026-10-18 21:42:13.072157] [0x00000001f08c3f80] [error]   Invalid T command (T65535)."
+        "[2026-10-18 22:52:34.005023] [0x00000001f08c3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
+        "[2026-10-18 22:52:34.006882] [0x00000001f08c3f80] [warning] no filament colors found in projects",
+        "[2026-10-18 22:52:34.016945] [0x00000001f08c3f80] [warning] tree support default to organic support",
+        "[2026-10-18 22:52:34.041931] [0x00000001f08c3f80] [error]   Invalid T command (T65535)."
       ]
     }
   }
