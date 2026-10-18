@@ -585,6 +585,9 @@ for label, points, seat, length, upward, level in [
         assert solid.status() == m.Error.NoError
         preview_fasteners.append((f'螺丝 · {label} {index} · M2×{length}',solid,'#e3c17c',level))
 assert len(preview_fasteners)==12
+# Display-only ESP32 USB shell: reference dimensions, not measured connector CAD.
+esp_usb_shell=box(P['usb_front_recess'],W/2-4.47,P['usb_bottom_z'],7.2,8.94,P['usb_height'])
+esp_usb_shell-=box(P['usb_front_recess']-0.1,W/2-3.97,P['usb_bottom_z']+0.5,6.7,7.94,P['usb_height']-1)
 from preview_html import write_preview
 write_preview(ROOT, [(name, mesh(solid), color, level) for name,solid,color,level in [
  ('底座 · UPS硬限位 / 右侧开关座',base,'#9aa7b6',0),
@@ -595,13 +598,22 @@ write_preview(ROOT, [(name, mesh(solid), color, level) for name,solid,color,leve
  ('SS12D00G3 开关',actual_switch,'#e6b44d',0.4),
  ('开关压盖 · 2枚M2×4',switch_cap,'#e47d88',1),
  ('ESP32 主板（外形包络）',board,'#329b8f',2),
+ ('ESP32 USB-C（位置示意）',esp_usb_shell,'#d8e1e8',2),
  ('电池托盘',tray,'#ad78bf',3),
  ('550mAh 电池（外形包络）',actual_battery,'#c4cbd5',4),
  ('麦克风（外形包络）',mic,'#329b8f',5),
  ('上盖',lid,'#bbd555',6),
  ('BOOT 按帽',cap,'#71839b',6),
  ('BOOT 顶杆',pin(),'#f0bf61',5),
- ('麦克风压框',clamp,'#ad78bf',5)]+preview_fasteners])
+ ('麦克风压框',clamp,'#ad78bf',5)]+preview_fasteners], annotations=[
+ dict(part='一体 UPS 板',at=[px+18,py+10,pz+ph],title='UPS 正面：元器件朝上',note='PCB背面朝底壳；不可翻面安装',side='left'),
+ dict(part='UPS Type-C',at=[1.0,W/2,pz+pt+1.65],title='UPS Type-C：充电口',note='位于前端；俯视时在PCB左侧',side='left'),
+ dict(part='一体 UPS 板',at=[px+3,py+16,pz+ph],title='UPS 白色电池插座',note='正面靠USB旁，位置按照片示意',side='left'),
+ dict(part='一体 UPS 板',at=[px+20,py+18,pz+ph],title='UPS 板载拨动开关',note='正面右侧；区别于外置开关',side='left'),
+ dict(part='ESP32 主板',at=[bx+26,W/2,bz+P['board_thickness']],title='ESP32 正面：元器件朝上',note='金属屏蔽罩、芯片及按钮在这一面',side='right'),
+ dict(part='ESP32 USB-C',at=[P['usb_front_recess'],W/2,usb_z],title='ESP32 USB-C：刷机口',note='主板前端、元件面；装壳后隐藏',side='right'),
+ dict(part='ESP32 主板',at=[bx+bl-3,W/2,bz+P['board_thickness']],title='ESP32 天线端',note='主板后端，与USB接口相反',side='right'),
+])
 with zipfile.ZipFile(ROOT/'voxu-battery-fit-prototype.zip','w',zipfile.ZIP_DEFLATED) as z:
     for name in sorted(parts):
         p=OUT/(name+'.stl')
