@@ -1,5 +1,5 @@
 {
-  "revision": "integrated-ups-fit-6",
+  "revision": "integrated-ups-fit-7",
   "parameters": {
     "shell_length": 62,
     "shell_width": 46,
@@ -45,13 +45,13 @@
     ],
     "battery_capacity_mah": 550,
     "power_module_size_mm": [
-      35,
-      20,
+      35.6,
+      20.6,
       5.6
     ],
     "power_module_origin_mm": [
       2.5,
-      18.47,
+      17.87,
       3.2
     ],
     "battery_origin_mm": [
@@ -62,11 +62,11 @@
     "battery_clearance_xy": 0.5,
     "battery_top_clearance": 1.0,
     "power_clearance_xy": 0.5,
-    "ups_usb_center_offset_y": 4.53,
+    "ups_usb_center_offset_y": 5.13,
     "ups_usb_center_z": 6.1,
     "ups_usb_window_width": 14,
     "ups_usb_window_height": 8,
-    "power_pcb_thickness": 1.4,
+    "power_pcb_thickness": 1.5,
     "power_retainer_rim_overlap": 0.45,
     "power_retainer_vertical_clearance": 0.25,
     "external_switch_origin_mm": [
@@ -82,7 +82,8 @@
     "external_switch_handle_length": 3,
     "external_switch_travel": 2,
     "ups_usb_right_edge_to_pcb_right_mm": 11,
-    "ups_usb_shell_width_reference_mm": 8.94
+    "ups_usb_shell_width_reference_mm": 8.94,
+    "power_slot_clearance_per_side": 0.3
   },
   "parts": {
     "base": {
@@ -91,7 +92,7 @@
         46.0,
         29.0
       ],
-      "volume_mm3": 21127.83,
+      "volume_mm3": 21163.77,
       "watertight": true,
       "connected_components": 1
     },
@@ -158,10 +159,10 @@
     "ups-clamp-left": {
       "size_mm": [
         5.0,
-        6.15,
+        5.55,
         2.0
       ],
-      "volume_mm3": 53.91,
+      "volume_mm3": 47.91,
       "watertight": true,
       "connected_components": 1
     },
@@ -268,7 +269,7 @@
     "charging_port_nominal_offset": {
       "pcb_right_to_usb_shell_right_mm": 11,
       "usb_shell_width_reference_mm": 8.94,
-      "center_from_pcb_left_mm": 4.53,
+      "center_from_pcb_left_mm": 5.13,
       "note": "shell width remains reference, not measured"
     },
     "switch_access_window_mm": [
@@ -279,6 +280,13 @@
     "switch_six_direction_capture": "body captured by pocket and screwed cap; travel sweep clear",
     "switch_insertion": "49 horizontal insertion positions, cap and main PCB removed",
     "retainer_screw_heads": "4 mm diameter x 1.5 mm heads clear PCB/electronics",
+    "ups_fit_clearance": "PCB clears stops at 0.29 mm XY and clamps at 0.24 mm lift",
+    "ups_slot_inner_size_mm": [
+      36.2,
+      21.2
+    ],
+    "ups_slot_clearance_per_side_mm": 0.3,
+    "ups_pcb_retainer_gap_mm": 0.25,
     "ups_six_direction_capture": "PCB blocked in +/- X, +/- Y, +/- Z; no force simulation",
     "retainer_removal": "high-Y clamp slides outward 0.9 mm then lifts; low-Y clamp/cap lift; main PCB removed first",
     "battery_to_antenna_projection_gap_mm": 1.75,
@@ -303,7 +311,7 @@
   "limitations": [
     "Mechanical design for measured parts; electrical charging compatibility is unresolved",
     "External SS12D00G3 mechanical mount based on vendor drawing; SW/G switching verified by user; onboard switch position not recorded",
-    "UPS PCB measured 1.4 mm; retainer overlaps rim 0.45 mm with 0.25 mm vertical clearance; inspect rim solder/component clearance",
+    "UPS PCB remeasured 1.5 mm; retainer overlaps rim 0.45 mm with 0.25 mm vertical clearance; inspect rim solder/component clearance",
     "Battery is outside the last 6 mm antenna projection, but full RF clearance/range is not validated",
     "Wire routing lane is a reserved volume; exact solder joints and connector bends require fit check",
     "Printed retainers, pouch clearance and thermal behavior require assembly verification"
@@ -324,13 +332,13 @@
     5.7
   ],
   "module_measured_mm": [
-    35,
-    20,
+    35.6,
+    20.6,
     5.6
   ],
   "module_envelope_mm": [
-    35,
-    20,
+    35.6,
+    20.6,
     6.0
   ],
   "module_component_edge_inset_mm": 0.6

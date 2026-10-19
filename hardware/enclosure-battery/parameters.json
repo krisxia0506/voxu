@@ -43,13 +43,13 @@
   ],
   "battery_capacity_mah": 550,
   "power_module_size_mm": [
-    35,
-    20,
+    35.6,
+    20.6,
     5.6
   ],
   "power_module_origin_mm": [
     2.5,
-    18.47,
+    17.87,
     3.2
   ],
   "battery_origin_mm": [
@@ -60,11 +60,11 @@
   "battery_clearance_xy": 0.5,
   "battery_top_clearance": 1.0,
   "power_clearance_xy": 0.5,
-  "ups_usb_center_offset_y": 4.53,
+  "ups_usb_center_offset_y": 5.13,
   "ups_usb_center_z": 6.1,
   "ups_usb_window_width": 14,
   "ups_usb_window_height": 8,
-  "power_pcb_thickness": 1.4,
+  "power_pcb_thickness": 1.5,
   "power_retainer_rim_overlap": 0.45,
   "power_retainer_vertical_clearance": 0.25,
   "external_switch_origin_mm": [
@@ -80,5 +80,6 @@
   "external_switch_handle_length": 3,
   "external_switch_travel": 2,
   "ups_usb_right_edge_to_pcb_right_mm": 11,
-  "ups_usb_shell_width_reference_mm": 8.94
+  "ups_usb_shell_width_reference_mm": 8.94,
+  "power_slot_clearance_per_side": 0.3
 }
