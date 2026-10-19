@@ -232,15 +232,16 @@ pg=P['power_clearance_xy']
 power_module=box(px-pg,py-pg,pz,pl+2*pg,pw+2*pg,ph+0.4)
 actual_power=box(px,py,pz,pl,pw,ph)
 # Rigid bed, PCB-edge stops and two removable clamps. No adhesive carries loads.
-# PCB thickness 1.4 mm measured by user. Only 0.45 mm of the PCB rim is captured.
+# PCB thickness 1.5 mm remeasured by user. Only 0.45 mm of the PCB rim is captured.
+slot_gap=P['power_slot_clearance_per_side']
 pt=P['power_pcb_thickness']; rim=P['power_retainer_rim_overlap']
 rz=pz+pt+P['power_retainer_vertical_clearance']
-ups_mount += box(2,6.5,2,37.7,23.2,pz-2)
-for yy in [py-1.5,py+pw+0.15]:
-    ups_mount += box(2,yy,2,37.7,1.35,pz+pt-2)
+ups_mount += box(2,6.5,2,pl+2.7,pw+3.2,pz-2)
+for yy in [py-slot_gap-1.35,py+pw+slot_gap]:
+    ups_mount += box(2,yy,2,pl+2.3,1.35,pz+pt-2)
 # Front/rear stops transfer cable insertion and withdrawal loads to the shell.
-ups_mount += box(2,py,2,0.35,pw,pz+pt-2)
-ups_mount += box(px+pl+0.15,py,2,2,pw,pz+pt-2)
+ups_mount += box(2,py,2,px-slot_gap-2,pw,pz+pt-2)
+ups_mount += box(px+pl+slot_gap,py,2,1.5,pw,pz+pt-2)
 # Two thick edge clamps avoid all components; independent removal clears PCB clips.
 ups_clamps=[box(18.2,3,rz,5,py+rim-3,2),
             box(18.2,py+pw-rim,rz,5,33.7-(py+pw-rim),2)]
@@ -323,7 +324,7 @@ base -= charging_access
 wire_lane=box(10,4,3,25,3,22)
 parts={'base':base,'lid':lid,'mic-clamp':clamp,'button-cap':cap,
        'button-pin':pin(),'battery-tray':tray,'ups-clamp-right':ups_clamps[0],'ups-clamp-left':ups_clamps[1],'switch-retainer':switch_cap}
-report={'revision':'integrated-ups-fit-6','parameters':P,'parts':{},'checks':{}}
+report={'revision':'integrated-ups-fit-7','parameters':P,'parts':{},'checks':{}}
 for name,solid in parts.items():
     t=mesh(solid)
     assert str(solid.status())=='Error.NoError',(name,solid.status())
@@ -370,7 +371,7 @@ report['checks']['battery_tray_removal']='33 vertical lift positions; wires excl
 report['limitations']=[
     'Mechanical design for measured parts; electrical charging compatibility is unresolved',
     'External SS12D00G3 mechanical mount based on vendor drawing; SW/G switching verified by user; onboard switch position not recorded',
-    'UPS PCB measured 1.4 mm; retainer overlaps rim 0.45 mm with 0.25 mm vertical clearance; inspect rim solder/component clearance',
+    'UPS PCB remeasured 1.5 mm; retainer overlaps rim 0.45 mm with 0.25 mm vertical clearance; inspect rim solder/component clearance',
     'Battery is outside the last 6 mm antenna projection, but full RF clearance/range is not validated',
     'Wire routing lane is a reserved volume; exact solder joints and connector bends require fit check',
     'Printed retainers, pouch clearance and thermal behavior require assembly verification']
@@ -412,6 +413,15 @@ report['checks']['retainer_screw_heads']='4 mm diameter x 1.5 mm heads clear PCB
 for moving,delta in [('front',(-0.4,0,0)),('rear',(0.4,0,0)),('left',(0,-0.4,0)),('right',(0,0.4,0)),('down',(0,0,-0.3)),('up',(0,0,0.5))]:
     obstacle=retainer if moving=='up' else base
     assert (power_pcb.translate(delta)^obstacle).volume()>0.001,('UPS capture',moving)
+# Verify actual geometry leaves the promised assembly tolerance, not only metadata.
+for delta in [(slot_gap-0.01,0,0),(-slot_gap+0.01,0,0),
+              (0,slot_gap-0.01,0),(0,-slot_gap+0.01,0),
+              (0,0,P['power_retainer_vertical_clearance']-0.01)]:
+    assert (power_pcb.translate(delta)^(base+retainer)).volume()<1e-5,('UPS fit clearance',delta)
+report['checks']['ups_fit_clearance']='PCB clears stops at 0.29 mm XY and clamps at 0.24 mm lift'
+report['checks']['ups_slot_inner_size_mm']=[round(pl+2*slot_gap,3),round(pw+2*slot_gap,3)]
+report['checks']['ups_slot_clearance_per_side_mm']=slot_gap
+report['checks']['ups_pcb_retainer_gap_mm']=round(rz-pz-pt,3)
 report['checks']['ups_six_direction_capture']='PCB blocked in +/- X, +/- Y, +/- Z; no force simulation'
 for a,b in [(retainer,power_module),(switch_cap,switch_body),(retainer,switch_cap),(retainer,switch_pins)]:
     assert (a^b).volume()<1e-5
@@ -523,7 +533,7 @@ for i,(title,items) in enumerate(views):
     ax=fig.add_subplot(2,2,i+1)
     ax.imshow(raster(items,-35 if i==3 else 32))
     ax.set_axis_off();ax.set_title(title,fontsize=12)
-fig.suptitle(f'VOXU / INTEGRATED UPS / FIT REV 6   {L} x {W} x {cap_bottom+2:.1f} mm',fontsize=18)
+fig.suptitle(f'VOXU / INTEGRATED UPS / FIT REV 7   {L} x {W} x {cap_bottom+2:.1f} mm',fontsize=18)
 fig.tight_layout()
 fig.savefig(ROOT/'preview.png',dpi=160)
 plt.close(fig)
@@ -556,7 +566,7 @@ ax.add_patch(Rectangle((bx,by),35.7,24.9,color='#ab69ad',alpha=.5))
 ax.text(bx+17.85,by+12.45,'CELL 35.7 x 24.9 mm\n4.7 mm thick\nin removable tray',ha='center',va='center')
 ax.annotate('Lead exit toward USB end',xy=(bx,by+12),xytext=(8,-5),fontsize=9,
             arrowprops={'arrowstyle':'->'})
-fig.suptitle('VOXU 62 x 46 mm / MEASURED OUTLINES / FIT REV 6',fontsize=15)
+fig.suptitle('VOXU 62 x 46 mm / MEASURED OUTLINES / FIT REV 7',fontsize=15)
 fig.tight_layout()
 fig.savefig(ROOT/'layout.png',dpi=160)
 plt.close(fig)
