@@ -1,0 +1,679 @@
+{
+  "revision": "integrated-ups-fit-7",
+  "date": "2026-10-19",
+  "printer": "P2S 0.4 mm",
+  "material": "Generic PLA",
+  "layer_height_mm": 0.2,
+  "wall_loops": 3,
+  "infill_percent": 15,
+  "parts": {
+    "base": {
+      "stl_sha256": "22e6b3704042d5ae3e29ee0df194b1d43694f1f5668dece65801d1599c4cffc1",
+      "supports": true,
+      "process_return_code": 0,
+      "result": {
+        "error_string": "Success.",
+        "export_time": 0,
+        "layer_height": 0.20000000298023224,
+        "plate_index": 0,
+        "prepare_time": 7,
+        "return_code": 0,
+        "sliced_plates": [
+          {
+            "feature_type_times": {
+              "Bottom surface": 84.5866928100586,
+              "Bridge": 136.76390075683594,
+              "Custom": 402.5816650390625,
+              "Flush": 26.0,
+              "Gap infill": 327.5429382324219,
+              "Inner wall": 660.6328125,
+              "Internal solid infill": 571.589599609375,
+              "Outer wall": 623.1768798828125,
+              "Overhang wall": 19.430030822753906,
+              "Sparse infill": 25.675512313842773,
+              "Support": 102.47168731689453,
+              "Support interface": 7.578120708465576,
+              "Top surface": 88.39745330810547,
+              "Travel": 739.3829345703125,
+              "Undefined": 732.8670043945312
+            },
+            "filament_change_times": 0,
+            "filaments": [
+              {
+                "filament_id": "GFL99",
+                "id": 1,
+                "main_used_g": 24.672391891479492,
+                "total_used_g": 24.672391891479492
+              }
+            ],
+            "generate_support_material_time": 105,
+            "id": 1,
+            "infill_time": 54,
+            "layer_filament_change": 0,
+            "main_predication": 3361.286376953125,
+            "make_perimeters_time": 90,
+            "obj_cached_cnt": 0,
+            "objects": [
+              {
+                "bbox": {
+                  "depth": 46.0,
+                  "height": 29.0,
+                  "width": 62.0,
+                  "x": 97.0,
+                  "y": 105.0,
+                  "z": 0.0
+                },
+                "id": 5,
+                "name": "base.stl",
+                "triangle_count": 5170
+              }
+            ],
+            "sliced_time": 480,
+            "sliced_time_with_cache": 215,
+            "total_predication": 3809.35205078125,
+            "triangle_count": 5170,
+            "warning_message": ""
+          }
+        ],
+        "sparse_infill_density": 15.0,
+        "wall_loops": 3
+      },
+      "log_warnings": [
+        "[2026-10-19 21:58:20.886985] [0x00000002002d3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
+        "[2026-10-19 21:58:20.891364] [0x00000002002d3f80] [warning] no filament colors found in projects",
+        "[2026-10-19 21:58:21.038836] [0x00000002002d3f80] [warning] tree support default to organic support",
+        "[2026-10-19 21:58:21.109461] [0x00000002002d3f80] [warning] tree support default to organic support",
+        "[2026-10-19 21:58:21.351307] [0x00000002002d3f80] [error]   Invalid T command (T65535)."
+      ]
+    },
+    "lid": {
+      "stl_sha256": "819d9bea510640c97bd3f14b36223eaaba428c18c20fe1c69856f6ef20178782",
+      "supports": false,
+      "process_return_code": 0,
+      "result": {
+        "error_string": "Success.",
+        "export_time": 0,
+        "layer_height": 0.20000000298023224,
+        "plate_index": 0,
+        "prepare_time": 6,
+        "return_code": 0,
+        "sliced_plates": [
+          {
+            "feature_type_times": {
+              "Bottom surface": 88.16519927978516,
+              "Bridge": 105.19951629638672,
+              "Custom": 403.1618957519531,
+              "Flush": 26.0,
+              "Gap infill": 128.56639099121094,
+              "Inner wall": 147.0977020263672,
+              "Internal solid infill": 289.494140625,
+              "Outer wall": 419.9721374511719,
+              "Overhang wall": 11.193641662597656,
+              "Sparse infill": 22.531593322753906,
+              "Top surface": 62.857200622558594,
+              "Travel": 279.0794677734375,
+              "Undefined": 271.99346923828125
+            },
+            "filament_change_times": 0,
+            "filaments": [
+              {
+                "filament_id": "GFL99",
+                "id": 1,
+                "main_used_g": 8.408807754516602,
+                "total_used_g": 8.408807754516602
+              }
+            ],
+            "generate_support_material_time": 13,
+            "id": 1,
+            "infill_time": 49,
+            "layer_filament_change": 0,
+            "main_predication": 1528.1046142578125,
+            "make_perimeters_time": 45,
+            "obj_cached_cnt": 0,
+            "objects": [
+              {
+                "bbox": {
+                  "depth": 46.0,
+                  "height": 17.600000381469727,
+                  "width": 62.0,
+                  "x": 97.0,
+                  "y": 105.0,
+                  "z": 0.0
+                },
+                "id": 5,
+                "name": "lid.stl",
+                "triangle_count": 7660
+              }
+            ],
+            "sliced_time": 280,
+            "sliced_time_with_cache": 164,
+            "total_predication": 1976.1805419921875,
+            "triangle_count": 7660,
+            "warning_message": ""
+          }
+        ],
+        "sparse_infill_density": 15.0,
+        "wall_loops": 3
+      },
+      "log_warnings": [
+        "[2026-10-19 21:58:21.430890] [0x00000002002d3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
+        "[2026-10-19 21:58:21.434804] [0x00000002002d3f80] [warning] no filament colors found in projects",
+        "[2026-10-19 21:58:21.531612] [0x00000002002d3f80] [warning] tree support default to organic support",
+        "[2026-10-19 21:58:21.708872] [0x00000002002d3f80] [error]   Invalid T command (T65535)."
+      ]
+    },
+    "battery-tray": {
+      "stl_sha256": "fcbaf89cb864afc48c45edbbb8a493e5edb36713c7bb66813737681fcd7408c2",
+      "supports": false,
+      "process_return_code": 0,
+      "result": {
+        "error_string": "Success.",
+        "export_time": 0,
+        "layer_height": 0.20000000298023224,
+        "plate_index": 0,
+        "prepare_time": 3,
+        "return_code": 0,
+        "sliced_plates": [
+          {
+            "feature_type_times": {
+              "Bottom surface": 37.12828063964844,
+              "Custom": 403.91900634765625,
+              "Flush": 26.0,
+              "Gap infill": 2.0014312267303467,
+              "Inner wall": 13.351024627685547,
+              "Internal solid infill": 36.37251663208008,
+              "Outer wall": 81.57452392578125,
+              "Top surface": 26.393014907836914,
+              "Travel": 21.71456527709961,
+              "Undefined": 13.8785982131958
+            },
+            "filament_change_times": 0,
+            "filaments": [
+              {
+                "filament_id": "GFL99",
+                "id": 1,
+                "main_used_g": 1.2547976970672607,
+                "total_used_g": 1.2547976970672607
+              }
+            ],
+            "generate_support_material_time": 1,
+            "id": 1,
+            "infill_time": 3,
+            "layer_filament_change": 0,
+            "main_predication": 192.535400390625,
+            "make_perimeters_time": 4,
+            "obj_cached_cnt": 0,
+            "objects": [
+              {
+                "bbox": {
+                  "depth": 27.5,
+                  "height": 2.6999988555908203,
+                  "width": 48.20000457763672,
+                  "x": 103.89998626708984,
+                  "y": 114.25,
+                  "z": 0.0
+                },
+                "id": 5,
+                "name": "battery-tray.stl",
+                "triangle_count": 644
+              }
+            ],
+            "sliced_time": 27,
+            "sliced_time_with_cache": 17,
+            "total_predication": 640.618408203125,
+            "triangle_count": 644,
+            "warning_message": ""
+          }
+        ],
+        "sparse_infill_density": 15.0,
+        "wall_loops": 3
+      },
+      "log_warnings": [
+        "[2026-10-19 21:58:21.766322] [0x00000002002d3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
+        "[2026-10-19 21:58:21.767985] [0x00000002002d3f80] [warning] no filament colors found in projects",
+        "[2026-10-19 21:58:21.777902] [0x00000002002d3f80] [warning] tree support default to organic support",
+        "[2026-10-19 21:58:21.795643] [0x00000002002d3f80] [error]   Invalid T command (T65535)."
+      ]
+    },
+    "button-cap": {
+      "stl_sha256": "cc23ec0c532ac764f0254755c9d9dbf0b06a09f77623a6c537b8422ff21bbf72",
+      "supports": false,
+      "process_return_code": 0,
+      "result": {
+        "error_string": "Success.",
+        "export_time": 0,
+        "layer_height": 0.20000000298023224,
+        "plate_index": 0,
+        "prepare_time": 4,
+        "return_code": 0,
+        "sliced_plates": [
+          {
+            "feature_type_times": {
+              "Bottom surface": 3.0432088375091553,
+              "Bridge": 1.1273887157440186,
+              "Custom": 403.3044738769531,
+              "Flush": 26.0,
+              "Gap infill": 8.217806816101074,
+              "Inner wall": 90.88088989257812,
+              "Internal solid infill": 62.9652214050293,
+              "Outer wall": 92.34561157226562,
+              "Sparse infill": 1.2208136320114136,
+              "Top surface": 6.772406101226807,
+              "Travel": 56.81004333496094,
+              "Undefined": 49.584075927734375
+            },
+            "filament_change_times": 0,
+            "filaments": [
+              {
+                "filament_id": "GFL99",
+                "id": 1,
+                "main_used_g": 0.4725983738899231,
+                "total_used_g": 0.4725983738899231
+              }
+            ],
+            "generate_support_material_time": 1,
+            "id": 1,
+            "infill_time": 4,
+            "layer_filament_change": 0,
+            "main_predication": 297.3878173828125,
+            "make_perimeters_time": 5,
+            "obj_cached_cnt": 0,
+            "objects": [
+              {
+                "bbox": {
+                  "depth": 8.000000953674316,
+                  "height": 14.799999237060547,
+                  "width": 8.0,
+                  "x": 124.0,
+                  "y": 124.00000762939453,
+                  "z": 0.0
+                },
+                "id": 5,
+                "name": "button-cap.stl",
+                "triangle_count": 668
+              }
+            ],
+            "sliced_time": 44,
+            "sliced_time_with_cache": 31,
+            "total_predication": 745.46630859375,
+            "triangle_count": 668,
+            "warning_message": ""
+          }
+        ],
+        "sparse_infill_density": 15.0,
+        "wall_loops": 3
+      },
+      "log_warnings": [
+        "[2026-10-19 21:58:21.844833] [0x00000002002d3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
+        "[2026-10-19 21:58:21.846824] [0x00000002002d3f80] [warning] no filament colors found in projects",
+        "[2026-10-19 21:58:21.858048] [0x00000002002d3f80] [warning] tree support default to organic support",
+        "[2026-10-19 21:58:21.890092] [0x00000002002d3f80] [error]   Invalid T command (T65535)."
+      ]
+    },
+    "button-pin": {
+      "stl_sha256": "4cf1612804be19c0eac9d7ab64090570b06890ae0f27809e50db6fef383ebe37",
+      "supports": true,
+      "process_return_code": 0,
+      "result": {
+        "error_string": "Success.",
+        "export_time": 0,
+        "layer_height": 0.20000000298023224,
+        "plate_index": 0,
+        "prepare_time": 3,
+        "return_code": 0,
+        "sliced_plates": [
+          {
+            "feature_type_times": {
+              "Bridge": 1.2837684154510498,
+              "Custom": 403.6886291503906,
+              "Flush": 26.0,
+              "Gap infill": 0.39479124546051025,
+              "Inner wall": 18.443632125854492,
+              "Internal solid infill": 11.344297409057617,
+              "Outer wall": 24.17129898071289,
+              "Overhang wall": 7.15908145904541,
+              "Support": 20.543668746948242,
+              "Support interface": 6.375590801239014,
+              "Top surface": 5.509963512420654,
+              "Travel": 23.452133178710938,
+              "Undefined": 15.826163291931152
+            },
+            "filament_change_times": 0,
+            "filaments": [
+              {
+                "filament_id": "GFL99",
+                "id": 1,
+                "main_used_g": 0.16252590715885162,
+                "total_used_g": 0.16252590715885162
+              }
+            ],
+            "generate_support_material_time": 10,
+            "id": 1,
+            "infill_time": 4,
+            "layer_filament_change": 0,
+            "main_predication": 92.67880249023438,
+            "make_perimeters_time": 5,
+            "obj_cached_cnt": 0,
+            "objects": [
+              {
+                "bbox": {
+                  "depth": 7.000001430511475,
+                  "height": 6.850000381469727,
+                  "width": 6.999997615814209,
+                  "x": 124.49999237060547,
+                  "y": 124.50000762939453,
+                  "z": 0.0
+                },
+                "id": 5,
+                "name": "button-pin.stl",
+                "triangle_count": 524
+              }
+            ],
+            "sliced_time": 53,
+            "sliced_time_with_cache": 31,
+            "total_predication": 540.741455078125,
+            "triangle_count": 524,
+            "warning_message": ""
+          }
+        ],
+        "sparse_infill_density": 15.0,
+        "wall_loops": 3
+      },
+      "log_warnings": [
+        "[2026-10-19 21:58:21.940095] [0x00000002002d3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
+        "[2026-10-19 21:58:21.942016] [0x00000002002d3f80] [warning] no filament colors found in projects",
+        "[2026-10-19 21:58:21.953064] [0x00000002002d3f80] [warning] tree support default to organic support",
+        "[2026-10-19 21:58:21.956372] [0x00000002002d3f80] [warning] tree support default to organic support",
+        "[2026-10-19 21:58:21.995593] [0x00000002002d3f80] [error]   Invalid T command (T65535)."
+      ]
+    },
+    "mic-clamp": {
+      "stl_sha256": "509446d16596b8613811f481fd36ecc3459172cdba0793fdf108f2b09352559c",
+      "supports": false,
+      "process_return_code": 0,
+      "result": {
+        "error_string": "Success.",
+        "export_time": 0,
+        "layer_height": 0.20000000298023224,
+        "plate_index": 0,
+        "prepare_time": 4,
+        "return_code": 0,
+        "sliced_plates": [
+          {
+            "feature_type_times": {
+              "Bottom surface": 4.492511749267578,
+              "Custom": 403.96673583984375,
+              "Flush": 26.0,
+              "Gap infill": 6.078989028930664,
+              "Inner wall": 28.515239715576172,
+              "Internal solid infill": 9.853224754333496,
+              "Outer wall": 18.215545654296875,
+              "Top surface": 7.517874717712402,
+              "Travel": 36.23644256591797,
+              "Undefined": 28.34047508239746
+            },
+            "filament_change_times": 0,
+            "filaments": [
+              {
+                "filament_id": "GFL99",
+                "id": 1,
+                "main_used_g": 0.4545819163322449,
+                "total_used_g": 0.4545819163322449
+              }
+            ],
+            "generate_support_material_time": 1,
+            "id": 1,
+            "infill_time": 5,
+            "layer_filament_change": 0,
+            "main_predication": 84.91046142578125,
+            "make_perimeters_time": 8,
+            "obj_cached_cnt": 0,
+            "objects": [
+              {
+                "bbox": {
+                  "depth": 20.000001907348633,
+                  "height": 1.3999996185302734,
+                  "width": 25.999998092651367,
+                  "x": 114.99999237060547,
+                  "y": 118.00000762939453,
+                  "z": 0.0
+                },
+                "id": 5,
+                "name": "mic-clamp.stl",
+                "triangle_count": 1096
+              }
+            ],
+            "sliced_time": 35,
+            "sliced_time_with_cache": 18,
+            "total_predication": 532.981201171875,
+            "triangle_count": 1096,
+            "warning_message": ""
+          }
+        ],
+        "sparse_infill_density": 15.0,
+        "wall_loops": 3
+      },
+      "log_warnings": [
+        "[2026-10-19 21:58:22.048664] [0x00000002002d3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
+        "[2026-10-19 21:58:22.051096] [0x00000002002d3f80] [warning] no filament colors found in projects",
+        "[2026-10-19 21:58:22.066185] [0x00000002002d3f80] [warning] tree support default to organic support",
+        "[2026-10-19 21:58:22.085541] [0x00000002002d3f80] [error]   Invalid T command (T65535)."
+      ]
+    },
+    "ups-clamp-right": {
+      "stl_sha256": "9e13177c760a62e2c0b1e62df1b7b679978d4393c25947d291be87d930676899",
+      "supports": false,
+      "process_return_code": 0,
+      "result": {
+        "error_string": "Success.",
+        "export_time": 0,
+        "layer_height": 0.20000000298023224,
+        "plate_index": 0,
+        "prepare_time": 3,
+        "return_code": 0,
+        "sliced_plates": [
+          {
+            "feature_type_times": {
+              "Custom": 403.9417724609375,
+              "Flush": 26.0,
+              "Gap infill": 10.01354694366455,
+              "Inner wall": 13.325027465820312,
+              "Outer wall": 14.646750450134277,
+              "Top surface": 1.2606754302978516,
+              "Travel": 19.759490966796875,
+              "Undefined": 11.893524169921875
+            },
+            "filament_change_times": 0,
+            "filaments": [
+              {
+                "filament_id": "GFL99",
+                "id": 1,
+                "main_used_g": 0.04821542277932167,
+                "total_used_g": 0.04821542277932167
+              }
+            ],
+            "generate_support_material_time": 1,
+            "id": 1,
+            "infill_time": 0,
+            "layer_filament_change": 0,
+            "main_predication": 33.006866455078125,
+            "make_perimeters_time": 3,
+            "obj_cached_cnt": 0,
+            "objects": [
+              {
+                "bbox": {
+                  "depth": 4.929996490478516,
+                  "height": 2.0,
+                  "width": 5.0,
+                  "x": 125.5,
+                  "y": 125.53500366210938,
+                  "z": 0.0
+                },
+                "id": 5,
+                "name": "ups-clamp-right.stl",
+                "triangle_count": 272
+              }
+            ],
+            "sliced_time": 22,
+            "sliced_time_with_cache": 17,
+            "total_predication": 481.0826416015625,
+            "triangle_count": 272,
+            "warning_message": ""
+          }
+        ],
+        "sparse_infill_density": 15.0,
+        "wall_loops": 3
+      },
+      "log_warnings": [
+        "[2026-10-19 21:58:22.138296] [0x00000002002d3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
+        "[2026-10-19 21:58:22.139871] [0x00000002002d3f80] [warning] no filament colors found in projects",
+        "[2026-10-19 21:58:22.145982] [0x00000002002d3f80] [warning] tree support default to organic support",
+        "[2026-10-19 21:58:22.161840] [0x00000002002d3f80] [error]   Invalid T command (T65535)."
+      ]
+    },
+    "ups-clamp-left": {
+      "stl_sha256": "8f6895cc7e4400665150901df3aea79ee55516fb773f5131a286b1482d33328b",
+      "supports": false,
+      "process_return_code": 0,
+      "result": {
+        "error_string": "Success.",
+        "export_time": 0,
+        "layer_height": 0.20000000298023224,
+        "plate_index": 0,
+        "prepare_time": 3,
+        "return_code": 0,
+        "sliced_plates": [
+          {
+            "feature_type_times": {
+              "Custom": 403.9395446777344,
+              "Flush": 26.0,
+              "Gap infill": 10.53439998626709,
+              "Inner wall": 14.421720504760742,
+              "Outer wall": 14.670716285705566,
+              "Top surface": 1.5963664054870605,
+              "Travel": 17.795284271240234,
+              "Undefined": 9.929316520690918
+            },
+            "filament_change_times": 0,
+            "filaments": [
+              {
+                "filament_id": "GFL99",
+                "id": 1,
+                "main_used_g": 0.05594395473599434,
+                "total_used_g": 0.05594395473599434
+              }
+            ],
+            "generate_support_material_time": 1,
+            "id": 1,
+            "infill_time": 1,
+            "layer_filament_change": 0,
+            "main_predication": 33.02008056640625,
+            "make_perimeters_time": 3,
+            "obj_cached_cnt": 0,
+            "objects": [
+              {
+                "bbox": {
+                  "depth": 5.549995422363281,
+                  "height": 2.0,
+                  "width": 5.0,
+                  "x": 125.5,
+                  "y": 125.22501373291016,
+                  "z": 0.0
+                },
+                "id": 5,
+                "name": "ups-clamp-left.stl",
+                "triangle_count": 272
+              }
+            ],
+            "sliced_time": 20,
+            "sliced_time_with_cache": 13,
+            "total_predication": 481.0936279296875,
+            "triangle_count": 272,
+            "warning_message": ""
+          }
+        ],
+        "sparse_infill_density": 15.0,
+        "wall_loops": 3
+      },
+      "log_warnings": [
+        "[2026-10-19 21:58:22.211965] [0x00000002002d3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
+        "[2026-10-19 21:58:22.213456] [0x00000002002d3f80] [warning] no filament colors found in projects",
+        "[2026-10-19 21:58:22.219576] [0x00000002002d3f80] [warning] tree support default to organic support",
+        "[2026-10-19 21:58:22.233850] [0x00000002002d3f80] [error]   Invalid T command (T65535)."
+      ]
+    },
+    "switch-retainer": {
+      "stl_sha256": "ad95d2cf5a51a8cdd6c4a9506d62d0a7aeb95dc82761bae1dae047af3b66addb",
+      "supports": false,
+      "process_return_code": 0,
+      "result": {
+        "error_string": "Success.",
+        "export_time": 0,
+        "layer_height": 0.20000000298023224,
+        "plate_index": 0,
+        "prepare_time": 3,
+        "return_code": 0,
+        "sliced_plates": [
+          {
+            "feature_type_times": {
+              "Bottom surface": 1.596872329711914,
+              "Custom": 403.75958251953125,
+              "Flush": 26.0,
+              "Gap infill": 15.81515121459961,
+              "Inner wall": 19.730215072631836,
+              "Internal solid infill": 11.39321231842041,
+              "Outer wall": 27.63478660583496,
+              "Top surface": 3.9815075397491455,
+              "Travel": 25.90177345275879,
+              "Undefined": 18.215805053710938
+            },
+            "filament_change_times": 0,
+            "filaments": [
+              {
+                "filament_id": "GFL99",
+                "id": 1,
+                "main_used_g": 0.15393538773059845,
+                "total_used_g": 0.15393538773059845
+              }
+            ],
+            "generate_support_material_time": 1,
+            "id": 1,
+            "infill_time": 2,
+            "layer_filament_change": 0,
+            "main_predication": 80.05386352539062,
+            "make_perimeters_time": 5,
+            "obj_cached_cnt": 0,
+            "objects": [
+              {
+                "bbox": {
+                  "depth": 4.399999141693115,
+                  "height": 5.599999904632568,
+                  "width": 18.20000457763672,
+                  "x": 118.89998626708984,
+                  "y": 125.80001068115234,
+                  "z": 0.0
+                },
+                "id": 5,
+                "name": "switch-retainer.stl",
+                "triangle_count": 564
+              }
+            ],
+            "sliced_time": 32,
+            "sliced_time_with_cache": 22,
+            "total_predication": 528.12744140625,
+            "triangle_count": 564,
+            "warning_message": ""
+          }
+        ],
+        "sparse_infill_density": 15.0,
+        "wall_loops": 3
+      },
+      "log_warnings": [
+        "[2026-10-19 21:58:22.282512] [0x00000002002d3f80] [warning] cli mode, Current BambuStudio Version 02.08.02.61",
+        "[2026-10-19 21:58:22.284107] [0x00000002002d3f80] [warning] no filament colors found in projects",
+        "[2026-10-19 21:58:22.293492] [0x00000002002d3f80] [warning] tree support default to organic support",
+        "[2026-10-19 21:58:22.316169] [0x00000002002d3f80] [error]   Invalid T command (T65535)."
+      ]
+    }
+  }
+}
