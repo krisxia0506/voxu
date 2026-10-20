@@ -1,5 +1,5 @@
 {
-  "revision": "integrated-ups-fit-7",
+  "revision": "integrated-ups-fit-8",
   "parameters": {
     "shell_length": 62,
     "shell_width": 46,
@@ -32,6 +32,7 @@
     "usb_front_recess": 2.4,
     "button_pin_extension": 0.4,
     "board_clip_clearance": 0.05,
+    "board_clip_elbow_radius": 2.0,
     "shell_snap_width": 6.0,
     "shell_snap_thickness": 1.0,
     "shell_snap_bottom_z": 14.8,
@@ -92,7 +93,7 @@
         46.0,
         29.0
       ],
-      "volume_mm3": 21163.77,
+      "volume_mm3": 21193.41,
       "watertight": true,
       "connected_components": 1
     },
@@ -292,7 +293,9 @@
     "battery_to_antenna_projection_gap_mm": 1.75,
     "shell_snap_retention": "4 seated catches clear base; each blocks 0.5 mm upward lid movement",
     "shell_snap_release": "4 sheared-arm clearance envelopes x 25 extraction positions; real force/fatigue not simulated",
-    "pcb_clip_root_reinforcement": "4 tapered 5 x 2 mm feet into 2 x 1 mm uprights; free horizontal spring arms unchanged; strength not simulated",
+    "pcb_clip_root_reinforcement": "Tapered feet retained; all 4 uprights meet full 2.7 mm arm height; verified in base",
+    "pcb_clip_elbow_radius_mm": 2.0,
+    "pcb_clip_knees": "4 concave R2 X/Z knees verified in base; 10 mm straight free span remains; strength/fatigue not simulated",
     "pcb_support_pad_size_mm": [
       6,
       6
