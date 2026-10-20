@@ -18,7 +18,7 @@
 ## 以下为先前阶段记录
 
 
-日期：2026-09-30。远程 main 已核实为 `81804c4`，包含初代外壳及蓝牙重连改动。
+日期：2026-09-30。远程 main 已核实为 `7c86af2`，包含初代外壳及蓝牙重连改动。
 
 **当前阶段（2026-10-10）：已生成独立的 60 × 40 × 31.4 mm 机械试装样件；电气与实物验收未完成，不能作为最终采购/照焊版本。**
 
@@ -151,3 +151,5 @@ PR 继续 Draft。已有机械试装打印包；最终电路与实物装配、�
 - [500 mAh 参考电池](https://www.adafruit.com/product/1578)及[放电规格](https://cdn-shop.adafruit.com/product-files/1578/Datasheet.pdf)。
 - [DFRobot DFR0446](https://www.dfrobot.com/product-1613.html)、[Waveshare UPS Mini](https://www.waveshare.com/wiki/UPS_Module_Mini)。
 - [已撤回的定制板方案](../research/2026-09-30-superseded-custom-board-spec.md)，仅供追溯。
+
+文中仓库提交标识已更新为隐私清理后的对应提交；历史设计结论未重新验证。
