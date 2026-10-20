@@ -311,4 +311,7 @@ with zipfile.ZipFile(ROOT/'voxu-p2s-prototype.zip','w',zipfile.ZIP_DEFLATED) as 
     for name in ['README.md','parameters.json','validation.json','preview.png','generate.py','requirements.txt','slicer-result.json']:
         p=ROOT/name
         if p.exists(): z.write(p,name)
+    for name in ['LICENSE.md', 'LICENSES/MIT.txt', 'LICENSES/CC-BY-4.0.txt']:
+        license_root = ROOT if (ROOT/'LICENSE.md').is_file() else ROOT.parent.parent
+        z.write(license_root/name, name)
 print(json.dumps(report,indent=2))
