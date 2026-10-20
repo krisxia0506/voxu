@@ -63,11 +63,12 @@ for y in [by-1.3,by+bw+0.3]:
         pcb_mount += box(x,y,fence_z,4,1,bz+P['board_thickness']+0.3-fence_z)
 for y in [by,by+bw-4]:
     pcb_mount += box(bx+bl+0.3,y,2,1,4,bz+P['board_thickness']+0.3-2)
-# Side clips bend laterally along 12 mm horizontal cantilever arms.
+# Side clips bend laterally; a rounded knee supports the first 2 mm of each arm.
 # Under-arm clearance allows flex; keep support away from the spring if possible.
 # Retaining lips overlap only the PCB rim, not components or solder pads.
 clip_lip_z=bz+P['board_thickness']+P['board_clip_clearance']
 clips=[]
+clip_knees=[]
 for root_x in [bx+7.6,bx+26.6]:
     tip_x=root_x+14
     # Build the lower-Y clip then mirror it for the other side of the board.
@@ -78,6 +79,15 @@ for root_x in [bx+7.6,bx+26.6]:
     shoulder=box(root_x,by-1.2,bz-2,2,1,0.4)
     root += (foot+shoulder).hull()
     arm=box(root_x+1.8,by-1.2,bz,12.2,1,2.7)
+    # Concave R2 transition in X/Z, tangent to upright and arm underside.
+    # Unlike a triangular gusset, the arc has no sharp end at the free arm.
+    radius=P['board_clip_elbow_radius']
+    knee=box(root_x+2,by-1.2,bz-radius,radius,1,radius)
+    cut=m.Manifold.cylinder(1.2,radius,circular_segments=96).rotate((90,0,0))
+    cut=cut.translate((root_x+2+radius,by-0.1,bz-radius))
+    knee -= cut
+    arm += knee
+    clip_knees.extend([knee,knee.mirror((0,1,0)).translate((0,W,0))])
     lip=(box(tip_x-2.4,by-0.3,clip_lip_z,2.4,0.8,0.06)
          +box(tip_x-2.4,by-0.3,clip_lip_z+1.0,2.4,0.1,0.06)).hull()
     clip=root+arm+lip
@@ -86,7 +96,8 @@ for root_x in [bx+7.6,bx+26.6]:
     # Lower side root steps outward below the UPS clearance envelope.
     low_root=box(root_x,5.2,2,2,1.8,bz-2)
     low_root += (box(root_x-3,4.8,1.8,5,2.2,1)+box(root_x,5.2,bz-2,2,1.8,.4)).hull()
-    low_root += box(root_x,5.2,9.6,2,by-.2-5.2,bz+0.7-9.6)
+    # Meet the full arm height, not just its bottom 0.7 mm.
+    low_root += box(root_x,5.2,9.6,2,by-.2-5.2,bz+2.7-9.6)
     clip=low_root+arm+lip
     clips[-2]=clip
     pcb_mount += clip+mirrored
@@ -324,7 +335,7 @@ base -= charging_access
 wire_lane=box(10,4,3,25,3,22)
 parts={'base':base,'lid':lid,'mic-clamp':clamp,'button-cap':cap,
        'button-pin':pin(),'battery-tray':tray,'ups-clamp-right':ups_clamps[0],'ups-clamp-left':ups_clamps[1],'switch-retainer':switch_cap}
-report={'revision':'integrated-ups-fit-7','parameters':P,'parts':{},'checks':{}}
+report={'revision':'integrated-ups-fit-8','parameters':P,'parts':{},'checks':{}}
 for name,solid in parts.items():
     t=mesh(solid)
     assert str(solid.status())=='Error.NoError',(name,solid.status())
@@ -453,6 +464,14 @@ for i,clip in enumerate(clips):
     assert (clip^board).volume()<1e-5, ('clip-seated-board',i)
     lifted=board.translate((0,0,0.3))
     assert (clip^lifted).volume()>0.05, ('clip-does-not-retain-board',i)
+# Regression: all four knees are present in the exported base, and every
+# upright continues through the full arm height (including the UPS-side pair).
+for i,knee in enumerate(clip_knees):
+    assert (knee-base).volume()<1e-5, ('missing-clip-knee',i)
+for root_x in [bx+7.6,bx+26.6]:
+    for y in [by-1.2,W-by+0.2]:
+        probe=box(root_x+0.1,y+0.1,bz+0.1,1.8,0.8,2.5)
+        assert (probe-base).volume()<1e-5, ('short-clip-upright',root_x,y)
 # The rigid locked geometry must retain the lid. A sheared-arm envelope models
 # clearance during release, not force, fatigue, or a finite-element prediction.
 for i,(catch,direction) in enumerate(shell_snaps):
@@ -466,7 +485,9 @@ for i,(catch,direction) in enumerate(shell_snaps):
             assert (moving^fixed).volume()<1e-5, ('shell-release-collision',i,lift,name)
 report['checks']['shell_snap_retention']='4 seated catches clear base; each blocks 0.5 mm upward lid movement'
 report['checks']['shell_snap_release']='4 sheared-arm clearance envelopes x 25 extraction positions; real force/fatigue not simulated'
-report['checks']['pcb_clip_root_reinforcement']='4 tapered 5 x 2 mm feet into 2 x 1 mm uprights; free horizontal spring arms unchanged; strength not simulated'
+report['checks']['pcb_clip_root_reinforcement']='Tapered feet retained; all 4 uprights meet full 2.7 mm arm height; verified in base'
+report['checks']['pcb_clip_elbow_radius_mm']=P['board_clip_elbow_radius']
+report['checks']['pcb_clip_knees']='4 concave R2 X/Z knees verified in base; 10 mm straight free span remains; strength/fatigue not simulated'
 report['checks']['pcb_support_pad_size_mm']=[6,6]
 report['checks']['pcb_snap_retention']='4 clips clear seated PCB; each intercepts PCB lifted 0.3 mm; real flex/force unverified'
 report['checks'].update(button_motion_clearance='user-confirmed long pin x 7 positions',
@@ -533,7 +554,7 @@ for i,(title,items) in enumerate(views):
     ax=fig.add_subplot(2,2,i+1)
     ax.imshow(raster(items,-35 if i==3 else 32))
     ax.set_axis_off();ax.set_title(title,fontsize=12)
-fig.suptitle(f'VOXU / INTEGRATED UPS / FIT REV 7   {L} x {W} x {cap_bottom+2:.1f} mm',fontsize=18)
+fig.suptitle(f'VOXU / INTEGRATED UPS / FIT REV 8   {L} x {W} x {cap_bottom+2:.1f} mm',fontsize=18)
 fig.tight_layout()
 fig.savefig(ROOT/'preview.png',dpi=160)
 plt.close(fig)
@@ -566,7 +587,7 @@ ax.add_patch(Rectangle((bx,by),35.7,24.9,color='#ab69ad',alpha=.5))
 ax.text(bx+17.85,by+12.45,'CELL 35.7 x 24.9 mm\n4.7 mm thick\nin removable tray',ha='center',va='center')
 ax.annotate('Lead exit toward USB end',xy=(bx,by+12),xytext=(8,-5),fontsize=9,
             arrowprops={'arrowstyle':'->'})
-fig.suptitle('VOXU 62 x 46 mm / MEASURED OUTLINES / FIT REV 7',fontsize=15)
+fig.suptitle('VOXU 62 x 46 mm / MEASURED OUTLINES / FIT REV 8',fontsize=15)
 fig.tight_layout()
 fig.savefig(ROOT/'layout.png',dpi=160)
 plt.close(fig)

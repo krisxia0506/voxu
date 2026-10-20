@@ -30,6 +30,7 @@
   "usb_front_recess": 2.4,
   "button_pin_extension": 0.4,
   "board_clip_clearance": 0.05,
+  "board_clip_elbow_radius": 2.0,
   "shell_snap_width": 6.0,
   "shell_snap_thickness": 1.0,
   "shell_snap_bottom_z": 14.8,
