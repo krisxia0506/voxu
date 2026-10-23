@@ -37,7 +37,7 @@
       "mpn": "ICS-43434",
       "lcsc": "C5656610",
       "qty_per_board": 1,
-      "reference_cny": null,
+      "reference_cny": 28.01,
       "source": "https://item.szlcsc.com/6577565.html",
       "status": "domestic page lists SMT extended inventory; audio retest required"
     },
@@ -46,15 +46,15 @@
       "mpn": "TPS63070RNMR",
       "lcsc": "C109322",
       "qty_per_board": 1,
-      "reference_cny": null,
-      "source": "https://www.lcsc.com/product-detail/C109322.html",
-      "status": "candidate only; domestic SMT status unconfirmed"
+      "reference_cny": 7.48,
+      "source": "https://item.szlcsc.com/110543.html",
+      "status": "domestic page lists SMT extended inventory; not reserved"
     }
   ],
   "budget_cny": {
     "electronics": [
-      140,
-      260
+      180,
+      300
     ],
     "pcb_batch": [
       30,
