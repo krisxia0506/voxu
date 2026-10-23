@@ -9,13 +9,13 @@
   "thickness_mm": 1.6,
   "components": 64,
   "explicit_models": 64,
-  "track_segments": 926,
+  "track_segments": 920,
   "vias": 86,
   "ground_planes": 2,
   "native_drc": {
     "checks": 141,
     "issues": 0,
-    "time": "2026-10-23 22:51:23"
+    "time": "2026-10-23 23:06:04"
   },
   "production_release": false,
   "pcba_quantity_requested": 1,
@@ -56,5 +56,9 @@
     "info": "J1/J2/SW3 mechanical pad mapping information",
     "time": "2026-10-23 22:29:02"
   },
-  "acoustic_hole_nominal_mm": 0.6
+  "acoustic_hole_nominal_mm": 0.6,
+  "switch_locator_holes_mm": [
+    0.85,
+    0.85
+  ]
 }
