@@ -1,0 +1,241 @@
+{
+  "release": false,
+  "bindings": {
+    "U1": {
+      "uuid": "9a64a8134619ad23",
+      "name": "WIFI-SMD_ESP32-WROOM-32E",
+      "source": ""
+    },
+    "R1": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R2": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "C1": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    },
+    "C2": {
+      "uuid": "b745e84da03954ae",
+      "name": "C0805",
+      "source": ""
+    },
+    "C3": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    },
+    "U2": {
+      "uuid": "c6aa4b5f89194818",
+      "name": "MID-SMD_L4.7-W3.8_INMP441ACEZ",
+      "source": ""
+    },
+    "R3": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "C4": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    },
+    "R4": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R5": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R6": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "C5": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    },
+    "C6": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    },
+    "C7": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    },
+    "R7": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R8": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "C8": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    },
+    "C9": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    },
+    "C10": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    },
+    "R9": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R10": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R11": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R12": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R13": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R14": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R15": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R16": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R17": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R18": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R19": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R20": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R21": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "C11": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    },
+    "C12": {
+      "uuid": "b745e84da03954ae",
+      "name": "C0805",
+      "source": ""
+    },
+    "C13": {
+      "uuid": "b745e84da03954ae",
+      "name": "C0805",
+      "source": ""
+    },
+    "R22": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R23": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R24": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "C14": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    },
+    "C15": {
+      "uuid": "b745e84da03954ae",
+      "name": "C0805",
+      "source": ""
+    },
+    "C16": {
+      "uuid": "b745e84da03954ae",
+      "name": "C0805",
+      "source": ""
+    },
+    "C17": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    },
+    "C18": {
+      "uuid": "b745e84da03954ae",
+      "name": "C0805",
+      "source": ""
+    },
+    "C19": {
+      "uuid": "b745e84da03954ae",
+      "name": "C0805",
+      "source": ""
+    },
+    "C20": {
+      "uuid": "b745e84da03954ae",
+      "name": "C0805",
+      "source": ""
+    },
+    "C21": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    }
+  },
+  "qualification": "Library association only; final pad geometry, pin mapping, acoustic hole and stencil review incomplete"
+}

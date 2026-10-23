@@ -5,7 +5,7 @@
   "parts_checked": 64,
   "value_and_lcsc_mismatches": [],
   "native_schematic_drc": {
-    "fatal_missing_footprint": 64,
+    "fatal_missing_footprint": 17,
     "errors": 0,
     "warnings": 0,
     "info": 2
@@ -17,5 +17,8 @@
     "Pin-level imported connectivity not independently verified",
     "No routed PCB or manufacturing files",
     "No actual JLC quote"
-  ]
+  ],
+  "bound_footprint_candidates": 47,
+  "wire_geometry_unchanged": true,
+  "values_and_nc_unchanged": true
 }
