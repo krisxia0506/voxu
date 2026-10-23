@@ -1,0 +1,16 @@
+{
+  "manufacturing_release": false,
+  "native_components": 64,
+  "candidate_part_numbers": 28,
+  "matched_references": 64,
+  "native_footprint_mismatches": [],
+  "basic_library_part_numbers": 11,
+  "extended_library_part_numbers": 17,
+  "components_with_sufficient_observed_inventory": 63,
+  "reference_parts_subtotal_excluding_unconfirmed_inventory_cny": "91.1875",
+  "excluded_from_subtotal": [
+    "C5438445"
+  ],
+  "actual_pcba_total_cny": null,
+  "note": "Reference parts only; no procurement qualification or manufacturer order matching implied."
+}

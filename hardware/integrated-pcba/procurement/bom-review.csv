@@ -1,0 +1,29 @@
+References,Quantity,Design value,Manufacturer,MPN,LCSC,Native footprint,Library,JLC stock observed,Reference CNY each,Qualification note
+"U4,U5,U6",3,SN74LVC2G125DCUR,Texas Instruments,SN74LVC2G125DCUR,C21404,VOXU_VSSOP-8_2.3x2mm_P0.5mm,extended,1760,1.271,"Exact existing MPN; DCU 8-pin package. Library search calls it VSON8; retain verified native DCU land pattern, do not replace by name alone."
+D1,1,USBLC6-2SC6,STMicroelectronics,USBLC6-2SC6,C7519,VOXU_SOT-23-6,extended,37433,1.0869,Exact existing MPN; cheaper same-name vendors not automatically interchangeable.
+"Q1,Q2,Q3,Q4",4,MMBT3904,CJ,MMBT3904(RANGE:100-300),C20526,VOXU_SOT-23,basic,2113841,0.0707,Manufacturer-specific pin assignment still requires datasheet signoff.
+"R1,R2,R4,R6,R9,R10,R11,R12,R13,R15,R16,R19,R20,R21",14,10k 1%,UNI-ROYAL,0603WAF1002T5E,C25804,R0603,basic,36882529,0.0096,"0603, 1%, 100mW, 75V, +/-100ppm/C; matches design resistance and tolerance."
+"R3,R14,R24",3,100k 1%,UNI-ROYAL,0603WAF1003T5E,C25803,R0603,basic,18627205,0.0187,"0603, 1%, 100mW, 75V, +/-100ppm/C; matches design resistance and tolerance."
+"R7,R8",2,5.1k 1%,UNI-ROYAL,0603WAF5101T5E,C23186,R0603,basic,22444768,0.0091,"0603, 1%, 100mW, 75V, +/-100ppm/C; matches design resistance and tolerance."
+R5,1,2.21k 1%,UNI-ROYAL,0603WAF2211T5E,C22903,R0603,extended,17436,0.0172,"0603, 1%, 100mW, 75V, +/-100ppm/C; matches design resistance and tolerance."
+R17,1,3.9k 1%,UNI-ROYAL,0603WAF3901T5E,C23018,R0603,basic,588215,0.0164,"0603, 1%, 100mW, 75V, +/-100ppm/C; matches design resistance and tolerance."
+R18,1,8.66k 1%,UNI-ROYAL,0603WAF8661T5E,C23114,R0603,extended,12272,0.009,"0603, 1%, 100mW, 75V, +/-100ppm/C; matches design resistance and tolerance."
+R22,1,470k 1%,UNI-ROYAL,0603WAF4703T5E,C23178,R0603,basic,1175345,0.0181,"0603, 1%, 100mW, 75V, +/-100ppm/C; matches design resistance and tolerance."
+R23,1,150k 1%,UNI-ROYAL,0603WAF1503T5E,C22807,R0603,basic,978139,0.0098,"0603, 1%, 100mW, 75V, +/-100ppm/C; matches design resistance and tolerance."
+L1,1,1.5uH XFL4020-152ME,Coilcraft,XFL4020-152MEC,C3033018,VOXU_XFL4020,extended,19291,21.55,"Existing land-pattern candidate; expensive. Compare cheaper inductors by saturation current, DCR, DC heating and footprint before substitution."
+"C3,C4,C6,C7,C8,C9,C10,C14",8,100n 10V X7R,YAGEO,CC0603KRX7R9BB104,C14663,C0603,basic,45731857,0.0502,"100nF 50V X7R +/-10%, 0603. Higher voltage rating than draft; effective capacitance review remains."
+"C2,C12,C13",3,10u 10V X5R,Samsung,CL21A106KAYNNNE,C15850,C0805,basic,9383702,0.26,"10uF 25V X5R +/-10%, 0805. Candidate for 10V draft positions; DC-bias and application minimum capacitance require review."
+C1,1,1u 10V X7R,Samsung,CL10B105KA8NNNC,C29936,C0603,extended,130375,0.125,"1uF 25V X7R +/-10%, 0603; candidate replaces draft 10V rating."
+"C5,C11",2,4.7u 10V X5R,Samsung,CL10A475KO8NNNC,C19666,C0603,basic,3154605,0.12,"4.7uF 16V X5R +/-10%, 0603; effective capacitance at operating voltage still to review."
+"C15,C16",2,10u 25V X7S,Murata,GRM21BC71E106KE11L,C109040,C0805,extended,33251,1.356,"10uF 25V X7S +/-10%, 0805. K-tolerance candidate in same series as TI Table 2 M-tolerance recommendation; compare Murata bias curves before freeze."
+"C18,C19,C20",3,22u 16V X6S,Murata,GRM21BC81C226ME44L,C258782,C0805,extended,4974,1.907,"Exact TPS63070 datasheet Table 2 output capacitor MPN, 22uF 16V X6S 0805; retain all three from design."
+"C17,C21",2,10u 25V X5R,Taiyo Yuden,TMK107BBJ106MA-T,C386081,C0603,extended,70425,0.487,"Exact TPS63070 Table 2 bypass capacitor MPN, 10uF 25V X5R 0603."
+U3,1,CP2102N-A02-GQFN28,Silicon Labs,CP2102N-A02-GQFN28R,C964632,VOXU_CP2102N_QFN28,extended,31257,12.54,EDA shows LCSC price 11.36 but JLC price 12.54: use JLC column for reference. R packaging suffix candidate; BC1.2 programming remains required.
+U1,1,ESP32-WROOM-32E-N4,Espressif,ESP32-WROOM-32E-N4,C701341,WIFI-SMD_ESP32-WROOM-32E,extended,31900,22.97,"Exact design MPN, 4MB flash. Antenna keepout and enclosure clearance still required."
+U7,1,BQ24075RGTR,Texas Instruments,BQ24075RGTR,C15464,VOXU_BQ24075_RGT0016C,extended,15448,6.57,Exact design MPN; real battery NTC and USB current-control provisioning required.
+U8,1,TPS63070RNMR,Texas Instruments,TPS63070RNMR,C109322,VOXU_TPS63070_RNM0015A,extended,39799,7.48,Exact design MPN with custom RNM land pattern.
+J1,1,USB-C USB2 receptacle,HRO,TYPE-C-31-M-12,C165948,VOXU_USB_C_Receptacle_HRO_TYPE-C-31-M-12,extended,332917,1.142,Matches selected connector land-pattern candidate; shell-slot manufacture review pending.
+"SW1,SW2",2,DICTATE / BOOT push button / RESET push button,XUNPU,TS-1088-AR02016,C720477,VOXU_SW_SPST_TS-1088-xR020,basic,542497,0.322,"3.9x3.0mm, H2mm, SPST, 1.6N. Matches custom TS-1088 footprint candidate."
+SW3,1,RUN SPDT slide,SHOU HAN,MSK12C02,C431540,VOXU_SW_SPDT_Shouhan_MSK12C02,extended,195236,0.332,"Catalog installation says horizontal SMT while footprint title says SW-TH; confirm actual solder process with JLC, do not assume auto-assembly eligibility from stock alone."
+J2,1,1S protected battery + 10k NTC,JST,B3B-PH-SM4-TB(LF)(SN),C160353,VOXU_JST_PH_B3B-PH-SM4-TB_1x03-1MP_P2.00mm_Vertical,extended,8672,1.544,"PH 2mm 3-pin SMT connector. Battery harness must explicitly match 1=BAT+, 2=NTC, 3=GND; battery SKU not selected."
+U2,1,INMP441,TDK InvenSense,INMP441,C5438445,MID-SMD_L4.7-W3.8_INMP441ACEZ,extended,,153,"LCSC stock 0; JLC inventory cell is blank, not a confirmed quantity. EDA reference price 153 is not an actionable purchase quote and differs from earlier SMT preorder reference 58. Supply is unqualified; do not order using this reference."
