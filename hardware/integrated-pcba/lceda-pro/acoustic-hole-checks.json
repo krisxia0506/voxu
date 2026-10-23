@@ -1,0 +1,35 @@
+{
+  "scope": "Source geometry only; not exported Gerber or solder process qualification",
+  "hole_nominal_mm": 0.6,
+  "hole_encoded_mm": 0.5999987999999999,
+  "minimum_required_copper_clearance_mm": 0.2,
+  "measurements": [
+    {
+      "pad": "e5",
+      "net_pin": "3",
+      "nominal_copper_and_paste_clearance_mm": 0.21219627134130106
+    },
+    {
+      "pad": "e6",
+      "net_pin": "3",
+      "nominal_copper_and_paste_clearance_mm": 0.21230452540655795
+    },
+    {
+      "pad": "e7",
+      "net_pin": "3",
+      "nominal_copper_and_paste_clearance_mm": 0.21216258461091686
+    },
+    {
+      "pad": "e8",
+      "net_pin": "3",
+      "nominal_copper_and_paste_clearance_mm": 0.21212266350099968
+    }
+  ],
+  "manufacturer_recommended_nominal_pcb_hole_mm": [
+    0.6,
+    1.0
+  ],
+  "manufacturer_source": "https://atta.szlcsc.com/upload/public/pdf/source/20250721/5475C98035E60ADDD1C93C8246A1E933.pdf",
+  "manufacturing_source": "https://www.jlc.com/portal/q7i4061.html",
+  "remaining": "Gerber/NPTH output and stencil review; fabrication tolerance and assembled audio validation"
+}

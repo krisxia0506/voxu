@@ -1,0 +1,23 @@
+{
+  "timestamp": "2026-10-23 22:51 Asia/Shanghai",
+  "source_sha256": "4f65936e0abc71cf9982e562bd3d9fcf5259017abfd76f6359f7007e54e4f274",
+  "archive_sha256": "d4299b9aac039613a40ffb034027ecb875c2144786d119e2c90921c3788faa63",
+  "documents": {
+    "FOOTPRINT": 17,
+    "SYMBOL": 66,
+    "DEVICE": 66,
+    "BOARD": 1,
+    "SCH": 1,
+    "SCH_PAGE": 1,
+    "PCB": 1,
+    "CONFIG": 1
+  },
+  "acoustic_hole_diameter_mm": 0.5999987999999999,
+  "native_pcb_drc": {
+    "checks": 141,
+    "issues": 0,
+    "time": "2026-10-23 22:51:23"
+  },
+  "manufacturing_release": false,
+  "independent_reimport_test": false
+}

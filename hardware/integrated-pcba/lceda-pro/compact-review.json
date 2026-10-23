@@ -15,7 +15,7 @@
   "native_drc": {
     "checks": 141,
     "issues": 0,
-    "time": "2026-10-23 22:24:13"
+    "time": "2026-10-23 22:51:23"
   },
   "production_release": false,
   "pcba_quantity_requested": 1,
@@ -31,7 +31,8 @@
     "pcb_file_id": "100147164",
     "pcb_reference_total_excluding_shipping_cny": 30,
     "confirmation_mode": "manual",
-    "surface_finish_in_reference_quote": "lead-free OSP selected; manufacturing qualification pending"
+    "surface_finish_in_reference_quote": "lead-free OSP selected; manufacturing qualification pending",
+    "stale_after_acoustic_hole_revision": true
   },
   "blockers": [
     "Procurement candidate BOM covers all 64 placements / 28 part numbers; qualification and manufacturer matching pending; no actual SMT total",
@@ -54,5 +55,6 @@
     "warnings": 0,
     "info": "J1/J2/SW3 mechanical pad mapping information",
     "time": "2026-10-23 22:29:02"
-  }
+  },
+  "acoustic_hole_nominal_mm": 0.6
 }
