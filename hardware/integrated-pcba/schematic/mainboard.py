@@ -61,7 +61,7 @@ ic("U3", "CP2102N-A02-GQFN28",
    {3:"GND", 4:"USB_DP", 5:"USB_DM", 6:"USB_3V3", 7:"VBUS", 8:"VBUS_SENSE",
     9:"USB_RESET", 15:"USB_ALLOW_500", 24:"USB_RTS", 25:"USB_RX", 26:"USB_TX",
     28:"USB_DTR", 29:"GND"}, "USB", outputs=(6,),
-   footprint="Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm",
+   footprint="VOXU:VOXU_CP2102N_QFN28",
    note="Candidate replacing CH340C to implement BC1.2/suspend current control; price and provisioning pending")
 pair("R4", "10k 1%", "USB_3V3", "USB_RESET", "USB")
 pair("R5", "2.21k 1%", "VBUS", "VBUS_SENSE", "USB")
@@ -112,7 +112,7 @@ ic("Q3", "MMBT3904", "B E C", {1:"BOOT_BASE", 2:"DTR_SYS", 3:"ESP_BOOT"}, "BOOT"
 ic("U7", "BQ24075RGTR", "TS BAT BAT CE EN2 EN1 PGOOD VSS CHG OUT OUT ILIM IN TMR SYSOFF ISET EP",
    {1:"BAT_NTC", 2:"BAT", 3:"BAT", 4:"GND", 5:"USB_3V3", 6:"CHG_INHIBIT",
     8:"GND", 10:"SYS", 11:"SYS", 12:"ILIM", 13:"VBUS", 15:"GND", 16:"ISET", 17:"GND"},
-   "CHARGE", outputs=(10,), footprint="Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm", lcsc="C15464")
+   "CHARGE", outputs=(10,), footprint="VOXU:VOXU_BQ24075_RGT0016C", lcsc="C15464")
 pair("R17", "3.9k 1%", "ILIM", "GND", "CHARGE")
 pair("R18", "8.66k 1%", "ISET", "GND", "CHARGE")
 pair("R19", "10k 1%", "USB_3V3", "CHG_INHIBIT", "CHARGE")

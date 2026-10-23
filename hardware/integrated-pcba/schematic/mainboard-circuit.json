@@ -511,7 +511,7 @@
       "ref": "U3",
       "value": "CP2102N-A02-GQFN28",
       "section": "USB",
-      "footprint": "Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm",
+      "footprint": "VOXU:VOXU_CP2102N_QFN28",
       "lcsc": "",
       "note": "Candidate replacing CH340C to implement BC1.2/suspend current control; price and provisioning pending",
       "pins": [
@@ -1529,7 +1529,7 @@
       "ref": "U7",
       "value": "BQ24075RGTR",
       "section": "CHARGE",
-      "footprint": "Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm",
+      "footprint": "VOXU:VOXU_BQ24075_RGT0016C",
       "lcsc": "C15464",
       "note": "",
       "pins": [

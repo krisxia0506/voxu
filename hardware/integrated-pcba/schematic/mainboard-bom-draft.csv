@@ -10,7 +10,7 @@ SW2,DICTATE / BOOT push button,,,
 U2,INMP441,,C5438445,"Primary; live stock, acoustic land pattern and reflow process not yet qualified"
 R3,100k 1%,Resistor_SMD:R_0603_1608Metric,,
 C4,100n 10V X7R,Capacitor_SMD:C_0603_1608Metric,,
-U3,CP2102N-A02-GQFN28,Package_DFN_QFN:QFN-28-1EP_5x5mm_P0.5mm_EP3.35x3.35mm,,Candidate replacing CH340C to implement BC1.2/suspend current control; price and provisioning pending
+U3,CP2102N-A02-GQFN28,VOXU:VOXU_CP2102N_QFN28,,Candidate replacing CH340C to implement BC1.2/suspend current control; price and provisioning pending
 R4,10k 1%,Resistor_SMD:R_0603_1608Metric,,
 R5,2.21k 1%,Resistor_SMD:R_0603_1608Metric,,
 R6,10k 1%,Resistor_SMD:R_0603_1608Metric,,
@@ -38,7 +38,7 @@ R15,10k 1%,Resistor_SMD:R_0603_1608Metric,,
 R16,10k 1%,Resistor_SMD:R_0603_1608Metric,,
 Q2,MMBT3904,Package_TO_SOT_SMD:SOT-23,,
 Q3,MMBT3904,Package_TO_SOT_SMD:SOT-23,,
-U7,BQ24075RGTR,Package_DFN_QFN:VQFN-16-1EP_3x3mm_P0.5mm_EP1.45x1.45mm,C15464,
+U7,BQ24075RGTR,VOXU:VOXU_BQ24075_RGT0016C,C15464,
 R17,3.9k 1%,Resistor_SMD:R_0603_1608Metric,,
 R18,8.66k 1%,Resistor_SMD:R_0603_1608Metric,,
 R19,10k 1%,Resistor_SMD:R_0603_1608Metric,,
