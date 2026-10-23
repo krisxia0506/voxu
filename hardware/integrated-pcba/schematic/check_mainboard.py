@@ -78,7 +78,7 @@ report={
         "CP2102N BCD provisioning settings must be verified on hardware; GPIO latch alone is insufficient",
         "USB current allocation is not measured worst-case or USB compliance certification",
         "Battery SKU, NTC curve, current ratings, connector polarity unqualified",
-        "All 64 footprints bound; routing and final PCB DRC still pending",
+        "Native PCB routing DRC passed separately; DFM, stencil and signal integrity review pending",
         "Actual JLC BOM matching, pricing and INMP441 availability pending",
         "Native schematic DRC recorded separately; transistor transient/rail sequencing not simulated",
     ]
