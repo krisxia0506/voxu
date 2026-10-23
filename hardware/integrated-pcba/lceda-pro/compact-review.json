@@ -1,0 +1,46 @@
+{
+  "date": "2026-10-23",
+  "editor": "LCEDA Professional V4.1.78",
+  "board_mm": [
+    45,
+    37
+  ],
+  "layers": 2,
+  "thickness_mm": 1.6,
+  "components": 64,
+  "explicit_models": 64,
+  "track_segments": 844,
+  "vias": 84,
+  "ground_planes": 2,
+  "native_drc": {
+    "checks": 141,
+    "issues": 0,
+    "time": "2026-10-23 21:32:22"
+  },
+  "production_release": false,
+  "pcba_quantity_requested": 1,
+  "quote": {
+    "pcb_min_quantity": 5,
+    "pcb_cny": 20,
+    "default_compensation_cny": 10,
+    "pcba_total_cny": null,
+    "order_submitted": false,
+    "paid": false,
+    "applies_to": "Previous 60 x 40 mm version only; compact version not quoted"
+  },
+  "blockers": [
+    "INMP441 C5438445 and MSM261S4030H0R C2840615: zero purchasable domestic SMT stock",
+    "BOM not fully qualified or matched; no actual SMT total",
+    "DFM/stencil and USB return path review pending",
+    "CP2102N provisioning and protected NTC battery SKU pending",
+    "Native DRC is not functional or manufacturing qualification"
+  ],
+  "canonical_connected_pins_checked": 218,
+  "pin_net_mismatches": [],
+  "previous_board_mm": [
+    60,
+    40
+  ],
+  "board_area_reduction_percent": 30.625,
+  "model_envelope_note": "ESP32 antenna extends about 6 mm beyond left board edge; not included in PCB dimensions"
+}
