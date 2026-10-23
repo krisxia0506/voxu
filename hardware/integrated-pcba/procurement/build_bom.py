@@ -34,7 +34,7 @@ columns = ["References", "Quantity", "Design value", "Manufacturer", "MPN", "LCS
            "Native footprint", "Library", "JLC stock observed", "Reference CNY each",
            "Qualification note"]
 with (OUT / "bom-review.csv").open("w", newline="") as f:
-    writer = csv.DictWriter(f, fieldnames=columns)
+    writer = csv.DictWriter(f, fieldnames=columns, lineterminator="\n")
     writer.writeheader()
     for part in availability["parts"]:
         refs = part["references"]
