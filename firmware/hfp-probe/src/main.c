@@ -2,7 +2,7 @@
 #include <stdint.h>
 #include <string.h>
 
-#include "driver/i2s_std.h"
+#include "../../common/voxu_mic.h"
 #include "boot_hid.h"
 #include "hfp_reconnect.h"
 #include "esp_bt.h"
@@ -17,12 +17,11 @@
 #include "nvs_flash.h"
 #include "nvs.h"
 
-#define MIC_RATE 16000
 #define READ_SAMPLES 128
 #define AUDIO_RING_SAMPLES 8192
 
 static const char *TAG = "VOICE_PUCK";
-static int32_t mic_samples[READ_SAMPLES];
+static voxu_mic_sample_t mic_samples[READ_SAMPLES];
 static int16_t audio_ring[AUDIO_RING_SAMPLES];
 static size_t ring_read;
 static size_t ring_write;
@@ -209,26 +208,11 @@ static void gap_callback(esp_bt_gap_cb_event_t event, esp_bt_gap_cb_param_t *par
 static void mic_task(void *arg)
 {
     (void)arg;
-    i2s_chan_handle_t rx = NULL;
-    i2s_chan_config_t channel = I2S_CHANNEL_DEFAULT_CONFIG(I2S_NUM_0, I2S_ROLE_MASTER);
-    ESP_ERROR_CHECK(i2s_new_channel(&channel, NULL, &rx));
-
-    i2s_std_config_t config = {
-        .clk_cfg = I2S_STD_CLK_DEFAULT_CONFIG(MIC_RATE),
-        .slot_cfg = I2S_STD_PHILIPS_SLOT_DEFAULT_CONFIG(I2S_DATA_BIT_WIDTH_32BIT, I2S_SLOT_MODE_MONO),
-        .gpio_cfg = {
-            .mclk = I2S_GPIO_UNUSED,
-            .bclk = GPIO_NUM_26,
-            .ws = GPIO_NUM_25,
-            .dout = I2S_GPIO_UNUSED,
-            .din = GPIO_NUM_33,
-        },
-    };
-    config.slot_cfg.slot_mask = I2S_STD_SLOT_LEFT;
-    ESP_ERROR_CHECK(i2s_channel_init_std_mode(rx, &config));
+    i2s_chan_handle_t rx = voxu_mic_create();
     ESP_LOGI(TAG, "MIC paused: no SCO; I2S clocks stopped");
     bool running = false;
     uint32_t capture_epoch = 0;
+    size_t settle_remaining = 0;
 
     uint32_t blocks = 0;
     while (true) {
@@ -253,7 +237,8 @@ static void mic_task(void *arg)
             running = true;
             capture_epoch = epoch;
             blocks = 0;
-            ESP_LOGI(TAG, "MIC active: SCO connected; sampling 16 kHz");
+            settle_remaining = VOXU_MIC_SETTLE_SAMPLES;
+            ESP_LOGI(TAG, "MIC active: %s; SCO connected; sampling 16 kHz", VOXU_MIC_NAME);
         }
         size_t bytes_read = 0;
         if (i2s_channel_read(rx, mic_samples, sizeof(mic_samples), &bytes_read, 50) != ESP_OK) {
@@ -261,8 +246,10 @@ static void mic_task(void *arg)
         }
         int64_t sum_abs = 0;
         size_t count = bytes_read / sizeof(mic_samples[0]);
-        for (size_t i = 0; i < count; ++i) {
-            int32_t sample = mic_samples[i] >> 16;
+        size_t skip = count < settle_remaining ? count : settle_remaining;
+        settle_remaining -= skip;
+        for (size_t i = skip; i < count; ++i) {
+            int32_t sample = voxu_mic_pcm16(mic_samples[i]);
             sum_abs += sample < 0 ? -sample : sample;
             if (msbc || i % 2 == 0) {
                 ring_push((int16_t)sample, epoch);
@@ -274,6 +261,7 @@ static void mic_task(void *arg)
         if (current) {
             esp_hf_client_outgoing_data_ready();
         }
+        count -= skip;
         if (++blocks % 125 == 0 && count > 0) {
             ESP_LOGI(TAG, "mic mean_abs=%ld, HFP=%d, SCO=%d, codec=%s",
                      (long)(sum_abs / count), service_connected, current,
