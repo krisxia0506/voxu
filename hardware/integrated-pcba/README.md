@@ -8,6 +8,8 @@
 
 ## 当前原生工程与检查
 
+完整可编辑工程已另存为 [2026-10-23 原生工程备份](source-backups/2026-10-23-sph0655/README.md)，包含原理图、PCB 和所用封装库，同时建立了云端命名恢复点。
+
 - `lceda-pro/pcb-compact-source.txt`：最新 PCB 单文档源码。
 - `lceda-pro/pcb-compact-with-libraries.epru`：从专业版下载的原生记录及随附库；只移除 DOCHEAD 的账户元数据。不是已审核的生产包。
 - `lceda-pro/compact-review.json`：布局、模型、DRC 与报价状态。

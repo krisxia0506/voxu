@@ -1,0 +1,27 @@
+{
+  "date": "2026-10-23",
+  "native_format": ".epro2 / LCEDA Professional 4.1.78",
+  "cloud_backup": "main_20261023_SPH0655_45x37_DRC0",
+  "cloud_backup_time": "2026-10-23 22:39:13 Asia/Shanghai",
+  "source_archive_sha256": "c67d02197b7ac2bab021024429fe8efd0408e218f542366afc8c041122352c73",
+  "saved_archive_sha256": "aa5361b455370470839f65fa19fc1ff264690e1840309656776207ad04aa95eb",
+  "bytes": 470782,
+  "documents": {
+    "FOOTPRINT": 17,
+    "SYMBOL": 66,
+    "DEVICE": 66,
+    "BOARD": 1,
+    "SCH": 1,
+    "SCH_PAGE": 1,
+    "PCB": 1,
+    "CONFIG": 1
+  },
+  "pcb_components": 64,
+  "embedded_used_footprints": 16,
+  "missing_footprints": [],
+  "pcb_matches_reviewed_source": true,
+  "schematic_matches_reviewed_source": true,
+  "modifications": "Removed DOCHEAD user account metadata; updated stale project introduction. Electrical/PCB/library records unchanged.",
+  "three_d": "Model bindings retained; model binary assets are external library references, not embedded in this export.",
+  "manufacturing_release": false
+}
