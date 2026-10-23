@@ -1,0 +1,52 @@
+{
+  "status": "electrical draft constraints passed; not manufacturing approval",
+  "part_count": 64,
+  "boot_truth_table": [
+    {
+      "dtr": 0,
+      "rts": 0,
+      "en": 1,
+      "gpio0": 1
+    },
+    {
+      "dtr": 0,
+      "rts": 1,
+      "en": 1,
+      "gpio0": 0
+    },
+    {
+      "dtr": 1,
+      "rts": 0,
+      "en": 0,
+      "gpio0": 1
+    },
+    {
+      "dtr": 1,
+      "rts": 1,
+      "en": 1,
+      "gpio0": 1
+    }
+  ],
+  "charger_input_current_A": [
+    0.33764914953033764,
+    0.44548044548044546
+  ],
+  "charge_current_A": [
+    0.09112112135001028,
+    0.11372384351599132
+  ],
+  "regulated_output_V": [
+    3.2244594059405944,
+    3.3908794612794617
+  ],
+  "vbus_sense_min_V": 3.276459269211431,
+  "usb_current_allocation_A": 0.05,
+  "release_blockers": [
+    "CP2102N BCD provisioning settings must be verified on hardware; GPIO latch alone is insufficient",
+    "USB current allocation is not measured worst-case or USB compliance certification",
+    "Battery SKU, NTC curve, current ratings, connector polarity unqualified",
+    "Missing and provisional footprints; no routed PCB or native DRC",
+    "Actual JLC BOM matching, pricing and INMP441 availability pending",
+    "No native ERC result in this report; transistor transient/rail sequencing not simulated"
+  ]
+}
