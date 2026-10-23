@@ -1,0 +1,29 @@
+{
+  "timestamp": "2026-10-23 23:16:05 Asia/Shanghai",
+  "archive_sha256": "e3fb474c0fdce86544da6ea8c2b9ed6f190901ba64291568345dda98c66320c0",
+  "source_archive_sha256": "459d8ce6f8a04b147cc4cb823a37cdfc9eecd246adfda3ae43782466cdaf92e8",
+  "pcb_components": 64,
+  "track_segments": 920,
+  "vias": 86,
+  "usb_short_slots_mm": [
+    1.4,
+    0.6
+  ],
+  "usb_short_slot_pads_mm": [
+    1,
+    1.8
+  ],
+  "changed_track_ids": [
+    "9b9a2e91f2a24db5",
+    "bbaa43ed24033361",
+    "a3fbbe388c8d4545",
+    "12308af94d04d7aa"
+  ],
+  "component_pad_net_via_unchanged": true,
+  "native_drc": {
+    "checks": 141,
+    "issues": 0
+  },
+  "manufacturing_release": false,
+  "independent_reimport_test": false
+}
