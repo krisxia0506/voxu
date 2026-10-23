@@ -4,6 +4,18 @@
 
 仓库包含固件、接线说明、物料清单、参数化 3D 打印外壳及验证记录。当前蓝牙设备名仍为 **`Voice Puck V1`**；电池版产品方案称为 **VOXU V2**，外壳修订号与产品版本号分别记录。
 
+## 实拍图
+
+![VOXU 原型外壳实拍：手持展示顶部按键、麦克风孔和侧面开孔](docs/images/prototype-enclosure.jpg)
+
+*原型外壳实物，手持展示整机大小与外观。*
+
+![VOXU 电池版接线实拍：电池、供电板、ESP32 开发板及麦克风模块](docs/images/prototype-wiring.jpg)
+
+*电池版原型接线，展示各模块及连接关系。实拍仅记录装配状态，电气验证进度见下文。*
+
+## 外壳预览
+
 ![VOXU 电池版外壳 CAD 预览](hardware/enclosure-battery/preview.png)
 
 *上图为 CAD 预览，电池版仍在机械试装与电气验证阶段。*
