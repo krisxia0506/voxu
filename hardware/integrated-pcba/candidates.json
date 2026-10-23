@@ -1,8 +1,8 @@
 {
-  "revision": "A1-cost-review",
+  "revision": "A2-professional-eda-draft",
   "date": "2026-10-23",
   "manufacturing_release": false,
-  "assembled_quantity": 2,
+  "assembled_quantity": 1,
   "battery_policy": "new protected 1S 4.2V pack with specified current ratings, NTC and matching connector; priced separately",
   "parts": [
     {
@@ -25,21 +25,21 @@
     },
     {
       "role": "USB UART",
-      "mpn": "CH340C",
-      "lcsc": "C84681",
+      "mpn": "CP2102N-A02-GQFN28",
+      "lcsc": "C1550553",
       "qty_per_board": 1,
-      "reference_cny": 3.6,
-      "source": "https://item.szlcsc.com/85852.html",
-      "status": "reference price from search; domestic page lists SMT extended inventory"
+      "reference_cny": null,
+      "source": "https://www.silabs.com/documents/public/data-sheets/cp2102n-datasheet.pdf",
+      "status": "A2 candidate; exact order suffix, BCD provisioning and procurement cost unqualified"
     },
     {
       "role": "microphone",
       "mpn": "INMP441",
       "lcsc": "C5438445",
       "qty_per_board": 1,
-      "reference_cny": null,
-      "source": "https://item.szlcsc.com/6315022.html",
-      "status": "primary per user; catalog lists SMT extended library, actual price and availability unconfirmed"
+      "reference_cny": 58,
+      "source": "https://www.jlc-smt.com/lcsc/detail/C5438445.html",
+      "status": "2026-10-23 domestic SMT page: zero stock; preorder reference CNY58, no confirmed lead time; not an available-stock quote"
     },
     {
       "role": "3.3V buck boost",
@@ -51,28 +51,6 @@
       "status": "domestic page lists SMT extended inventory; not reserved"
     }
   ],
-  "budget_cny": {
-    "electronics": [
-      180,
-      300
-    ],
-    "pcb_batch": [
-      30,
-      100
-    ],
-    "assembly_and_attrition": [
-      80,
-      250
-    ],
-    "shipping": [
-      15,
-      30
-    ],
-    "two_batteries": [
-      40,
-      100
-    ]
-  },
   "budget_note": "Engineering allowances, not quotation; incomplete BOM. Excludes enclosure, programming, fixtures, functional test and respin.",
   "alternatives": [
     {
@@ -92,5 +70,6 @@
       "reason": "user prefers original microphone; cost and manufacturer EOL status"
     }
   ],
-  "budget_status": "Previous A0 allowances are historical and do not constitute A1 quotation; microphone price unknown. Show per-board parts and per-batch manufacturing separately."
+  "budget_status": "No actual quotation. Previous two-board allowances withdrawn; quote one assembled board with actual PCB minimum lot and assembly minimum quantity disclosed.",
+  "design_tool": "LCEDA Professional"
 }

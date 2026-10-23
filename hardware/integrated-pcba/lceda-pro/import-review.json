@@ -1,0 +1,21 @@
+{
+  "date": "2026-10-23",
+  "editor": "LCEDA Professional V4.1.78",
+  "quantity": 1,
+  "parts_checked": 64,
+  "value_and_lcsc_mismatches": [],
+  "native_schematic_drc": {
+    "fatal_missing_footprint": 64,
+    "errors": 0,
+    "warnings": 0,
+    "info": 2
+  },
+  "netlist_export": "blocked by missing footprints; no output received",
+  "release": false,
+  "limitations": [
+    "Source snapshot excludes symbol and footprint libraries; not a standalone complete project",
+    "Pin-level imported connectivity not independently verified",
+    "No routed PCB or manufacturing files",
+    "No actual JLC quote"
+  ]
+}

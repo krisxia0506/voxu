@@ -2063,7 +2063,7 @@
       "section": "REGULATOR",
       "footprint": "",
       "lcsc": "",
-      "note": "",
+      "note": "OFF throw unconnected; R24 pulls EN low. Avoid shorting SYS to GND during contact overlap",
       "pins": [
         {
           "number": "1",
@@ -2080,7 +2080,7 @@
         {
           "number": "3",
           "name": "OFF",
-          "net": "GND",
+          "net": null,
           "type": "passive"
         }
       ]

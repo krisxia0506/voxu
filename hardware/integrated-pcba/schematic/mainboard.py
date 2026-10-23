@@ -134,7 +134,8 @@ pair("L1", "1.5uH XFL4020-152ME", "SW_L1", "SW_L2", "REGULATOR")
 pair("R22", "470k 1%", "3V3", "FB", "REGULATOR")
 pair("R23", "150k 1%", "FB", "GND", "REGULATOR")
 pair("R24", "100k 1%", "RUN_EN", "GND", "REGULATOR")
-add("SW3", "RUN SPDT slide", [(1,"ON","SYS","passive"),(2,"COMMON","RUN_EN","passive"),(3,"OFF","GND","passive")], "REGULATOR")
+add("SW3", "RUN SPDT slide", [(1,"ON","SYS","passive"),(2,"COMMON","RUN_EN","passive"),(3,"OFF",None,"passive")], "REGULATOR",
+    note="OFF throw unconnected; R24 pulls EN low. Avoid shorting SYS to GND during contact overlap")
 pair("C14", "100n 10V X7R", "VAUX", "GND", "REGULATOR")
 for ref,rail in [("C15","SYS"),("C16","SYS")]:
     pair(ref, "10u 25V X7S", rail, "GND", "REGULATOR", "Capacitor_SMD:C_0805_2012Metric")
@@ -174,7 +175,7 @@ def make_schematic():
     ef="(effects (font (size 1.0 1.0)))"
     for index,p in enumerate(PARTS):
         ref=p["ref"]; count=len(p["pins"]); rows=(count+1)//2
-        x=50+(index%8)*112; y=60+(index//8)*94
+        x=50.8+(index%8)*114.3; y=60.96+(index//8)*93.98
         half=max(7.62,(rows+1)*1.27); sympins=[]
         for i,pin in enumerate(p["pins"]):
             right=i>=rows; j=i%rows
@@ -208,6 +209,6 @@ if __name__ == "__main__":
     (ROOT/"mainboard.kicad_sch").write_text(make_schematic())
     (ROOT/"mainboard-circuit.json").write_text(json.dumps(dict(release=False, parts=PARTS),indent=2)+"\n")
     with (ROOT/"mainboard-bom-draft.csv").open("w",newline="") as f:
-        w=csv.writer(f); w.writerow(["Reference","Value","Footprint","LCSC","Qualification note"])
+        w=csv.writer(f, lineterminator="\n"); w.writerow(["Reference","Value","Footprint","LCSC","Qualification note"])
         for p in PARTS: w.writerow([p[k] for k in ("ref","value","footprint","lcsc","note")])
     print(f"Generated {len(PARTS)} parts; draft only, do not upload for production")

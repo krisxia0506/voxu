@@ -54,7 +54,7 @@ L1,1.5uH XFL4020-152ME,,,
 R22,470k 1%,Resistor_SMD:R_0603_1608Metric,,
 R23,150k 1%,Resistor_SMD:R_0603_1608Metric,,
 R24,100k 1%,Resistor_SMD:R_0603_1608Metric,,
-SW3,RUN SPDT slide,,,
+SW3,RUN SPDT slide,,,OFF throw unconnected; R24 pulls EN low. Avoid shorting SYS to GND during contact overlap
 C14,100n 10V X7R,Capacitor_SMD:C_0603_1608Metric,,
 C15,10u 25V X7S,Capacitor_SMD:C_0805_2012Metric,,
 C16,10u 25V X7S,Capacitor_SMD:C_0805_2012Metric,,
