@@ -9,6 +9,7 @@
 - `lceda-pro/pcb-compact-source.txt`：最新 PCB 单文档源码。
 - `lceda-pro/pcb-compact-with-libraries.epru`：从专业版下载的原生记录及随附库；只移除 DOCHEAD 的账户元数据。不是已审核的生产包。
 - `lceda-pro/compact-review.json`：布局、模型、DRC 与报价状态。
+- `lceda-pro/compact-cpl-native.csv`：专业版原生导出的贴片坐标，64 项的原点 X/Y、旋转角度、顶面与 PCB 源码核对一致；仍需厂家贴装预览确认质心及 1 脚方向，未放行生产。
 - 844 段导线、84 个过孔、双面 GND 铺铜；电源主干局部加宽至 0.8 mm，L1 调整方向缩短两个开关节点；增加 16 个地缝合过孔。
 - 左边缘 0.5 mm 范围不铺铜，天线伸出板外。最终机壳、电池与天线间距仍需机械和射频验证。
 - 3D 模型用于装配检查；部分为相同外形的通用模型，不代表电气器件替换。
@@ -170,3 +171,7 @@ PR 在以上设计与检查完成前保持 Draft。本目录不包含可下单�
 - `python3 hardware/integrated-pcba/schematic/check_connections.py` 检查 13 个引脚和五个网络、去耦、下拉及意外短接。该检查通过，但不等同于 KiCad ERC 或封装/实物验收。
 
 INMP441 国内页面仍只返回 SMT 扩展库标记，未取得可靠现货/售价；没有把它标成已能下单，也没有自动替换为敏芯微。
+
+2026-10-23 新版一键打样已生成并上传制造数据，嘉立创识别为 4.5 × 3.7 cm、2 层、5 片。报价仍为裸板 20 元 + 默认品质赔付 10 元，不含运费。页面默认有铅喷锡，最终表面处理尚待制造审核。已设置手动确认，未提交订单、未付款；订单检查只检查参数填写，不是 DFM。页面明确要求 PCB 订单审核后才能进入 SMT 下单，尚未取得成品总价。
+
+![紧凑版嘉立创报价](lceda-pro/previews/voxu-compact-jlc-quote.png)
