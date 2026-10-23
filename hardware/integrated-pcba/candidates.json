@@ -1,5 +1,5 @@
 {
-  "revision": "A0-review",
+  "revision": "A1-cost-review",
   "date": "2026-10-23",
   "manufacturing_release": false,
   "assembled_quantity": 2,
@@ -34,12 +34,12 @@
     },
     {
       "role": "microphone",
-      "mpn": "ICS-43434",
-      "lcsc": "C5656610",
+      "mpn": "INMP441",
+      "lcsc": "C5438445",
       "qty_per_board": 1,
-      "reference_cny": 28.01,
-      "source": "https://item.szlcsc.com/6577565.html",
-      "status": "domestic page lists SMT extended inventory; audio retest required"
+      "reference_cny": null,
+      "source": "https://item.szlcsc.com/6315022.html",
+      "status": "primary per user; catalog lists SMT extended library, actual price and availability unconfirmed"
     },
     {
       "role": "3.3V buck boost",
@@ -73,5 +73,24 @@
       100
     ]
   },
-  "budget_note": "Engineering allowances, not quotation; incomplete BOM. Excludes enclosure, programming, fixtures, functional test and respin."
+  "budget_note": "Engineering allowances, not quotation; incomplete BOM. Excludes enclosure, programming, fixtures, functional test and respin.",
+  "alternatives": [
+    {
+      "role": "microphone",
+      "mpn": "MSM261S4030H0R",
+      "lcsc": "C2840615",
+      "use_only_if": "INMP441 cannot be sourced for assembly",
+      "reference_cny": null,
+      "search_reference_cny": 7.65,
+      "source": "https://item.szlcsc.com/3020642.html",
+      "status": "not approved for automatic footprint substitution; stock and checkout price unconfirmed"
+    }
+  ],
+  "excluded": [
+    {
+      "mpn": "ICS-43434",
+      "reason": "user prefers original microphone; cost and manufacturer EOL status"
+    }
+  ],
+  "budget_status": "Previous A0 allowances are historical and do not constitute A1 quotation; microphone price unknown. Show per-board parts and per-batch manufacturing separately."
 }
