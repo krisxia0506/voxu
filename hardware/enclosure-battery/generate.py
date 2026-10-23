@@ -669,4 +669,7 @@ with zipfile.ZipFile(ROOT/'voxu-battery-fit-prototype.zip','w',zipfile.ZIP_DEFLA
     for name in ['README.md','parameters.json','validation.json','preview.png','mounting.png','layout.png','preview.html','preview_html.py','preview-template.html','wiring-panel.html','generate.py','requirements.txt','slicer-result.json','wiring.md','slice.py']:
         p=ROOT/name
         if p.exists(): z.write(p,name)
+    for name in ['LICENSE.md', 'LICENSES/MIT.txt', 'LICENSES/CC-BY-4.0.txt']:
+        license_root = ROOT if (ROOT/'LICENSE.md').is_file() else ROOT.parent.parent
+        z.write(license_root/name, name)
 print(json.dumps(report,indent=2))

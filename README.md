@@ -148,3 +148,9 @@ cc -std=c11 -Wall -Wextra -Werror -Ifirmware/hfp-probe/src \
 外壳修改从各目录的 `parameters.json` 入手，依照对应 README 安装 Python 依赖并运行 `generate.py`；电池版另提供 `slice.py`。生成后的几何检查与切片结果分别记录在 `validation.json` 和 `slicer-result.json`。
 
 当前仍需验证长期连接稳定性、Mac 休眠/合盖恢复、其他电脑兼容性和语音音质。HID 报告提交瞬间断线可能在重连后额外发送一次 F13；主机状态机测试不能覆盖整个蓝牙栈行为。当前固件也不提供电池管理或硬件静音，暂停 I²S 不等于整机深度睡眠。
+
+## 许可证
+
+代码采用 [MIT](LICENSES/MIT.txt)，项目原创文档、CAD、图片与测量记录采用 [CC BY 4.0](LICENSES/CC-BY-4.0.txt)。文件分类、混合 HTML 页面、ZIP 分发与第三方材料的范围见 [许可说明](LICENSE.md)。
+
+提交代码或验证资料前，请使用 GitHub noreply 提交邮箱；不要加入真实设备地址、凭据或包含私人背景声音的录音。实录音频不随仓库分发，保留合成测试音与文字测量记录。

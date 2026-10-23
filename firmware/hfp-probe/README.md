@@ -27,7 +27,7 @@ USB 串口名称可能变化。接线沿用项目根目录的 `WIRING.md`。首�
 - ESP32-D0WD-V3 / ESP32-WROOM-32 与 INMP441 的 I²S 采样正常；HFP 服务连接成功，Mac 将设备列为 1 声道输入，同时也列出一个无实际扬声器的输出端点。
 - Mac 默认输入选为 `Voice Puck V1` 后，SCO 接通并协商为 mSBC 16 kHz；测试结束时连接仍在。
 - MacBook Pro 扬声器播放 1 kHz、3 秒测试音，同时用 Mac 的 `Voice Puck V1` 输入录制 9 秒。录音的 1 kHz 分量在播放前后约 0–2，播放期间约 147–163（16 位 PCM 幅度单位）。这验证了声音从 INMP441 经 ESP32、HFP 回到 Mac 的完整路径。
-- 原始测试音为 [1khz-test-tone.wav](evidence/1khz-test-tone.wav)，蓝牙麦克风实际录音为 （实录音频已移除，仅保留测量记录）。
+- 原始测试音为 [1khz-test-tone.wav](evidence/1khz-test-tone.wav)。蓝牙麦克风实录音频已为隐私保护移除，仅保留上述测量记录。
 
 上述初始 HFP 测试尚未验证 Typeless 听写；后续 BOOT/F13 验证见下文。合盖场景、长时间稳定性、长期重连稳定性和语音音质评估仍未完成。测试固件会在 Mac 仍选择该设备输入时持续通过蓝牙发送音频。
 

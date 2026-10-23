@@ -3,3 +3,10 @@
 **/.vscode/
 **/__pycache__/
 *.pyc
+
+# Local credentials and captured audio are not distributable evidence.
+.env
+.env.*
+!.env.example
+firmware/**/evidence/*loopback*.wav
+firmware/**/evidence/recordings/
