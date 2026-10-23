@@ -42,9 +42,9 @@
       "source": ""
     },
     "U2": {
-      "uuid": "c6aa4b5f89194818",
-      "name": "MID-SMD_L4.7-W3.8_INMP441ACEZ",
-      "source": ""
+      "uuid": "73ec8f508c309709",
+      "name": "MIC-SMD_SPH0655LM4H-1-8",
+      "source": "JLC C22376158 official library; datasheet Rev D pin/port checked"
     },
     "R3": {
       "uuid": "190007f081cdc484",

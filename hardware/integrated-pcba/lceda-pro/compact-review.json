@@ -9,13 +9,13 @@
   "thickness_mm": 1.6,
   "components": 64,
   "explicit_models": 64,
-  "track_segments": 844,
-  "vias": 84,
+  "track_segments": 926,
+  "vias": 86,
   "ground_planes": 2,
   "native_drc": {
     "checks": 141,
     "issues": 0,
-    "time": "2026-10-23 21:32:22"
+    "time": "2026-10-23 22:24:13"
   },
   "production_release": false,
   "pcba_quantity_requested": 1,
@@ -26,26 +26,33 @@
     "pcba_total_cny": null,
     "order_submitted": false,
     "paid": false,
-    "applies_to": "Compact 45 x 37 mm version; actual JLC file recognition 2026-10-23",
-    "file_name": "VOXU-A2-整板设计草稿_PCB1_20261023_215054",
-    "pcb_file_id": "100145248",
+    "applies_to": "SPH0655 compact 45 x 37 mm PCB recognized by JLC 2026-10-23",
+    "file_name": "VOXU-A2-整板设计草稿_PCB1_20261023_223053",
+    "pcb_file_id": "100147164",
     "pcb_reference_total_excluding_shipping_cny": 30,
     "confirmation_mode": "manual",
-    "surface_finish_in_reference_quote": "leaded HASL default; final process not qualified"
+    "surface_finish_in_reference_quote": "lead-free OSP selected; manufacturing qualification pending"
   },
   "blockers": [
-    "INMP441 C5438445 and MSM261S4030H0R C2840615: zero purchasable domestic SMT stock",
     "Procurement candidate BOM covers all 64 placements / 28 part numbers; qualification and manufacturer matching pending; no actual SMT total",
     "DFM/stencil and USB return path review pending",
     "CP2102N provisioning and protected NTC battery SKU pending",
-    "Native DRC is not functional or manufacturing qualification"
+    "Native DRC is not functional or manufacturing qualification",
+    "SPH0655 hardware capture/audio qualification pending; four firmware builds passed"
   ],
-  "canonical_connected_pins_checked": 218,
+  "canonical_connected_pins_checked": 213,
   "pin_net_mismatches": [],
   "previous_board_mm": [
     60,
     40
   ],
   "board_area_reduction_percent": 30.625,
-  "model_envelope_note": "ESP32 antenna extends about 6 mm beyond left board edge; not included in PCB dimensions"
+  "model_envelope_note": "ESP32 antenna extends about 6 mm beyond left board edge; not included in PCB dimensions",
+  "native_schematic_drc": {
+    "fatal": 0,
+    "errors": 0,
+    "warnings": 0,
+    "info": "J1/J2/SW3 mechanical pad mapping information",
+    "time": "2026-10-23 22:29:02"
+  }
 }

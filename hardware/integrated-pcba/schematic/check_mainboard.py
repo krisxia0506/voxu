@@ -16,11 +16,12 @@ def same(*nodes):
     assert None not in nets and len(set(nets)) == 1, (nodes, nets)
 
 
-same(("U1",11),("U2",1))
-same(("U1",10),("U2",3))
-same(("U1",9),("U2",2),("R3",1))
-same(("U2",7),("C4",1),("U1",2),("U8",7))
-same(("U2",5),("U2",6),("U2",9),("C4",2),("U1",39))
+same(("U1",11),("U2",4))
+assert net("U1",10) is None, "PDM has no WS connection"
+same(("U1",9),("U2",1),("R3",1))
+same(("U2",5),("C4",1),("U1",2),("U8",7))
+same(("U2",2),("U2",3),("C4",2),("U1",39))
+assert len(parts["U2"]["pins"]) == 5
 same(("J1","A5"),("R7",1))
 same(("J1","B5"),("R8",1))
 assert net("R7",1) != net("R8",1), "CC resistors must be independent"
@@ -79,7 +80,7 @@ report={
         "USB current allocation is not measured worst-case or USB compliance certification",
         "Battery SKU, NTC curve, current ratings, connector polarity unqualified",
         "Native PCB routing DRC passed separately; DFM, stencil and signal integrity review pending",
-        "Actual JLC BOM matching, pricing and INMP441 availability pending",
+        "Actual JLC BOM matching, pricing and SPH0655 stock reservation pending",
         "Native schematic DRC recorded separately; transistor transient/rail sequencing not simulated",
     ]
 }

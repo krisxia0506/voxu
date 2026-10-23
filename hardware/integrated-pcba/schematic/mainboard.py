@@ -37,7 +37,7 @@ def ic(ref, value, names, nets, section, outputs=(), footprint="", lcsc="", note
 # ESP32-WROOM-32E datasheet Table 3. The exposed pad is also grounded.
 ic("U1", "ESP32-WROOM-32E-N4",
    "GND 3V3 EN VP VN IO34 IO35 IO32 IO33 IO25 IO26 IO27 IO14 IO12 GND IO13 NC NC NC NC NC NC IO15 IO2 IO0 IO4 IO16 IO17 IO5 IO18 IO19 NC IO21 RXD0 TXD0 IO22 IO23 GND EP",
-   {1:"GND", 2:"3V3", 3:"ESP_EN", 9:"MIC_SD", 10:"MIC_WS", 11:"MIC_BCLK",
+   {1:"GND", 2:"3V3", 3:"ESP_EN", 9:"MIC_SD", 11:"MIC_BCLK",
     15:"GND", 25:"ESP_BOOT", 34:"ESP_RX", 35:"ESP_TX", 38:"GND", 39:"GND"},
    "MCU", footprint="RF_Module:ESP32-WROOM-32E", lcsc="C701341")
 pair("R1", "10k 1%", "3V3", "ESP_EN", "MCU")
@@ -48,10 +48,11 @@ pair("C3", "100n 10V X7R", "3V3", "GND", "MCU")
 pair("SW1", "RESET push button", "ESP_EN", "GND", "MCU")
 pair("SW2", "DICTATE / BOOT push button", "ESP_BOOT", "GND", "MCU")
 
-ic("U2", "INMP441", "SCK SD WS LR GND GND VDD CHIPEN GND",
-   {1:"MIC_BCLK", 2:"MIC_SD", 3:"MIC_WS", 4:"GND", 5:"GND", 6:"GND",
-    7:"3V3", 8:"3V3", 9:"GND"}, "MIC", lcsc="C5438445",
-   note="Primary; live stock, acoustic land pattern and reflow process not yet qualified")
+# Knowles SPH0655LM4H-1 Rev D p8, bottom-port PDM microphone.
+ic("U2", "SPH0655LM4H-1-8", "DATA SELECT GND CLOCK VDD",
+   {1:"MIC_SD", 2:"GND", 3:"GND", 4:"MIC_BCLK", 5:"3V3"}, "MIC",
+   footprint="MIC-SMD_SPH0655LM4H-1-8", lcsc="C22376158",
+   note="PDM 16kHz/128x=2.048MHz; SELECT low; exact footprint and acoustic opening required")
 pair("R3", "100k 1%", "MIC_SD", "GND", "MIC")
 pair("C4", "100n 10V X7R", "3V3", "GND", "MIC")
 
@@ -147,7 +148,7 @@ pair("C21", "10u 25V X5R", "3V3", "GND", "REGULATOR")
 # Electrical pin types are explicit so native ERC can detect digital conflicts.
 KINDS = {
     "U1": {3:"input", 9:"input", 10:"output", 11:"output", 25:"input", 34:"input", 35:"output"},
-    "U2": {1:"input", 2:"tri_state", 3:"input", 4:"input", 8:"input"},
+    "U2": {1:"tri_state", 2:"input", 4:"input"},
     "U3": {1:"input", 2:"input", 4:"bidirectional", 5:"bidirectional", 8:"input", 9:"input",
            11:"output", 12:"output", 13:"output", 14:"output", 15:"output", 23:"input",
            24:"output", 25:"input", 26:"output", 27:"input", 28:"output"},

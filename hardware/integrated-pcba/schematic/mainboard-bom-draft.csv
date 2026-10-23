@@ -7,7 +7,7 @@ C2,10u 10V X5R,Capacitor_SMD:C_0805_2012Metric,,
 C3,100n 10V X7R,Capacitor_SMD:C_0603_1608Metric,,
 SW1,RESET push button,,,
 SW2,DICTATE / BOOT push button,,,
-U2,INMP441,,C5438445,"Primary; live stock, acoustic land pattern and reflow process not yet qualified"
+U2,SPH0655LM4H-1-8,MIC-SMD_SPH0655LM4H-1-8,C22376158,PDM 16kHz/128x=2.048MHz; SELECT low; exact footprint and acoustic opening required
 R3,100k 1%,Resistor_SMD:R_0603_1608Metric,,
 C4,100n 10V X7R,Capacitor_SMD:C_0603_1608Metric,,
 U3,CP2102N-A02-GQFN28,VOXU:VOXU_CP2102N_QFN28,,Candidate replacing CH340C to implement BC1.2/suspend current control; price and provisioning pending

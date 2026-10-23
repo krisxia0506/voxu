@@ -368,13 +368,13 @@
       "references": [
         "U2"
       ],
-      "mpn": "INMP441",
-      "lcsc": "C5438445",
-      "manufacturer": "TDK InvenSense",
-      "jlc_stock": null,
-      "jlc_unit_price_cny": 153,
+      "mpn": "SPH0655LM4H-1-8",
+      "lcsc": "C22376158",
+      "manufacturer": "Knowles",
+      "jlc_stock": 3482,
+      "jlc_unit_price_cny": 4.64,
       "library": "extended",
-      "note": "LCSC stock 0; JLC inventory cell is blank, not a confirmed quantity. EDA reference price 153 is not an actionable purchase quote and differs from earlier SMT preorder reference 58. Supply is unqualified; do not order using this reference."
+      "note": "2026-10-23 purchase modal: 1+ CNY4.64; purchasable/pre-sale inventory 3482 PCS, not reserved. Economic/standard changeover CNY20/8 extra. PDM, not I2S; new firmware profile and native PCB applied."
     }
   ]
 }

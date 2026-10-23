@@ -66,7 +66,7 @@
         {
           "number": "10",
           "name": "IO25",
-          "net": "MIC_WS",
+          "net": null,
           "type": "output"
         },
         {
@@ -401,64 +401,40 @@
     },
     {
       "ref": "U2",
-      "value": "INMP441",
+      "value": "SPH0655LM4H-1-8",
       "section": "MIC",
-      "footprint": "",
-      "lcsc": "C5438445",
-      "note": "Primary; live stock, acoustic land pattern and reflow process not yet qualified",
+      "footprint": "MIC-SMD_SPH0655LM4H-1-8",
+      "lcsc": "C22376158",
+      "note": "PDM 16kHz/128x=2.048MHz; SELECT low; exact footprint and acoustic opening required",
       "pins": [
         {
           "number": "1",
-          "name": "SCK",
-          "net": "MIC_BCLK",
-          "type": "input"
-        },
-        {
-          "number": "2",
-          "name": "SD",
+          "name": "DATA",
           "net": "MIC_SD",
           "type": "tri_state"
         },
         {
-          "number": "3",
-          "name": "WS",
-          "net": "MIC_WS",
+          "number": "2",
+          "name": "SELECT",
+          "net": "GND",
           "type": "input"
         },
         {
-          "number": "4",
-          "name": "LR",
+          "number": "3",
+          "name": "GND",
           "net": "GND",
+          "type": "power_in"
+        },
+        {
+          "number": "4",
+          "name": "CLOCK",
+          "net": "MIC_BCLK",
           "type": "input"
         },
         {
           "number": "5",
-          "name": "GND",
-          "net": "GND",
-          "type": "power_in"
-        },
-        {
-          "number": "6",
-          "name": "GND",
-          "net": "GND",
-          "type": "power_in"
-        },
-        {
-          "number": "7",
           "name": "VDD",
           "net": "3V3",
-          "type": "power_in"
-        },
-        {
-          "number": "8",
-          "name": "CHIPEN",
-          "net": "3V3",
-          "type": "input"
-        },
-        {
-          "number": "9",
-          "name": "GND",
-          "net": "GND",
           "type": "power_in"
         }
       ]
