@@ -20,20 +20,26 @@
   "production_release": false,
   "pcba_quantity_requested": 1,
   "quote": {
+    "checked_date": "2026-10-24",
     "pcb_min_quantity": 5,
     "pcb_cny": 20,
     "default_compensation_cny": 10,
+    "production_file_review_cny": 3,
+    "pcb_reference_total_cny": 33,
+    "shipping_cny": 0,
+    "shipping": "JD economy; page estimate; SMT weight pending",
     "pcba_total_cny": null,
     "order_submitted": false,
     "paid": false,
-    "applies_to": "SPH0655 compact 45 x 37 mm PCB recognized by JLC 2026-10-23",
-    "file_name": "VOXU-A2-整板设计草稿_PCB1_20261023_223053",
-    "pcb_file_id": "100147164",
-    "pcb_reference_total_excluding_shipping_cny": 30,
+    "applies_to": "37 x 45 mm Type-C centered short-edge revision",
+    "file_name": "VOXU-A2-整板设计草稿_PCB1_20261024_082324",
+    "pcb_file_id": "100153067",
     "confirmation_mode": "manual",
-    "surface_finish_in_reference_quote": "lead-free OSP selected; manufacturing qualification pending",
-    "stale_after_acoustic_hole_revision": true,
-    "stale_after_short_edge_revision": true
+    "production_file_confirmation": "manual, 2 reviews",
+    "surface_finish": "lead-free OSP",
+    "solder_mask": "green",
+    "smt_required": true,
+    "note": "PCB price only. Legal terms confirmation pending before submitting PCB review; SMT quotation requires reviewed PCB."
   },
   "blockers": [
     "Procurement candidate BOM covers all 64 placements / 28 part numbers; qualification and manufacturer matching pending; no actual SMT total",
@@ -71,5 +77,18 @@
     "center_x_mm": 18.500001,
     "centered": true,
     "opening": "outward"
+  },
+  "native_pad_nets_vs_previous": {
+    "compared": 290,
+    "changes": 0,
+    "previous_backup": "2026-10-23-usb-slots"
+  },
+  "manufacturing_geometry": {
+    "min_trace_mm": 0.1524,
+    "via_drill_mm": 0.3,
+    "via_outer_mm_range": [
+      0.5,
+      0.6
+    ]
   }
 }
