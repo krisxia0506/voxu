@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-24",
+  "release": false,
+  "baseline_trial": {
+    "positions": 64,
+    "assembled_boards": 2,
+    "pcb_quantity": 5,
+    "assembly": "economy top only",
+    "material": "171.6395",
+    "feeder": 240,
+    "engineering": 50,
+    "pads": 5.7,
+    "xray": 20,
+    "dfm": 3,
+    "nitrogen": 5.2,
+    "smt_total": 495.54,
+    "warning": "Old A2 PCB/CPL mismatches PICO-V3, not manufacturable"
+  },
+  "E1_material_budget": "171.9707",
+  "E1_positions": 71,
+  "E1_feeder_budget": 220,
+  "final_complete_quote": null,
+  "unpriced": [
+    "E1 final assembly pad count",
+    "E1 PCB coupon eligibility and fees",
+    "delivery",
+    "CP2102N provisioning if factory performed",
+    "RF final matching",
+    "battery separately requested"
+  ]
+}

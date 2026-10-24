@@ -1,0 +1,29 @@
+{
+  "sdk_commit": "db6737a030c01d3fef6e8045cf7c8c6df62def6e",
+  "toolchain": "official jieli-linux-toolchains-20260730.1",
+  "build_target": "cpu/br23/tools/sdk.elf",
+  "exit_code": 0,
+  "elf_sha256": "aa58a93c4dee0979e85c9aa4c2a73b37aef1f51309d44f5ea719508db2477c01",
+  "text_bytes": 327892,
+  "initialized_data_bytes": 18284,
+  "text_plus_data_bytes": 346176,
+  "configured_flash_bytes": 524288,
+  "retained_symbols": [
+    "hfp_sdp_record_item",
+    "hid_sdp_record_item",
+    "msbc_decoder",
+    "msbc_encoder"
+  ],
+  "warnings_present": true,
+  "product_firmware": false,
+  "flash_image_packaged": false,
+  "flashed": false,
+  "hardware_tested": false,
+  "remaining": [
+    "F13 SDP descriptor and input state machine",
+    "HFP/HID host reconnect and SCO sampling control",
+    "bootloader resources VM reserved area and final flash layout",
+    "chip key and initial provisioning compatibility",
+    "Mac interoperability and physical audio/power validation"
+  ]
+}

@@ -1,0 +1,326 @@
+{
+  "release": false,
+  "bindings": {
+    "U1": {
+      "uuid": "9a64a8134619ad23",
+      "name": "WIFI-SMD_ESP32-WROOM-32E",
+      "source": ""
+    },
+    "R1": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R2": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "C1": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    },
+    "C2": {
+      "uuid": "b745e84da03954ae",
+      "name": "C0805",
+      "source": ""
+    },
+    "C3": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    },
+    "SW1": {
+      "uuid": "fb53682b77755267",
+      "name": "VOXU_SW_SPST_TS-1088-xR020",
+      "source": ""
+    },
+    "SW2": {
+      "uuid": "fb53682b77755267",
+      "name": "VOXU_SW_SPST_TS-1088-xR020",
+      "source": ""
+    },
+    "U2": {
+      "uuid": "73ec8f508c309709",
+      "name": "MIC-SMD_SPH0655LM4H-1-8",
+      "source": "JLC C22376158 official library; datasheet Rev D pin/port checked"
+    },
+    "R3": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "C4": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    },
+    "U3": {
+      "uuid": "4dd6661617667dee",
+      "name": "VOXU_CP2102N_QFN28",
+      "source": ""
+    },
+    "R4": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R5": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R6": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "C5": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    },
+    "C6": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    },
+    "C7": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    },
+    "R7": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R8": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "J1": {
+      "uuid": "038205f6c272f9a6",
+      "name": "VOXU_USB_C_Receptacle_HRO_TYPE-C-31-M-12",
+      "source": ""
+    },
+    "D1": {
+      "uuid": "34a4907b7d276777",
+      "name": "VOXU_SOT-23-6",
+      "source": ""
+    },
+    "U4": {
+      "uuid": "6c7e0683dd93e4e6",
+      "name": "VOXU_VSSOP-8_2.3x2mm_P0.5mm",
+      "source": ""
+    },
+    "U5": {
+      "uuid": "6c7e0683dd93e4e6",
+      "name": "VOXU_VSSOP-8_2.3x2mm_P0.5mm",
+      "source": ""
+    },
+    "U6": {
+      "uuid": "6c7e0683dd93e4e6",
+      "name": "VOXU_VSSOP-8_2.3x2mm_P0.5mm",
+      "source": ""
+    },
+    "C8": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    },
+    "C9": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    },
+    "C10": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    },
+    "R9": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R10": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R11": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R12": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R13": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R14": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "Q1": {
+      "uuid": "4b43062471bc3df5",
+      "name": "VOXU_SOT-23",
+      "source": ""
+    },
+    "R15": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R16": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "Q2": {
+      "uuid": "4b43062471bc3df5",
+      "name": "VOXU_SOT-23",
+      "source": ""
+    },
+    "Q3": {
+      "uuid": "4b43062471bc3df5",
+      "name": "VOXU_SOT-23",
+      "source": ""
+    },
+    "U7": {
+      "uuid": "68267df2c02d95c5",
+      "name": "VOXU_BQ24075_RGT0016C",
+      "source": ""
+    },
+    "R17": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R18": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R19": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R20": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R21": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "Q4": {
+      "uuid": "4b43062471bc3df5",
+      "name": "VOXU_SOT-23",
+      "source": ""
+    },
+    "C11": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    },
+    "C12": {
+      "uuid": "b745e84da03954ae",
+      "name": "C0805",
+      "source": ""
+    },
+    "C13": {
+      "uuid": "b745e84da03954ae",
+      "name": "C0805",
+      "source": ""
+    },
+    "J2": {
+      "uuid": "a358f47be76a5aee",
+      "name": "VOXU_JST_PH_B3B-PH-SM4-TB_1x03-1MP_P2.00mm_Vertical",
+      "source": ""
+    },
+    "U8": {
+      "uuid": "69878fa997eccc00",
+      "name": "VOXU_TPS63070_RNM0015A",
+      "source": ""
+    },
+    "L1": {
+      "uuid": "dae914378c8cfa06",
+      "name": "VOXU_XFL4020",
+      "source": ""
+    },
+    "R22": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R23": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "R24": {
+      "uuid": "190007f081cdc484",
+      "name": "R0603",
+      "source": ""
+    },
+    "SW3": {
+      "uuid": "c8a86bf97f40c4f8",
+      "name": "VOXU_SW_SPDT_Shouhan_MSK12C02",
+      "source": ""
+    },
+    "C14": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    },
+    "C15": {
+      "uuid": "b745e84da03954ae",
+      "name": "C0805",
+      "source": ""
+    },
+    "C16": {
+      "uuid": "b745e84da03954ae",
+      "name": "C0805",
+      "source": ""
+    },
+    "C17": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    },
+    "C18": {
+      "uuid": "b745e84da03954ae",
+      "name": "C0805",
+      "source": ""
+    },
+    "C19": {
+      "uuid": "b745e84da03954ae",
+      "name": "C0805",
+      "source": ""
+    },
+    "C20": {
+      "uuid": "b745e84da03954ae",
+      "name": "C0805",
+      "source": ""
+    },
+    "C21": {
+      "uuid": "91a09f556268ead8",
+      "name": "C0603",
+      "source": ""
+    }
+  },
+  "qualification": "All associated; converted land, stencil, acoustic-hole and model inspection pending"
+}

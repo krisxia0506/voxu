@@ -115,3 +115,15 @@ cc -std=c11 -Wall -Wextra -Werror -Ifirmware/hfp-probe/src \
 4. 对比连接前、听写中、听写结束后的电流。此前用户测得约 90/110/110mA，10A 档分辨率有限，不能据此判断几毫安级变化。
 
 本次仅完成代码和构建检查，尚未刷机、测量节电幅度或验证 Mac 释放 SCO 的实际行为。
+
+## 集成主板 SPH0655 构建（待样板验证）
+
+默认 `esp32dev` 环境继续用于原 INMP441 模块。新主板选用 SPH0655LM4H-1-8 时，明确指定：
+
+```sh
+uvx --from platformio platformio run -e pcba-sph0655
+```
+
+新配置为 GPIO26=PDM CLK、GPIO33=DATA、SELECT=GND、3.3 V 供电，GPIO25 不再用作 WS。共享驱动位于 `../common/voxu_mic.h`，使用 I2S0 硬件 PDM-to-PCM、16 kHz/16 位单声道、128 倍抽取（2.048 MHz），每次启动舍弃前 40 ms 数据。默认 64 倍时钟只有 1.024 MHz，不满足该麦克风正常模式范围。
+
+2026-10-23 两个构建环境均编译通过；尚未在 SPH0655 样板上测量时钟、录音、增益、噪声或蓝牙回放。原 INMP441 的历史实测结果不适用于新麦克风。新固件未刷入现有开发板。

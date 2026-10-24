@@ -10,3 +10,6 @@
 !.env.example
 firmware/**/evidence/*loopback*.wav
 firmware/**/evidence/recordings/
+
+# Per-environment ESP-IDF configuration generated from sdkconfig.defaults.
+firmware/**/sdkconfig.pcba-sph0655

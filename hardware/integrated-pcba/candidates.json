@@ -1,0 +1,75 @@
+{
+  "revision": "A2-professional-eda-draft",
+  "date": "2026-10-23",
+  "manufacturing_release": false,
+  "assembled_quantity": 1,
+  "battery_policy": "new protected 1S 4.2V pack with specified current ratings, NTC and matching connector; priced separately",
+  "parts": [
+    {
+      "role": "MCU",
+      "mpn": "ESP32-WROOM-32E-N4",
+      "lcsc": "C701341",
+      "qty_per_board": 1,
+      "reference_cny": 22.97,
+      "source": "https://item.szlcsc.com/736349.html",
+      "status": "domestic page lists SMT extended inventory; not reserved"
+    },
+    {
+      "role": "charger",
+      "mpn": "BQ24075RGTR",
+      "lcsc": "C15464",
+      "qty_per_board": 1,
+      "reference_cny": 6.57,
+      "source": "https://item.szlcsc.com/16143.html",
+      "status": "domestic page lists SMT extended inventory; not reserved"
+    },
+    {
+      "role": "USB UART",
+      "mpn": "CP2102N-A02-GQFN28",
+      "lcsc": "C1550553",
+      "qty_per_board": 1,
+      "reference_cny": null,
+      "source": "https://www.silabs.com/documents/public/data-sheets/cp2102n-datasheet.pdf",
+      "status": "A2 candidate; exact order suffix, BCD provisioning and procurement cost unqualified"
+    },
+    {
+      "role": "microphone",
+      "mpn": "INMP441",
+      "lcsc": "C5438445",
+      "qty_per_board": 1,
+      "reference_cny": 58,
+      "source": "https://www.jlc-smt.com/lcsc/detail/C5438445.html",
+      "status": "2026-10-23 domestic SMT page: zero stock; preorder reference CNY58, no confirmed lead time; not an available-stock quote"
+    },
+    {
+      "role": "3.3V buck boost",
+      "mpn": "TPS63070RNMR",
+      "lcsc": "C109322",
+      "qty_per_board": 1,
+      "reference_cny": 7.48,
+      "source": "https://item.szlcsc.com/110543.html",
+      "status": "domestic page lists SMT extended inventory; not reserved"
+    }
+  ],
+  "budget_note": "Engineering allowances, not quotation; incomplete BOM. Excludes enclosure, programming, fixtures, functional test and respin.",
+  "alternatives": [
+    {
+      "role": "microphone",
+      "mpn": "MSM261S4030H0R",
+      "lcsc": "C2840615",
+      "use_only_if": "INMP441 cannot be sourced for assembly",
+      "reference_cny": null,
+      "search_reference_cny": 7.65,
+      "source": "https://item.szlcsc.com/3020642.html",
+      "status": "not approved for automatic footprint substitution; stock and checkout price unconfirmed"
+    }
+  ],
+  "excluded": [
+    {
+      "mpn": "ICS-43434",
+      "reason": "user prefers original microphone; cost and manufacturer EOL status"
+    }
+  ],
+  "budget_status": "No actual quotation. Previous two-board allowances withdrawn; quote one assembled board with actual PCB minimum lot and assembly minimum quantity disclosed.",
+  "design_tool": "LCEDA Professional"
+}

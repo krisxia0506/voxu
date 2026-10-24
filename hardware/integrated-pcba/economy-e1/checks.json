@@ -1,0 +1,14 @@
+{
+  "parts": 71,
+  "charge_current_mA": [
+    91.01602201742665,
+    113.59267414630737
+  ],
+  "iset_ohm_max": 8756.7,
+  "recommended_max_ohm": 8900,
+  "manufacturing_release": false,
+  "gpio_compatible": true,
+  "native_erc": "NOT RUN",
+  "rf": "NOT VERIFIED",
+  "pcb": "NOT ROUTED"
+}

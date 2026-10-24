@@ -1,0 +1,51 @@
+[
+  {
+    "file": "VOXU_SOT-23.kicad_mod",
+    "upstream": "https://gitlab.com/kicad/libraries/kicad-footprints/-/blob/master/Package_TO_SOT_SMD.pretty/SOT-23.kicad_mod",
+    "distribution": "KiCad 10.0.7",
+    "license": "CC-BY-SA-4.0 with KiCad library exception",
+    "modifications": "VOXU name; USB SH to S1; switch SH and connector MP mechanical pads unnumbered"
+  },
+  {
+    "file": "VOXU_SOT-23-6.kicad_mod",
+    "upstream": "https://gitlab.com/kicad/libraries/kicad-footprints/-/blob/master/Package_TO_SOT_SMD.pretty/SOT-23-6.kicad_mod",
+    "distribution": "KiCad 10.0.7",
+    "license": "CC-BY-SA-4.0 with KiCad library exception",
+    "modifications": "VOXU name; USB SH to S1; switch SH and connector MP mechanical pads unnumbered"
+  },
+  {
+    "file": "VOXU_VSSOP-8_2.3x2mm_P0.5mm.kicad_mod",
+    "upstream": "https://gitlab.com/kicad/libraries/kicad-footprints/-/blob/master/Package_SO.pretty/VSSOP-8_2.3x2mm_P0.5mm.kicad_mod",
+    "distribution": "KiCad 10.0.7",
+    "license": "CC-BY-SA-4.0 with KiCad library exception",
+    "modifications": "VOXU name; USB SH to S1; switch SH and connector MP mechanical pads unnumbered"
+  },
+  {
+    "file": "VOXU_SW_SPST_TS-1088-xR020.kicad_mod",
+    "upstream": "https://gitlab.com/kicad/libraries/kicad-footprints/-/blob/master/Button_Switch_SMD.pretty/SW_SPST_TS-1088-xR020.kicad_mod",
+    "distribution": "KiCad 10.0.7",
+    "license": "CC-BY-SA-4.0 with KiCad library exception",
+    "modifications": "VOXU name; USB SH to S1; switch SH and connector MP mechanical pads unnumbered"
+  },
+  {
+    "file": "VOXU_SW_SPDT_Shouhan_MSK12C02.kicad_mod",
+    "upstream": "https://gitlab.com/kicad/libraries/kicad-footprints/-/blob/master/Button_Switch_SMD.pretty/SW_SPDT_Shouhan_MSK12C02.kicad_mod",
+    "distribution": "KiCad 10.0.7",
+    "license": "CC-BY-SA-4.0 with KiCad library exception",
+    "modifications": "VOXU name; USB SH to S1; switch SH and connector MP mechanical pads unnumbered"
+  },
+  {
+    "file": "VOXU_USB_C_Receptacle_HRO_TYPE-C-31-M-12.kicad_mod",
+    "upstream": "https://gitlab.com/kicad/libraries/kicad-footprints/-/blob/master/Connector_USB.pretty/USB_C_Receptacle_HRO_TYPE-C-31-M-12.kicad_mod",
+    "distribution": "KiCad 10.0.7",
+    "license": "CC-BY-SA-4.0 with KiCad library exception",
+    "modifications": "VOXU name; USB SH to S1; switch SH and connector MP mechanical pads unnumbered"
+  },
+  {
+    "file": "VOXU_JST_PH_B3B-PH-SM4-TB_1x03-1MP_P2.00mm_Vertical.kicad_mod",
+    "upstream": "https://gitlab.com/kicad/libraries/kicad-footprints/-/blob/master/Connector_JST.pretty/JST_PH_B3B-PH-SM4-TB_1x03-1MP_P2.00mm_Vertical.kicad_mod",
+    "distribution": "KiCad 10.0.7",
+    "license": "CC-BY-SA-4.0 with KiCad library exception",
+    "modifications": "VOXU name; USB SH to S1; switch SH and connector MP mechanical pads unnumbered"
+  }
+]

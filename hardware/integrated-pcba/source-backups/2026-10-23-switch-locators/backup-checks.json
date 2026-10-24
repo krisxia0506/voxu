@@ -1,0 +1,24 @@
+{
+  "timestamp": "2026-10-23 23:06:04 Asia/Shanghai",
+  "archive_sha256": "707ae71b9f80a75c46baeb2f3562c151059f55439dbd86e843c36437fe62f7e6",
+  "source_archive_sha256": "d34f64217a47e34dcd043c460d8240db1a2e9663f27be4527906705ac3ea7c47",
+  "pcb_components": 64,
+  "track_segments": 920,
+  "vias": 86,
+  "switch_locator_holes_mm": [
+    0.85,
+    0.85
+  ],
+  "switch_locator_pitch_mm": 3,
+  "moved_ground_via_mm": [
+    9,
+    1.9
+  ],
+  "removed_ground_branch_segments": 6,
+  "native_drc": {
+    "checks": 141,
+    "issues": 0
+  },
+  "manufacturing_release": false,
+  "independent_reimport_test": false
+}

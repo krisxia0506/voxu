@@ -21,3 +21,17 @@ uvx --from platformio platformio device monitor --port /dev/cu.usbserial-110 --b
 ## 2026-09-29 实机结果
 
 ESP32-D0WD-V3 开发板编译和刷入成功。安静时 `mean_abs` 约 1–3 万；对模块说话或轻敲时最高达到 419437，`peak` 最高达到 1020352。重新刷入 4 MB 配置后，串口仍持续输出非零采样值。此测试确认采音数据会随声音变化，尚未验证录音回放、音质或蓝牙传输。
+
+## 集成主板 SPH0655 构建（待样板验证）
+
+默认 `esp32dev` 环境继续用于原 INMP441 模块。新主板选用 SPH0655LM4H-1-8 时，明确指定：
+
+```sh
+uvx --from platformio platformio run -e pcba-sph0655
+```
+
+新配置为 GPIO26=PDM CLK、GPIO33=DATA、SELECT=GND、3.3 V 供电，GPIO25 不再用作 WS。共享驱动位于 `../common/voxu_mic.h`，使用 I2S0 硬件 PDM-to-PCM、16 kHz/16 位单声道、128 倍抽取（2.048 MHz），每次启动舍弃前 40 ms 数据。默认 64 倍时钟只有 1.024 MHz，不满足该麦克风正常模式范围。
+
+2026-10-23 两个构建环境均编译通过；尚未在 SPH0655 样板上测量时钟、录音、增益、噪声或蓝牙回放。原 INMP441 的历史实测结果不适用于新麦克风。新固件未刷入现有开发板。
+
+当前诊断统计统一使用 PCM16 幅度；上面的历史数字是旧版 24 位幅度，不能直接与新日志比较。

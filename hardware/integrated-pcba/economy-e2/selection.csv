@@ -1,0 +1,10 @@
+Role,MPN,LCSC,PerBoard,UnitPriceCNY,ObservedLoss,ObservedMinimum,FeeFree,Source
+main,AC6955F4,C22440783,1,4.37,0,0,False,quote_window
+mic,MSM381ACBA01,C51928213,1,1.447,0,2,False,quote_window
+crystal,SX32Y024000BC1T001,C7420736,1,0.379,2,5,False,quote_window
+usb,TYPE-C-31-M-12,C165948,1,1.051,0,2,False,E1_costed_bom
+battery_connector,JXT-MX1.25-3PWT,C52204916,1,0.157,0,2,False,quote_window
+charger,TP4056-42-ESOP8,C16581,1,1.133,0,0,True,quote_window
+power_path_pmos,AO3401A,C15127,1,0.586,0,0,True,quote_window
+power_path_diode,SS14,C2480,1,0.113,0,0,True,quote_window
+usb_esd,SRV05-4,C7420376,1,0.494,4,5,True,quote_window_live

@@ -1,0 +1,96 @@
+{
+  "date": "2026-10-24",
+  "boards": 2,
+  "budget_cny": "160",
+  "release": false,
+  "complete_quote_cny": null,
+  "native_eda_schematic": "NOT CREATED",
+  "pcb": "NOT ROUTED",
+  "firmware": "SDK PROBE LINK PASSED; PRODUCT NOT PORTED",
+  "functional_equivalence": "NOT VALIDATED",
+  "known_fee_types": 5,
+  "setup_budget_cny": "100",
+  "major_components_only_cny": "22.573",
+  "selected_candidate_rejection_lower_bound_cny": "165.631",
+  "selected_candidate_exceeds_budget_before_remaining_costs": true,
+  "global_infeasibility_proven": false,
+  "quantity_note": "Recomputed for 2 boards from a replacement window for 20; new BOM confirmation required",
+  "lines": [
+    {
+      "role": "main",
+      "lcsc": "C22440783",
+      "installed_two_boards": 2,
+      "purchase_qty_budget": 2,
+      "material_cny": "8.74"
+    },
+    {
+      "role": "mic",
+      "lcsc": "C51928213",
+      "installed_two_boards": 2,
+      "purchase_qty_budget": 2,
+      "material_cny": "2.894"
+    },
+    {
+      "role": "crystal",
+      "lcsc": "C7420736",
+      "installed_two_boards": 2,
+      "purchase_qty_budget": 5,
+      "material_cny": "1.895"
+    },
+    {
+      "role": "usb",
+      "lcsc": "C165948",
+      "installed_two_boards": 2,
+      "purchase_qty_budget": 2,
+      "material_cny": "2.102"
+    },
+    {
+      "role": "battery_connector",
+      "lcsc": "C52204916",
+      "installed_two_boards": 2,
+      "purchase_qty_budget": 2,
+      "material_cny": "0.314"
+    },
+    {
+      "role": "charger",
+      "lcsc": "C16581",
+      "installed_two_boards": 2,
+      "purchase_qty_budget": 2,
+      "material_cny": "2.266"
+    },
+    {
+      "role": "power_path_pmos",
+      "lcsc": "C15127",
+      "installed_two_boards": 2,
+      "purchase_qty_budget": 2,
+      "material_cny": "1.172"
+    },
+    {
+      "role": "power_path_diode",
+      "lcsc": "C2480",
+      "installed_two_boards": 2,
+      "purchase_qty_budget": 2,
+      "material_cny": "0.226"
+    },
+    {
+      "role": "usb_esd",
+      "lcsc": "C7420376",
+      "installed_two_boards": 2,
+      "purchase_qty_budget": 6,
+      "material_cny": "2.964"
+    }
+  ],
+  "unpriced_not_zero": [
+    "final full BOM including passives, bias/filter, NTC and charge control",
+    "new PCB price and coupon applicability",
+    "assembly pad count, minimums and processing charges",
+    "X-ray applicability to MEMS and ESOP exposed pad",
+    "DFM, nitrogen, fixtures, panelization and shipping",
+    "SDK chip key compatibility and initial programming tooling/service",
+    "new protected battery, matching connector and NTC, separately priced"
+  ],
+  "module_regular_purchase_lower_bound_cny": "162.46",
+  "module_full_pack_conditional_subtotal_cny": "144.8632",
+  "module_full_pack_known_major_costs_cny": "156.8012",
+  "module_full_pack_eligibility_confirmed": false
+}

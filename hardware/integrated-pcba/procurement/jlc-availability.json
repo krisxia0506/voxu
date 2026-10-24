@@ -1,0 +1,380 @@
+{
+  "observed_date": "2026-10-23",
+  "source": "LCEDA Professional device search: JLC inventory and JLC price columns",
+  "price_scope": "Displayed unit reference price only. Not an SMT quote; excludes wastage, minimum purchases, feeder/setup, PCB, assembly, tax and shipping adjustments.",
+  "manufacturing_release": false,
+  "parts": [
+    {
+      "references": [
+        "U4",
+        "U5",
+        "U6"
+      ],
+      "mpn": "SN74LVC2G125DCUR",
+      "lcsc": "C21404",
+      "manufacturer": "Texas Instruments",
+      "jlc_stock": 1760,
+      "jlc_unit_price_cny": 1.271,
+      "library": "extended",
+      "note": "Exact existing MPN; DCU 8-pin package. Library search calls it VSON8; retain verified native DCU land pattern, do not replace by name alone."
+    },
+    {
+      "references": [
+        "D1"
+      ],
+      "mpn": "USBLC6-2SC6",
+      "lcsc": "C7519",
+      "manufacturer": "STMicroelectronics",
+      "jlc_stock": 37433,
+      "jlc_unit_price_cny": 1.0869,
+      "library": "extended",
+      "note": "Exact existing MPN; cheaper same-name vendors not automatically interchangeable."
+    },
+    {
+      "references": [
+        "Q1",
+        "Q2",
+        "Q3",
+        "Q4"
+      ],
+      "mpn": "MMBT3904(RANGE:100-300)",
+      "lcsc": "C20526",
+      "manufacturer": "CJ",
+      "jlc_stock": 2113841,
+      "jlc_unit_price_cny": 0.0707,
+      "library": "basic",
+      "note": "Manufacturer-specific pin assignment still requires datasheet signoff."
+    },
+    {
+      "references": [
+        "R1",
+        "R2",
+        "R4",
+        "R6",
+        "R9",
+        "R10",
+        "R11",
+        "R12",
+        "R13",
+        "R15",
+        "R16",
+        "R19",
+        "R20",
+        "R21"
+      ],
+      "mpn": "0603WAF1002T5E",
+      "lcsc": "C25804",
+      "manufacturer": "UNI-ROYAL",
+      "jlc_stock": 36882529,
+      "jlc_unit_price_cny": 0.0096,
+      "library": "basic",
+      "note": "0603, 1%, 100mW, 75V, +/-100ppm/C; matches design resistance and tolerance."
+    },
+    {
+      "references": [
+        "R3",
+        "R14",
+        "R24"
+      ],
+      "mpn": "0603WAF1003T5E",
+      "lcsc": "C25803",
+      "manufacturer": "UNI-ROYAL",
+      "jlc_stock": 18627205,
+      "jlc_unit_price_cny": 0.0187,
+      "library": "basic",
+      "note": "0603, 1%, 100mW, 75V, +/-100ppm/C; matches design resistance and tolerance."
+    },
+    {
+      "references": [
+        "R7",
+        "R8"
+      ],
+      "mpn": "0603WAF5101T5E",
+      "lcsc": "C23186",
+      "manufacturer": "UNI-ROYAL",
+      "jlc_stock": 22444768,
+      "jlc_unit_price_cny": 0.0091,
+      "library": "basic",
+      "note": "0603, 1%, 100mW, 75V, +/-100ppm/C; matches design resistance and tolerance."
+    },
+    {
+      "references": [
+        "R5"
+      ],
+      "mpn": "0603WAF2211T5E",
+      "lcsc": "C22903",
+      "manufacturer": "UNI-ROYAL",
+      "jlc_stock": 17436,
+      "jlc_unit_price_cny": 0.0172,
+      "library": "extended",
+      "note": "0603, 1%, 100mW, 75V, +/-100ppm/C; matches design resistance and tolerance."
+    },
+    {
+      "references": [
+        "R17"
+      ],
+      "mpn": "0603WAF3901T5E",
+      "lcsc": "C23018",
+      "manufacturer": "UNI-ROYAL",
+      "jlc_stock": 588215,
+      "jlc_unit_price_cny": 0.0164,
+      "library": "basic",
+      "note": "0603, 1%, 100mW, 75V, +/-100ppm/C; matches design resistance and tolerance."
+    },
+    {
+      "references": [
+        "R18"
+      ],
+      "mpn": "0603WAF8661T5E",
+      "lcsc": "C23114",
+      "manufacturer": "UNI-ROYAL",
+      "jlc_stock": 12272,
+      "jlc_unit_price_cny": 0.009,
+      "library": "extended",
+      "note": "0603, 1%, 100mW, 75V, +/-100ppm/C; matches design resistance and tolerance."
+    },
+    {
+      "references": [
+        "R22"
+      ],
+      "mpn": "0603WAF4703T5E",
+      "lcsc": "C23178",
+      "manufacturer": "UNI-ROYAL",
+      "jlc_stock": 1175345,
+      "jlc_unit_price_cny": 0.0181,
+      "library": "basic",
+      "note": "0603, 1%, 100mW, 75V, +/-100ppm/C; matches design resistance and tolerance."
+    },
+    {
+      "references": [
+        "R23"
+      ],
+      "mpn": "0603WAF1503T5E",
+      "lcsc": "C22807",
+      "manufacturer": "UNI-ROYAL",
+      "jlc_stock": 978139,
+      "jlc_unit_price_cny": 0.0098,
+      "library": "basic",
+      "note": "0603, 1%, 100mW, 75V, +/-100ppm/C; matches design resistance and tolerance."
+    },
+    {
+      "references": [
+        "L1"
+      ],
+      "mpn": "XFL4020-152MEC",
+      "lcsc": "C3033018",
+      "manufacturer": "Coilcraft",
+      "jlc_stock": 19291,
+      "jlc_unit_price_cny": 21.55,
+      "library": "extended",
+      "note": "Existing land-pattern candidate; expensive. Compare cheaper inductors by saturation current, DCR, DC heating and footprint before substitution."
+    },
+    {
+      "references": [
+        "C3",
+        "C4",
+        "C6",
+        "C7",
+        "C8",
+        "C9",
+        "C10",
+        "C14"
+      ],
+      "mpn": "CC0603KRX7R9BB104",
+      "lcsc": "C14663",
+      "manufacturer": "YAGEO",
+      "jlc_stock": 45731857,
+      "jlc_unit_price_cny": 0.0502,
+      "library": "basic",
+      "note": "100nF 50V X7R +/-10%, 0603. Higher voltage rating than draft; effective capacitance review remains."
+    },
+    {
+      "references": [
+        "C2",
+        "C12",
+        "C13"
+      ],
+      "mpn": "CL21A106KAYNNNE",
+      "lcsc": "C15850",
+      "manufacturer": "Samsung",
+      "jlc_stock": 9383702,
+      "jlc_unit_price_cny": 0.26,
+      "library": "basic",
+      "note": "10uF 25V X5R +/-10%, 0805. Candidate for 10V draft positions; DC-bias and application minimum capacitance require review."
+    },
+    {
+      "references": [
+        "C1"
+      ],
+      "mpn": "CL10B105KA8NNNC",
+      "lcsc": "C29936",
+      "manufacturer": "Samsung",
+      "jlc_stock": 130375,
+      "jlc_unit_price_cny": 0.125,
+      "library": "extended",
+      "note": "1uF 25V X7R +/-10%, 0603; candidate replaces draft 10V rating."
+    },
+    {
+      "references": [
+        "C5",
+        "C11"
+      ],
+      "mpn": "CL10A475KO8NNNC",
+      "lcsc": "C19666",
+      "manufacturer": "Samsung",
+      "jlc_stock": 3154605,
+      "jlc_unit_price_cny": 0.12,
+      "library": "basic",
+      "note": "4.7uF 16V X5R +/-10%, 0603; effective capacitance at operating voltage still to review."
+    },
+    {
+      "references": [
+        "C15",
+        "C16"
+      ],
+      "mpn": "GRM21BC71E106KE11L",
+      "lcsc": "C109040",
+      "manufacturer": "Murata",
+      "jlc_stock": 33251,
+      "jlc_unit_price_cny": 1.356,
+      "library": "extended",
+      "note": "10uF 25V X7S +/-10%, 0805. K-tolerance candidate in same series as TI Table 2 M-tolerance recommendation; compare Murata bias curves before freeze."
+    },
+    {
+      "references": [
+        "C18",
+        "C19",
+        "C20"
+      ],
+      "mpn": "GRM21BC81C226ME44L",
+      "lcsc": "C258782",
+      "manufacturer": "Murata",
+      "jlc_stock": 4974,
+      "jlc_unit_price_cny": 1.907,
+      "library": "extended",
+      "note": "Exact TPS63070 datasheet Table 2 output capacitor MPN, 22uF 16V X6S 0805; retain all three from design."
+    },
+    {
+      "references": [
+        "C17",
+        "C21"
+      ],
+      "mpn": "TMK107BBJ106MA-T",
+      "lcsc": "C386081",
+      "manufacturer": "Taiyo Yuden",
+      "jlc_stock": 70425,
+      "jlc_unit_price_cny": 0.487,
+      "library": "extended",
+      "note": "Exact TPS63070 Table 2 bypass capacitor MPN, 10uF 25V X5R 0603."
+    },
+    {
+      "references": [
+        "U3"
+      ],
+      "mpn": "CP2102N-A02-GQFN28R",
+      "lcsc": "C964632",
+      "manufacturer": "Silicon Labs",
+      "jlc_stock": 31257,
+      "jlc_unit_price_cny": 12.54,
+      "library": "extended",
+      "note": "EDA shows LCSC price 11.36 but JLC price 12.54: use JLC column for reference. R packaging suffix candidate; BC1.2 programming remains required."
+    },
+    {
+      "references": [
+        "U1"
+      ],
+      "mpn": "ESP32-WROOM-32E-N4",
+      "lcsc": "C701341",
+      "manufacturer": "Espressif",
+      "jlc_stock": 31900,
+      "jlc_unit_price_cny": 22.97,
+      "library": "extended",
+      "note": "Exact design MPN, 4MB flash. Antenna keepout and enclosure clearance still required."
+    },
+    {
+      "references": [
+        "U7"
+      ],
+      "mpn": "BQ24075RGTR",
+      "lcsc": "C15464",
+      "manufacturer": "Texas Instruments",
+      "jlc_stock": 15448,
+      "jlc_unit_price_cny": 6.57,
+      "library": "extended",
+      "note": "Exact design MPN; real battery NTC and USB current-control provisioning required."
+    },
+    {
+      "references": [
+        "U8"
+      ],
+      "mpn": "TPS63070RNMR",
+      "lcsc": "C109322",
+      "manufacturer": "Texas Instruments",
+      "jlc_stock": 39799,
+      "jlc_unit_price_cny": 7.48,
+      "library": "extended",
+      "note": "Exact design MPN with custom RNM land pattern."
+    },
+    {
+      "references": [
+        "J1"
+      ],
+      "mpn": "TYPE-C-31-M-12",
+      "lcsc": "C165948",
+      "manufacturer": "HRO",
+      "jlc_stock": 332917,
+      "jlc_unit_price_cny": 1.142,
+      "library": "extended",
+      "note": "Matches selected connector land-pattern candidate; shell-slot manufacture review pending."
+    },
+    {
+      "references": [
+        "SW1",
+        "SW2"
+      ],
+      "mpn": "TS-1088-AR02016",
+      "lcsc": "C720477",
+      "manufacturer": "XUNPU",
+      "jlc_stock": 542497,
+      "jlc_unit_price_cny": 0.322,
+      "library": "basic",
+      "note": "3.9x3.0mm, H2mm, SPST, 1.6N. Matches custom TS-1088 footprint candidate."
+    },
+    {
+      "references": [
+        "SW3"
+      ],
+      "mpn": "MSK12C02",
+      "lcsc": "C431540",
+      "manufacturer": "SHOU HAN",
+      "jlc_stock": 195236,
+      "jlc_unit_price_cny": 0.332,
+      "library": "extended",
+      "note": "Catalog installation says horizontal SMT while footprint title says SW-TH; confirm actual solder process with JLC, do not assume auto-assembly eligibility from stock alone."
+    },
+    {
+      "references": [
+        "J2"
+      ],
+      "mpn": "B3B-PH-SM4-TB(LF)(SN)",
+      "lcsc": "C160353",
+      "manufacturer": "JST",
+      "jlc_stock": 8672,
+      "jlc_unit_price_cny": 1.544,
+      "library": "extended",
+      "note": "PH 2mm 3-pin SMT connector. Battery harness must explicitly match 1=BAT+, 2=NTC, 3=GND; battery SKU not selected."
+    },
+    {
+      "references": [
+        "U2"
+      ],
+      "mpn": "SPH0655LM4H-1-8",
+      "lcsc": "C22376158",
+      "manufacturer": "Knowles",
+      "jlc_stock": 3482,
+      "jlc_unit_price_cny": 4.64,
+      "library": "extended",
+      "note": "2026-10-23 purchase modal: 1+ CNY4.64; purchasable/pre-sale inventory 3482 PCS, not reserved. Economic/standard changeover CNY20/8 extra. PDM, not I2S; new firmware profile and native PCB applied."
+    }
+  ]
+}
