@@ -91,3 +91,15 @@ flowchart LR
 后续需对照SDK推荐工具链与实际第三方协议开关诊断链接冲突；不能用允许重复符号或直接删除库来掩盖功能缺失。MAC互操作、F13和SCO状态逻辑均未移植/验证。
 
 公开[杰理生产指导](https://gitee.com/Jieli-Tech/fw-AC63_BT_SDK/issues/I6WEXZ)区分开发USB下载与生产烧录/校准，并明确包含AC695的低电压注意事项。它不能证明嘉立创C22440783现货的密钥状态，也未提供本订单代烧录价格；该项仍为未知费用。
+
+### 链接冲突定位
+
+失败的`sdk.map`给出拉入链：`trans_data_demo.c.o`的`ble_app_disconnect`使`gma_stack.a(gma_manage.c.o)`进入链接，`ble_module_enable`又拉入`tme_stack.a(le_tme_module.c.o)`；`app_protocol_gfps.c.o`的`gfps_adv_interval_set`拉入`google_fps.a(le_gfps.c.o)`。耳机板`TRANS_DATA_EN=1`与`TCFG_USER_BLE_ENABLE=0`并存，另有独立的`APP_PROTOCOL_GFPS_CODE=1`。探测配置现关闭透传与Fast Pair演示，并保留所有库和正常链接校验。
+
+HID移植不能仅改开关：默认`bt_profile_config.c`注册`sdp_hid_service_data`，`hid_conn_depend_on_dev_company=1`；`bredr_handle_register()`没有初始化自定义键盘。需按SDK自定义描述符路径完成SDP注册、F13（0x68）按下/释放、发包完成/失败处理、断连清理与记忆主机重连。尚未实现，不能据HID宏开启宣称已兼容Mac。
+
+### 修正后的构建结果
+
+关闭上述两个独立演示后，显式`make -j1 cpu/br23/tools/sdk.elf`返回0，未删除预编译库、未使用允许重复符号参数。保留SDK自身警告，未宣称无警告。链接表确认保留HFP/HID服务记录及mSBC编解码器。`.text=0x500d4`、`.data=0x476c`，合计346176字节（约338.1KiB）；其余覆盖段及启动程序、资源、32KiB VM等仍需最终打包核算，不能拿ELF文件尺寸或此小计直接认定Flash整包可用。
+
+`sdk-probe-result.json`记录目标、版本、ELF摘要与验证边界。先前链接失败已解决；尚未打包、未烧录、未完成产品固件移植或Mac实测。低价主控路线的构建阻碍已缩小，但预算和芯片渠道兼容性问题仍未解决。

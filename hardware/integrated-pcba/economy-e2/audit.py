@@ -42,7 +42,7 @@ result = {
     'date': selection['date'], 'boards': 2, 'budget_cny': '160',
     'release': False, 'complete_quote_cny': None,
     'native_eda_schematic': 'NOT CREATED', 'pcb': 'NOT ROUTED',
-    'firmware': 'SDK PROBE LINK FAILED; PRODUCT NOT PORTED', 'functional_equivalence': 'NOT VALIDATED',
+    'firmware': 'SDK PROBE LINK PASSED; PRODUCT NOT PORTED', 'functional_equivalence': 'NOT VALIDATED',
     'known_fee_types': len(fee_parts), 'setup_budget_cny': str(setup),
     'major_components_only_cny': str(major_material),
     'selected_candidate_rejection_lower_bound_cny': str(floor),

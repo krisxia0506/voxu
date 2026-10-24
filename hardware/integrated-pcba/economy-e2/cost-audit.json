@@ -6,7 +6,7 @@
   "complete_quote_cny": null,
   "native_eda_schematic": "NOT CREATED",
   "pcb": "NOT ROUTED",
-  "firmware": "SDK PROBE LINK FAILED; PRODUCT NOT PORTED",
+  "firmware": "SDK PROBE LINK PASSED; PRODUCT NOT PORTED",
   "functional_equivalence": "NOT VALIDATED",
   "known_fee_types": 5,
   "setup_budget_cny": "100",

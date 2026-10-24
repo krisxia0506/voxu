@@ -35,6 +35,7 @@ settings = {
     'USER_SUPPORT_PROFILE_A2DP': '0', 'USER_SUPPORT_PROFILE_AVCTP': '0',
     'USER_SUPPORT_PROFILE_HFP': '1', 'USER_SUPPORT_PROFILE_HID': '1',
     'TCFG_CLOCK_OSC_HZ': '24000000',
+    'TRANS_DATA_EN': '0',
     'TCFG_ENC_MSBC_ENABLE': '1', 'TCFG_ENC_CVSD_ENABLE': '1',
 }
 for codec in ('MP3', 'WMA', 'WAV', 'FLAC', 'APE', 'M4A', 'AMR', 'DTS'):
@@ -47,6 +48,14 @@ for name, value in settings.items():
                          f'#define {name} {value} // VOXU build/size probe', cfg, flags=re.M)
     if count != 1:
         raise SystemExit(f'Expected exactly one definition for {name}, got {count}')
+# Fast Pair demo is independently enabled even when AI_APP_PROTOCOL is off.
+protocol = sdk / 'apps/common/third_party_profile/interface/app_protocol_api.h'
+proto, count = re.subn(r'^#define\s+APP_PROTOCOL_GFPS_CODE\s+[^\n]+$',
+                       '#define APP_PROTOCOL_GFPS_CODE 0 // VOXU: no Fast Pair demo',
+                       protocol.read_text(), flags=re.M)
+if count != 1:
+    raise SystemExit('Expected one Fast Pair configuration')
+protocol.write_text(proto)
 board.write_text(text)
 config.write_text(cfg)
 print('Configured HFP/HID/mSBC 512KiB probe; no firmware download performed')
