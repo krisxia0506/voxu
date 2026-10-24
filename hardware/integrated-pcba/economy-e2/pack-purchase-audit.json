@@ -1,0 +1,39 @@
+{
+  "date": "2026-10-24",
+  "purchased": false,
+  "rows": [
+    {
+      "lcsc": "C52204916",
+      "pack_quantity": 2000,
+      "pack_unit_price_cny": "0.0927",
+      "pack_material_total_cny": "185.4000",
+      "loose_two_board_material_cny": "0.314",
+      "hypothetical_setup_saving_cny": "15",
+      "extra_total_after_hypothetical_saving_cny": "170.0860",
+      "pack_fee_eligibility_confirmed": false,
+      "source": "https://www.jlc-smt.com/lcsc/detail/C52204916.html"
+    },
+    {
+      "lcsc": "C51928213",
+      "pack_quantity": 5700,
+      "pack_unit_price_cny": "0.67896",
+      "pack_material_total_cny": "3870.07200",
+      "loose_two_board_material_cny": "2.894",
+      "hypothetical_setup_saving_cny": "15",
+      "extra_total_after_hypothetical_saving_cny": "3852.17800",
+      "pack_fee_eligibility_confirmed": false,
+      "source": "https://www.jlc-smt.com/lcsc/detail/C51928213.html"
+    },
+    {
+      "lcsc": "C165948",
+      "pack_quantity": 1000,
+      "pack_unit_price_cny": "0.5382",
+      "pack_material_total_cny": "538.2000",
+      "loose_two_board_material_cny": "2.102",
+      "hypothetical_setup_saving_cny": "15",
+      "extra_total_after_hypothetical_saving_cny": "521.0980",
+      "pack_fee_eligibility_confirmed": false,
+      "source": "https://www.jlc-smt.com/lcsc/detail/C165948.html"
+    }
+  ]
+}
