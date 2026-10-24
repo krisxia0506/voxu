@@ -33,7 +33,7 @@
   "limitations": [
     "Minimum two assembled boards; standard required by C701341 catalog.",
     "BOM part numbers verified; placement orientation/DFM still pending.",
-    "BOM verification marked 64/64; proceeding through platform pre-payment review.",
+    "Additional SMT quality responsibility and export compliance terms await user confirmation; SMT order not submitted.",
     "CP2102N configuration file and factory programming support are not yet verified."
   ],
   "parts": [
@@ -422,5 +422,7 @@
       "unit_cny": 7.48
     }
   ],
-  "bom_checked_placements": 64
+  "bom_checked_placements": 64,
+  "smt_status_observed": "Inventory reserved; final submit panel reached; awaiting user acceptance of additional SMT quality and compliance terms",
+  "polarity_review": "JLC EDA engineer assistance, free"
 }
