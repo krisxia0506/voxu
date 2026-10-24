@@ -1,0 +1,426 @@
+{
+  "checked_date": "2026-10-24",
+  "pcb_order_number": "Y5",
+  "pcb_file_id": "100153067",
+  "pcb_status_observed": "submitted; awaiting JLC review",
+  "pcb_quantity": 5,
+  "requested_assembled_quantity": 1,
+  "platform_min_assembled_quantity": 2,
+  "quoted_assembled_quantity": 2,
+  "smt_type": "standard",
+  "placement_side": "top",
+  "matched_placements": 64,
+  "bom_lcsc_mismatches": [],
+  "smt_total_cny": 753.09,
+  "components_cny": 243.19,
+  "processing_cny": 509.9,
+  "processing_breakdown_cny": {
+    "engineering": 150,
+    "solder_pads": 5.66,
+    "xray": 20,
+    "packaging": 3.01,
+    "price_difference": 54.23,
+    "stencil": 50,
+    "changeover": 224,
+    "dfm_confirmation": 3
+  },
+  "pcb_reference_cny": 33,
+  "combined_reference_cny": 786.09,
+  "paid": false,
+  "production_confirmed": false,
+  "payment_ready": false,
+  "quote_scope": "Live matching-page estimate, not a final invoice. Excludes battery and programming; shipping/final review adjustments unconfirmed.",
+  "limitations": [
+    "Minimum two assembled boards; standard required by C701341 catalog.",
+    "BOM part numbers verified; placement orientation/DFM still pending.",
+    "BOM verification marked 64/64; proceeding through platform pre-payment review.",
+    "CP2102N configuration file and factory programming support are not yet verified."
+  ],
+  "parts": [
+    {
+      "reference": "C1",
+      "lcsc": "C29936",
+      "stock_observed": 124038,
+      "unit_cny": 0.125
+    },
+    {
+      "reference": "C10",
+      "lcsc": "C14663",
+      "stock_observed": 44490953,
+      "unit_cny": 0.0509
+    },
+    {
+      "reference": "C11",
+      "lcsc": "C19666",
+      "stock_observed": 3058679,
+      "unit_cny": 0.111
+    },
+    {
+      "reference": "C12",
+      "lcsc": "C15850",
+      "stock_observed": 9201842,
+      "unit_cny": 0.26
+    },
+    {
+      "reference": "C13",
+      "lcsc": "C15850",
+      "stock_observed": 9201842,
+      "unit_cny": 0.26
+    },
+    {
+      "reference": "C14",
+      "lcsc": "C14663",
+      "stock_observed": 44490953,
+      "unit_cny": 0.0509
+    },
+    {
+      "reference": "C15",
+      "lcsc": "C109040",
+      "stock_observed": 29864,
+      "unit_cny": 1.356
+    },
+    {
+      "reference": "C16",
+      "lcsc": "C109040",
+      "stock_observed": 29864,
+      "unit_cny": 1.356
+    },
+    {
+      "reference": "C17",
+      "lcsc": "C386081",
+      "stock_observed": 67189,
+      "unit_cny": 0.487
+    },
+    {
+      "reference": "C18",
+      "lcsc": "C258782",
+      "stock_observed": 4698,
+      "unit_cny": 1.907
+    },
+    {
+      "reference": "C19",
+      "lcsc": "C258782",
+      "stock_observed": 4698,
+      "unit_cny": 1.907
+    },
+    {
+      "reference": "C2",
+      "lcsc": "C15850",
+      "stock_observed": 9201842,
+      "unit_cny": 0.26
+    },
+    {
+      "reference": "C20",
+      "lcsc": "C258782",
+      "stock_observed": 4698,
+      "unit_cny": 1.907
+    },
+    {
+      "reference": "C21",
+      "lcsc": "C386081",
+      "stock_observed": 67189,
+      "unit_cny": 0.487
+    },
+    {
+      "reference": "C3",
+      "lcsc": "C14663",
+      "stock_observed": 44490953,
+      "unit_cny": 0.0509
+    },
+    {
+      "reference": "C4",
+      "lcsc": "C14663",
+      "stock_observed": 44490953,
+      "unit_cny": 0.0509
+    },
+    {
+      "reference": "C5",
+      "lcsc": "C19666",
+      "stock_observed": 3058679,
+      "unit_cny": 0.111
+    },
+    {
+      "reference": "C6",
+      "lcsc": "C14663",
+      "stock_observed": 44490953,
+      "unit_cny": 0.0509
+    },
+    {
+      "reference": "C7",
+      "lcsc": "C14663",
+      "stock_observed": 44490953,
+      "unit_cny": 0.0509
+    },
+    {
+      "reference": "C8",
+      "lcsc": "C14663",
+      "stock_observed": 44490953,
+      "unit_cny": 0.0509
+    },
+    {
+      "reference": "C9",
+      "lcsc": "C14663",
+      "stock_observed": 44490953,
+      "unit_cny": 0.0509
+    },
+    {
+      "reference": "D1",
+      "lcsc": "C7519",
+      "stock_observed": 43598,
+      "unit_cny": 1.0975
+    },
+    {
+      "reference": "J1",
+      "lcsc": "C165948",
+      "stock_observed": 329923,
+      "unit_cny": 1.051
+    },
+    {
+      "reference": "J2",
+      "lcsc": "C160353",
+      "stock_observed": 8638,
+      "unit_cny": 1.544
+    },
+    {
+      "reference": "L1",
+      "lcsc": "C3033018",
+      "stock_observed": 18957,
+      "unit_cny": 21.55
+    },
+    {
+      "reference": "Q1",
+      "lcsc": "C20526",
+      "stock_observed": 2056487,
+      "unit_cny": 0.0707
+    },
+    {
+      "reference": "Q2",
+      "lcsc": "C20526",
+      "stock_observed": 2056487,
+      "unit_cny": 0.0707
+    },
+    {
+      "reference": "Q3",
+      "lcsc": "C20526",
+      "stock_observed": 2056487,
+      "unit_cny": 0.0707
+    },
+    {
+      "reference": "Q4",
+      "lcsc": "C20526",
+      "stock_observed": 2056487,
+      "unit_cny": 0.0707
+    },
+    {
+      "reference": "R1",
+      "lcsc": "C25804",
+      "stock_observed": 36018803,
+      "unit_cny": 0.0096
+    },
+    {
+      "reference": "R10",
+      "lcsc": "C25804",
+      "stock_observed": 36018803,
+      "unit_cny": 0.0096
+    },
+    {
+      "reference": "R11",
+      "lcsc": "C25804",
+      "stock_observed": 36018803,
+      "unit_cny": 0.0096
+    },
+    {
+      "reference": "R12",
+      "lcsc": "C25804",
+      "stock_observed": 36018803,
+      "unit_cny": 0.0096
+    },
+    {
+      "reference": "R13",
+      "lcsc": "C25804",
+      "stock_observed": 36018803,
+      "unit_cny": 0.0096
+    },
+    {
+      "reference": "R14",
+      "lcsc": "C25803",
+      "stock_observed": 18289974,
+      "unit_cny": 0.0187
+    },
+    {
+      "reference": "R15",
+      "lcsc": "C25804",
+      "stock_observed": 36018803,
+      "unit_cny": 0.0096
+    },
+    {
+      "reference": "R16",
+      "lcsc": "C25804",
+      "stock_observed": 36018803,
+      "unit_cny": 0.0096
+    },
+    {
+      "reference": "R17",
+      "lcsc": "C23018",
+      "stock_observed": 649336,
+      "unit_cny": 0.014
+    },
+    {
+      "reference": "R18",
+      "lcsc": "C23114",
+      "stock_observed": 12137,
+      "unit_cny": 0.009
+    },
+    {
+      "reference": "R19",
+      "lcsc": "C25804",
+      "stock_observed": 36018803,
+      "unit_cny": 0.0096
+    },
+    {
+      "reference": "R2",
+      "lcsc": "C25804",
+      "stock_observed": 36018803,
+      "unit_cny": 0.0096
+    },
+    {
+      "reference": "R20",
+      "lcsc": "C25804",
+      "stock_observed": 36018803,
+      "unit_cny": 0.0096
+    },
+    {
+      "reference": "R21",
+      "lcsc": "C25804",
+      "stock_observed": 36018803,
+      "unit_cny": 0.0096
+    },
+    {
+      "reference": "R22",
+      "lcsc": "C23178",
+      "stock_observed": 1137508,
+      "unit_cny": 0.0181
+    },
+    {
+      "reference": "R23",
+      "lcsc": "C22807",
+      "stock_observed": 966464,
+      "unit_cny": 0.0098
+    },
+    {
+      "reference": "R24",
+      "lcsc": "C25803",
+      "stock_observed": 18289974,
+      "unit_cny": 0.0187
+    },
+    {
+      "reference": "R3",
+      "lcsc": "C25803",
+      "stock_observed": 18289974,
+      "unit_cny": 0.0187
+    },
+    {
+      "reference": "R4",
+      "lcsc": "C25804",
+      "stock_observed": 36018803,
+      "unit_cny": 0.0096
+    },
+    {
+      "reference": "R5",
+      "lcsc": "C22903",
+      "stock_observed": 17316,
+      "unit_cny": 0.0172
+    },
+    {
+      "reference": "R6",
+      "lcsc": "C25804",
+      "stock_observed": 36018803,
+      "unit_cny": 0.0096
+    },
+    {
+      "reference": "R7",
+      "lcsc": "C23186",
+      "stock_observed": 22253870,
+      "unit_cny": 0.0091
+    },
+    {
+      "reference": "R8",
+      "lcsc": "C23186",
+      "stock_observed": 22253870,
+      "unit_cny": 0.0091
+    },
+    {
+      "reference": "R9",
+      "lcsc": "C25804",
+      "stock_observed": 36018803,
+      "unit_cny": 0.0096
+    },
+    {
+      "reference": "SW1",
+      "lcsc": "C720477",
+      "stock_observed": 526473,
+      "unit_cny": 0.306
+    },
+    {
+      "reference": "SW2",
+      "lcsc": "C720477",
+      "stock_observed": 526473,
+      "unit_cny": 0.306
+    },
+    {
+      "reference": "SW3",
+      "lcsc": "C431540",
+      "stock_observed": 194579,
+      "unit_cny": 0.316
+    },
+    {
+      "reference": "U1",
+      "lcsc": "C701341",
+      "stock_observed": 37870,
+      "unit_cny": 22.97
+    },
+    {
+      "reference": "U2",
+      "lcsc": "C22376158",
+      "stock_observed": 3927,
+      "unit_cny": 4.64
+    },
+    {
+      "reference": "U3",
+      "lcsc": "C964632",
+      "stock_observed": 40813,
+      "unit_cny": 11.36
+    },
+    {
+      "reference": "U4",
+      "lcsc": "C21404",
+      "stock_observed": 4708,
+      "unit_cny": 1.271
+    },
+    {
+      "reference": "U5",
+      "lcsc": "C21404",
+      "stock_observed": 4708,
+      "unit_cny": 1.271
+    },
+    {
+      "reference": "U6",
+      "lcsc": "C21404",
+      "stock_observed": 4708,
+      "unit_cny": 1.271
+    },
+    {
+      "reference": "U7",
+      "lcsc": "C15464",
+      "stock_observed": 15441,
+      "unit_cny": 6.57
+    },
+    {
+      "reference": "U8",
+      "lcsc": "C109322",
+      "stock_observed": 37040,
+      "unit_cny": 7.48
+    }
+  ],
+  "bom_checked_placements": 64
+}

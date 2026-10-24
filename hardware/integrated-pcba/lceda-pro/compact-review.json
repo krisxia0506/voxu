@@ -29,7 +29,7 @@
     "shipping_cny": 0,
     "shipping": "JD economy; page estimate; SMT weight pending",
     "pcba_total_cny": null,
-    "order_submitted": false,
+    "order_submitted": true,
     "paid": false,
     "applies_to": "37 x 45 mm Type-C centered short-edge revision",
     "file_name": "VOXU-A2-整板设计草稿_PCB1_20261024_082324",
@@ -39,10 +39,16 @@
     "surface_finish": "lead-free OSP",
     "solder_mask": "green",
     "smt_required": true,
-    "note": "PCB price only. Legal terms confirmation pending before submitting PCB review; SMT quotation requires reviewed PCB."
+    "note": "User accepted terms; PCB review submitted, unpaid. All 64 placement part numbers matched to procurement BOM. Standard SMT minimum 2; matching-page estimate only, final order not payment-ready.",
+    "pcb_order_number": "Y5",
+    "pcb_status_observed": "awaiting JLC review",
+    "smt_min_quantity": 2,
+    "smt_quoted_quantity": 2,
+    "smt_reference_total_cny": 753.09,
+    "pcb_plus_smt_reference_cny": 786.09
   },
   "blockers": [
-    "Procurement candidate BOM covers all 64 placements / 28 part numbers; qualification and manufacturer matching pending; no actual SMT total",
+    "All 64 placement LCSC numbers match procurement BOM; final placement verification, manufacturing qualification and checkout are pending",
     "DFM/stencil and USB return path review pending",
     "CP2102N provisioning and protected NTC battery SKU pending",
     "Native DRC is not functional or manufacturing qualification",
