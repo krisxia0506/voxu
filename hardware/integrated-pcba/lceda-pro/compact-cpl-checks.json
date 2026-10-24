@@ -7,5 +7,9 @@
   "manufacturing_release": false,
   "note": "Origin coordinates and rotation checked against native PCB. Centroids and pin-1 orientation must still be confirmed in manufacturer placement preview.",
   "microphone": "SPH0655LM4H-1-8",
-  "checked_date": "2026-10-23"
+  "checked_date": "2026-10-24",
+  "board_mm": [
+    37,
+    45
+  ]
 }

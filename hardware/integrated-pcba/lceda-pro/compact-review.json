@@ -1,21 +1,21 @@
 {
-  "date": "2026-10-23",
+  "date": "2026-10-24",
   "editor": "LCEDA Professional V4.1.78",
   "board_mm": [
-    45,
-    37
+    37,
+    45
   ],
   "layers": 2,
   "thickness_mm": 1.6,
   "components": 64,
   "explicit_models": 64,
-  "track_segments": 920,
-  "vias": 86,
+  "track_segments": 1085,
+  "vias": 137,
   "ground_planes": 2,
   "native_drc": {
     "checks": 141,
     "issues": 0,
-    "time": "2026-10-23 23:16:05"
+    "time": "2026-10-24 08:17:38"
   },
   "production_release": false,
   "pcba_quantity_requested": 1,
@@ -32,7 +32,8 @@
     "pcb_reference_total_excluding_shipping_cny": 30,
     "confirmation_mode": "manual",
     "surface_finish_in_reference_quote": "lead-free OSP selected; manufacturing qualification pending",
-    "stale_after_acoustic_hole_revision": true
+    "stale_after_acoustic_hole_revision": true,
+    "stale_after_short_edge_revision": true
   },
   "blockers": [
     "Procurement candidate BOM covers all 64 placements / 28 part numbers; qualification and manufacturer matching pending; no actual SMT total",
@@ -48,7 +49,7 @@
     40
   ],
   "board_area_reduction_percent": 30.625,
-  "model_envelope_note": "ESP32 antenna extends about 6 mm beyond left board edge; not included in PCB dimensions",
+  "model_envelope_note": "ESP32 antenna extends about 6 mm below bottom short edge; PCB dimensions exclude antenna overhang",
   "native_schematic_drc": {
     "fatal": 0,
     "errors": 0,
@@ -64,5 +65,11 @@
   "usb_short_slots_mm": [
     1.4,
     0.6
-  ]
+  ],
+  "type_c": {
+    "edge": "top short edge",
+    "center_x_mm": 18.500001,
+    "centered": true,
+    "opening": "outward"
+  }
 }
