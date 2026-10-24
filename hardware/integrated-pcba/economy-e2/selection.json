@@ -61,17 +61,17 @@
     },
     {
       "role": "battery_connector",
-      "mpn": "B3B-PH-SM4-TB",
-      "lcsc": "C160353",
-      "package": "SMD",
+      "mpn": "JXT-MX1.25-3PWT",
+      "lcsc": "C52204916",
+      "package": "SMD P1.25 horizontal",
       "per_board": 1,
-      "unit_price_cny": "1.544",
+      "unit_price_cny": "0.157",
       "loss_in_observed_window": 0,
-      "minimum_in_observed_window": 5,
-      "stock": null,
+      "minimum_in_observed_window": 2,
+      "stock": 2488,
       "fee_free": false,
-      "source": "E1_costed_bom",
-      "evidence": null
+      "source": "quote_window",
+      "evidence": "C52204916: unit 0.157 CNY, stock 2488, loss 0, minimum 2; footprint and matching NTC battery plug not yet validated"
     },
     {
       "role": "charger",
@@ -141,5 +141,13 @@
     "advertised_full_pack_unit_price_cny": "14.9316",
     "full_pack_pieces": 1,
     "five_yuan_setup_eligibility": "UNCONFIRMED"
+  },
+  "rejected_esd_alternative": {
+    "lcsc": "C20615829",
+    "unit_price_cny": "0.182",
+    "stock": 3,
+    "loss": 4,
+    "minimum": 5,
+    "reason": "insufficient stock including assembly loss; not selected"
   }
 }
