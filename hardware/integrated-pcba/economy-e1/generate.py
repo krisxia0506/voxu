@@ -11,7 +11,7 @@ spec = importlib.util.spec_from_file_location('a2', BASE/'schematic/mainboard.py
 a2 = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(a2)
 parts = {p['ref']: p for p in a2.PARTS}
-# Reuse qualified functional blocks, replace purchasing candidates explicitly.
+# Reuse A2 draft functional blocks; neither A2 nor E1 has production qualification.
 for row in csv.DictReader((BASE/'procurement/cost-trial-all-parts.csv').open()):
     for ref in row['References'].split(','):
         parts[ref]['lcsc'] = row['LCSC']
